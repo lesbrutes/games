@@ -1,0 +1,29 @@
+body, html {
+    height: 100%;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#mainPage{
+	height: 100%;
+	background-image: url('../image/background.jpg');
+}
+
+#games{
+	height:216px;
+	display:flex;
+	justify-content: space-around;
+    flex-direction: row;
+}
+
+img{
+	height: 200px;
+    border: 8px;
+    border-color: black;
+    border-style: solid;
+    cursor: pointer;
+}
+
+h2{
+	font-size: 60px;
+}

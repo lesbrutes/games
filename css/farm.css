@@ -1,0 +1,190 @@
+/*Prevent img selection*/
+img {
+	-webkit-user-select: none;  
+	-khtml-user-select: none;   
+	-moz-user-select: none; 
+	-o-user-select: none;    
+	user-select: none; 
+}
+body, html {
+    height: 100%;
+    margin: 0px;
+    overflow: hidden;
+}
+button{
+    white-space: nowrap;
+    overflow: hidden;
+}
+#gameContainer {
+	width:100%;
+	height:100%;
+}
+#grass {
+	position: relative;
+	width:100%;
+	height:65%;
+	background-color:green;
+}
+
+#sky {
+	position: relative;
+	width:100%;
+	height:35%;
+	background-color:skyblue;
+}
+
+#barn{
+	position:absolute;
+	left:-20px;
+	top:-175px;
+	z-index:1;
+}
+/*Bouttons*/
+#buyCowBtn{
+	position:absolute;
+	left:380px;
+	top:25px;
+}
+#buyChickenBtn{
+	position:absolute;
+	left:380px;
+}
+
+#goHomeBtn{
+	position: absolute;
+	left:0px;
+	bottom:0px;
+}
+#wanderBtn{
+	position: absolute;
+	right:0px;
+	bottom:0px;
+}
+#sellMilkBtn{
+	position:absolute;
+	right:0px;
+	bottom:0px;
+	width:160px;
+}
+#sellEggBtn{
+	position:absolute;
+	right:0px;
+	bottom:25px;
+	width:160px;
+}
+/*Exit*/
+#exitLink{
+	position: absolute;
+	left:0px;
+	top:0px;	
+}
+
+/*Scoreboard*/
+#scoreboard{
+	position: absolute;
+	right:0px;
+	top:10px;
+	width:200px;
+	height:400px;
+}
+
+#scoreboard{
+	position: absolute;
+	right:0px;
+	top:10px;
+	width:200px;
+	height:400px;
+}
+
+/*Money scoreboard*/
+#moneyScore{
+	position: absolute;
+    left: 70px;
+    top: 15px;
+    font-size: 26px;
+    margin: 0px;
+}
+
+#moneyScoreIcon{
+	position: absolute;
+	right:5px;
+	top:0px;
+}
+
+/* Milk scoreboard */
+#milkScoreContainer, #moneyScoreContainer, #eggScoreContainer{
+	position: relative;
+	width:200px;
+	height:70px;
+}
+
+#milkScore{
+	position: absolute;
+    left: 100px;
+    top: 15px;
+    font-size: 26px;
+    margin: 0px;
+}
+
+#milkScoreIcon{
+	position: absolute;
+	right:5px;
+	top:0px;
+}
+
+/* Eggs scoreboard*/
+#eggScore{
+	position: absolute;
+    left: 100px;
+    top: 10px;
+    font-size: 26px;
+    margin: 0px;
+}
+
+#eggScoreIcon{
+	position: absolute;
+	right:10px;
+	top:0px;
+	width:30px;
+}
+
+/*Rain*/
+.cloud {
+	position: absolute;
+	width:200px;
+}
+.rainDrop{
+	position:absolute;
+	background-color:#2196F3;
+	z-index: 4;
+}
+
+/*Animals*/
+.cow {
+	position: absolute;
+	z-index: 3;
+}
+.cow img{
+	width: 118px;
+	height: 80px;
+}
+
+.milkBucket, .milkBucketImg{
+	position: absolute;
+	width: 40px;
+	heigth: 40px;
+}
+
+.egg, .eggImg{
+	position: absolute;
+	width: 15px;
+	z-index:2;
+}
+
+.chicken {
+	position: absolute;
+	z-index: 3;
+}
+.chicken img{
+	width: 50px;
+}

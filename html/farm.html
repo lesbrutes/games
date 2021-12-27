@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CowFarm</title>
+
+<link rel="stylesheet" type="text/css" href="../css/farm.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="../js/farm/cloud.js"></script>
+<script src="../js/farm/milk.js"></script>
+<script src="../js/farm/egg.js"></script>
+<script src="../js/farm/cow.js"></script>
+<script src="../js/farm/chicken.js"></script>
+<script src="../js/farm/cowFarm.js"></script>
+<script src="../js/farm/cowFarmSaver.js"></script>
+</head>
+<body>
+	<div id="gameContainer">
+		<div id="sky">
+			<a id="exitLink" href="/ProjetWeb">Exit</a>
+			<div id="scoreboard">
+				<div id="moneyScoreContainer">
+					<p id="moneyScore">0</p>
+					<img id="moneyScoreIcon" src="../image/farm/money.png"/>
+				</div>
+				<div id="milkScoreContainer">
+					<p id="milkScore">0</p>
+					<img id="milkScoreIcon" src="../image/farm/milk.png"/>
+				</div>
+				<div id="eggScoreContainer">
+					<p id="eggScore">0</p>
+					<img id="eggScoreIcon" src="../image/farm/egg.png"/>
+				</div>
+			</div>
+			<button id="sellMilkBtn" type="button">Sell milk (3.00$/unit)</button>
+			<button id="sellEggBtn" type="button">Sell eggs (6.00$/12units)</button>
+		</div>
+		<div id="grass">
+			<div id="layer1">
+					<div id="layer2">
+						<img id="barn" src="../image/farm/farm.png"/>
+					</div>
+					<img id="barn" src="../image/farm/farm.png"/>
+					<button id="buyChickenBtn" type="button">Buy chicken (50$ each)</button>
+					<button id="buyCowBtn" type="button">Buy cow (300$ each)</button>
+					<button id="goHomeBtn" type="button">Home</button>
+					<button id="wanderBtn" type="button">Wander</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
