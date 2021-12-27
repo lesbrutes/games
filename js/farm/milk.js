@@ -21,7 +21,7 @@ function Milk() {
     }
     
     this.startPriceVariation = function(){
-    	this.priceVariationInterval = setInterval(this.variatePrice.bind(this), 60000);
+    	this.priceVariationInterval = setInterval(this.variatePrice.bind(this), 180000);
     }
     this.stopPriceVariation = function(){
     	clearInterval(this.priceVariationInterval);

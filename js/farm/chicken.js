@@ -1,6 +1,6 @@
 function Chicken() {
 	
-	this.maxX = $("#barn").width()-100;
+	this.maxX = 432; // Taille de la grange
 	this.maxY = $("#grass").height()-100;
 	
 	this.minX = 10;
