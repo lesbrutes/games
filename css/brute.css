@@ -14,6 +14,8 @@ body, html {
     justify-content: center;
     align-items: center;
     background-color: #89826d;
+    flex-wrap: wrap;
+    align-content: center;
 }
 button{
     white-space: nowrap;
@@ -63,5 +65,9 @@ canvas {
 .stat {
 	width: 30px;
 	text-align: center;
+}
+
+.line-break {
+  width: 100%;
 }
 

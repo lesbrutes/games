@@ -10,7 +10,7 @@ var player1;
 var player2;
 var background;
 
-var currentPlayer = null;
+var paused = false
 
 window.onload = init;
 
@@ -18,7 +18,6 @@ function init(){
 	initCanvas();
 	initPlayers();
 	initBackground();
-	currentPlayer = player1;
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -41,9 +40,12 @@ function initPlayers() {
 	player1 = new Player(new MinotaureSprites(), 150, 350, Direction.Right);
 	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
 	
-	displayStats();
+	player1.addEnemy(player2);
+	player2.addEnemy(player1);
 	
-	player1.walkingToEnemy();
+	displayStats();
+	chooseStartingPlayer();
+	
 }
 
 function initBackground() {
@@ -52,6 +54,8 @@ function initBackground() {
 }
 
 function gameLoop(timeStamp){
+	if(paused){return;}
+	
 	drawBackground();
 	drawHealthBars();
 	drawPlayer(player1);
@@ -108,8 +112,24 @@ function displayStats() {
 	$("#player2 .agility").text(player2.agility);
 }
 
+function chooseStartingPlayer(){
+	var startingPlayer = null;
+	if (player1.speed > player2.speed) {
+		startingPlayer = player1;
+	} else if (player2.speed > player1.speed) {
+		startingPlayer = player2;
+	} else {
+		startingPlayer = randomIntFromInterval(0,1) == 0 ? player1 : player2;
+	}
+	startingPlayer.walkingToEnemy();
+}
 
-//Add an event listener
+function pauseAndAwardXp() {
+	paused = true;
+	//todo AWARD XP
+}
+
+
 document.addEventListener("end-of-turn", function(e) {
 	if (player1 == e.detail) {
 		player2.walkingToEnemy();
@@ -117,3 +137,37 @@ document.addEventListener("end-of-turn", function(e) {
 		player1.walkingToEnemy();
 	}
 });
+
+document.addEventListener("death", function(e) {
+	setTimeout(pauseAndAwardXp, 125) 
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+	document.getElementById('newBattleBtn').addEventListener('click', function() {
+		debugger;
+		player1.reset();
+		player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
+		
+		player1.addEnemy(player2);
+		player2.addEnemy(player1);
+		
+		chooseStartingPlayer();
+		
+		displayStats();
+		paused = false;
+		requestAnimationFrame(gameLoop);
+	});
+	
+	document.getElementById('pauseBtn').addEventListener('click', function() {
+		if (paused == false) {
+			paused = true;
+		} else {
+			paused = false;
+			requestAnimationFrame(gameLoop);
+		}
+	});
+});
+
+function randomIntFromInterval(min, max) { // min and max included 
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}

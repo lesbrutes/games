@@ -23,5 +23,19 @@ class HealthBar {
       this.health = val;
       this.w = (this.health / this.maxHealth) * this.maxWidth;
     }
+    
+    if (val == 0) {
+		this.notifyDeath();
+	}
   }
+  
+  reset() {
+	this.updateHealth(this.maxHealth);
+  }
+  
+  notifyDeath() {
+        console.log("Notifying death");
+        var event = new CustomEvent("death", { "detail": this });
+        document.dispatchEvent(event);
+  };
 }

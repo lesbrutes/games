@@ -7,8 +7,6 @@ var startPositionRightY = 350;
 class Player {
     constructor(sprites, initialX, initialY, startDirection) {
 	
-	
-
         this.sprites = sprites;
         this.currentSprite = sprites.Idle;
         this.spriteStep = 0;
@@ -22,7 +20,7 @@ class Player {
 
         this.xp = 0;
 
-        this.hp = 10;
+        this.hp = 3;
         this.strenght = 1;
         this.defence = 1;
         this.magic = 1;
@@ -30,12 +28,29 @@ class Player {
         this.speed = 1;
         this.agility = 1;
 
-        this.activeWeapon = null;
+        this.activeWeapon = new Weapon(1);
         this.weapons = [];
         
         this.healthBar;
+        this.enemy;
 
         this.init();
+    }
+    
+    reset() {
+	    this.spriteStep = 0;
+        this.currentSprite = this.sprites.Idle;
+        this.status = "idling";
+        this.positionX = this.initialX;
+        this.positionY = this.initialY;
+        this.direction  = this.startDirection;
+        this.healthBar.reset();
+	}
+    
+    dealDamage() {
+	    console.log("dealingDamage");
+	    var damageDealt = Math.max(this.activeWeapon.damage + this.strenght - this.enemy.defence,1);
+		this.enemy.healthBar.updateHealth(Math.max(this.enemy.healthBar.health - damageDealt, 0));
     }
     
     idling() {
@@ -74,12 +89,15 @@ class Player {
     };
     
    updateSpriteStep() {
-	    this.spriteStep += this.currentSprite.speed * this.speed;
+	    var stepSpeed = this.currentSprite.speed * this.speed
+	    this.spriteStep += stepSpeed;
 	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking") {
 	        this.spriteStep -= this.currentSprite.totalSteps;
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "attacking") {
 	        this.walkingHome();
-	    }
+	    } else if (this.status == "attacking" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+			this.dealDamage();
+		}
 	};
 
    updatePosition() {
@@ -96,10 +114,10 @@ class Player {
             return;
         } else {
             if (this.direction == Direction.Left) {
-                this.positionX -= 4;
+                this.positionX -= 5;
                 return;
             } else {
-                this.positionX += 4;
+                this.positionX += 5;
                 return;
             }
         }
@@ -141,6 +159,10 @@ class Player {
     isPlayer1() {
 		return this.startDirection == Direction.Right;
     }
+    
+    addEnemy(enemy) {
+		this.enemy = enemy;
+	}
     
     init() {
         this.currentSprite = this.sprites.Idle;
