@@ -154,8 +154,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		chooseStartingPlayer();
 		
 		displayStats();
-		paused = false;
-		requestAnimationFrame(gameLoop);
+		
+		if (paused == true) {
+			paused = false;
+			requestAnimationFrame(gameLoop);
+		}
 	});
 	
 	document.getElementById('pauseBtn').addEventListener('click', function() {
