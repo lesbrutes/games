@@ -41,6 +41,8 @@ function initPlayers() {
 	player1 = new Player(new MinotaureSprites(), 150, 350, Direction.Right);
 	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
 	
+	displayStats();
+	
 	player1.walkingToEnemy();
 }
 
@@ -51,6 +53,7 @@ function initBackground() {
 
 function gameLoop(timeStamp){
 	drawBackground();
+	drawHealthBars();
 	drawPlayer(player1);
 	drawPlayer(player2);
 	
@@ -74,6 +77,11 @@ function drawBackground()  {
 	context.drawImage(background, 0, 0);
 }
 
+function drawHealthBars() {
+	player1.healthBar.show(context);
+	player2.healthBar.show(context);
+}
+
 function updateSprites() {
 	player1.updateSpriteStep();
 	player2.updateSpriteStep();
@@ -84,10 +92,25 @@ function updatePositions() {
 	player2.updatePosition();
 }
 
+function displayStats() {
+	$("#player1 .hp").text(player1.hp);
+	$("#player1 .strenght").text(player1.strenght);
+	$("#player1 .magic").text(player1.magic);
+	$("#player1 .range").text(player1.range);
+	$("#player1 .speed").text(player1.speed);
+	$("#player1 .agility").text(player1.agility);
+	
+	$("#player2 .hp").text(player2.hp);
+	$("#player2 .strenght").text(player2.strenght);
+	$("#player2 .magic").text(player2.magic);
+	$("#player2 .range").text(player2.range);
+	$("#player2 .speed").text(player2.speed);
+	$("#player2 .agility").text(player2.agility);
+}
+
 
 //Add an event listener
 document.addEventListener("end-of-turn", function(e) {
-	debugger;
 	if (player1 == e.detail) {
 		player2.walkingToEnemy();
 	} else if (player2 == e.detail) {

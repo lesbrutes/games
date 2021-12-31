@@ -28,6 +28,40 @@ button{
 	position: absolute;
 	top:0px;	
 }
+
+canvas {
+	padding: 10px;
+}
 .brute {
 	position: absolute;
 }
+.attackAnimation {
+	position: absolute;
+	top: 300px;
+}
+
+.stats img {
+	height: 100px;
+}
+
+#player1 > div {
+	display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+#player2 > div {
+	display: flex;
+    align-items: center;
+    padding-right: 5px;
+}
+
+.stats {
+	border: double;
+}
+
+.stat {
+	width: 30px;
+	text-align: center;
+}
+
