@@ -24,7 +24,7 @@ class Player {
         this.totalXp = 0;
 
         this.hp = 3;
-        this.strenght = 10;
+        this.strenght = 1;
         this.defence = 1;
         this.magic = 1;
         this.range = 1;
