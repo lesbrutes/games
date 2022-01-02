@@ -3,6 +3,7 @@ class LvlUpHandler {
   	}
   
 	lvlUp(player) {
+		player.lvl += 1;
 		var randomInt = randomIntFromInterval(0,3);
 		
 		if (randomInt == 0) {

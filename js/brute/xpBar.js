@@ -13,7 +13,6 @@ class XpBar {
     this.xp = 0;
     this.totalXp = 0;
     this.maxXp = this.getRequiredXp();
-    this.lvl = 1;
     this.lvlUpHandler = new LvlUpHandler();
   }
 
@@ -30,7 +29,7 @@ class XpBar {
 	
 	context.fillStyle = "black";
 	context.font = "20px Arial";
-	context.fillText(this.lvl, this.xLvl-5, this.y+22);
+	context.fillText(this.player.lvl, this.xLvl-5, this.y+22);
   }
   
   showXp(context) {
@@ -56,7 +55,6 @@ class XpBar {
   checkLvlUp() {
 	if (this.xp >= this.getRequiredXp()) {
 		this.xp = 0;
-		this.lvl += 1;
 		this.lvlUpHandler.lvlUp(this.player);
 	}
 	

@@ -10,6 +10,7 @@ var player1;
 var player2;
 var startingPlayer = null;
 var background;
+var lvlUpHandler = new LvlUpHandler();
 
 var paused = false;
 
@@ -157,6 +158,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById('newBattleBtn').addEventListener('click', function() {
 		player1.reset();
 		player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
+		
+		while (player1.lvl > player2.lvl) {
+			lvlUpHandler.lvlUp(player2)
+		}
 		
 		player1.addEnemy(player2);
 		player2.addEnemy(player1);
