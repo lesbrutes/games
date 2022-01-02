@@ -18,7 +18,10 @@ class Player {
         this.direction = this.startDirection;
         this.status = "idling";
 
-        this.xp = 0;
+
+		this.lvl = 1
+		this.xp = 0;
+        this.totalXp = 0;
 
         this.hp = 3;
         this.strenght = 1;
@@ -163,18 +166,20 @@ class Player {
     addEnemy(enemy) {
 		this.enemy = enemy;
 	}
+	
     
     init() {
         this.currentSprite = this.sprites.Idle;
         this.currentSprite.updateSource(this.startDirection.name);
         this.initHealthBar();
+        this.xpBar = new XpBar(this);
     };
     
     initHealthBar() {
         if (this.isPlayer1()) {
-			this.healthBar = new HealthBar(10, 10, this.hp);
+			this.healthBar = new HealthBar(10, 10, this);
 		} else {
-			this.healthBar = new HealthBar(768, 10, this.hp);
+			this.healthBar = new HealthBar(768, 10, this);
 		}
 	}
 }

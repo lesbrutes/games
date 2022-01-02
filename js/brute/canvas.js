@@ -8,9 +8,10 @@ var context;
 
 var player1;
 var player2;
+var startingPlayer = null;
 var background;
 
-var paused = false
+var paused = false;
 
 window.onload = init;
 
@@ -58,6 +59,7 @@ function gameLoop(timeStamp){
 	
 	drawBackground();
 	drawHealthBars();
+	drawXpBar();
 	drawPlayer(player1);
 	drawPlayer(player2);
 	
@@ -84,6 +86,10 @@ function drawBackground()  {
 function drawHealthBars() {
 	player1.healthBar.show(context);
 	player2.healthBar.show(context);
+}
+
+function drawXpBar() {
+	player1.xpBar.show(context);
 }
 
 function updateSprites() {
@@ -113,7 +119,7 @@ function displayStats() {
 }
 
 function chooseStartingPlayer(){
-	var startingPlayer = null;
+	startingPlayer = null;
 	if (player1.speed > player2.speed) {
 		startingPlayer = player1;
 	} else if (player2.speed > player1.speed) {
@@ -121,12 +127,13 @@ function chooseStartingPlayer(){
 	} else {
 		startingPlayer = randomIntFromInterval(0,1) == 0 ? player1 : player2;
 	}
-	startingPlayer.walkingToEnemy();
 }
 
-function pauseAndAwardXp() {
+function pauseAndAwardXp(player) {
 	paused = true;
-	//todo AWARD XP
+	if (player == player2){
+		player1.xpBar.gainXp();
+	}
 }
 
 
@@ -139,12 +146,15 @@ document.addEventListener("end-of-turn", function(e) {
 });
 
 document.addEventListener("death", function(e) {
-	setTimeout(pauseAndAwardXp, 125) 
+	setTimeout(pauseAndAwardXp.bind(null,e.detail), 125) 
+});
+
+document.addEventListener("lvlUp", function(e) {
+	displayStats();
 });
 
 document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById('newBattleBtn').addEventListener('click', function() {
-		debugger;
 		player1.reset();
 		player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
 		
@@ -152,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		player2.addEnemy(player1);
 		
 		chooseStartingPlayer();
+		startingPlayer.walkingToEnemy();
 		
 		displayStats();
 		

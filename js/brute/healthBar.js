@@ -1,13 +1,14 @@
 class HealthBar {
-  constructor(x, y, maxHealth) {
+  constructor(x, y, player) {
     this.x = x;
     this.y = y;
     this.w = 450;
     this.h = 30;
-    this.maxHealth = maxHealth;
+    this.maxHealth = player.hp;
     this.maxWidth = 450;
-    this.health = maxHealth;
+    this.health = this.maxHealth;
     this.color = "green";
+    this.player = player;
   }
 
   show(context) {
@@ -35,7 +36,7 @@ class HealthBar {
   
   notifyDeath() {
         console.log("Notifying death");
-        var event = new CustomEvent("death", { "detail": this });
+        var event = new CustomEvent("death", { "detail": this.player });
         document.dispatchEvent(event);
   };
 }
