@@ -24,7 +24,7 @@ class Player {
         this.totalXp = 0;
 
         this.hp = 3;
-        this.strenght = 1;
+        this.strenght = 10;
         this.defence = 1;
         this.magic = 1;
         this.range = 1;
@@ -74,6 +74,14 @@ class Player {
         this.currentSprite.updateSource(this.direction.name);
     };
     
+   dying() {
+        this.spriteStep = 0;
+        this.currentSprite = this.sprites.Death;
+        this.status = "dying";
+        console.log("dying");
+        this.currentSprite.updateSource(this.direction.name);
+    };
+    
    attacking() {
         this.spriteStep = 0;
         this.currentSprite = this.sprites.Attack;
@@ -92,9 +100,13 @@ class Player {
     };
     
    updateSpriteStep() {
-	    var stepSpeed = this.currentSprite.speed * this.speed
+		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
+			this.spriteStep = this.currentSprite.totalSteps;
+		 	return; //Si on est mort et l'animation est fini, alors on reste sur le dernier frame.
+		}
+	    var stepSpeed = this.currentSprite.speed * this.speed //Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
 	    this.spriteStep += stepSpeed;
-	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking") {
+	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "dying") {
 	        this.spriteStep -= this.currentSprite.totalSteps;
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "attacking") {
 	        this.walkingHome();

@@ -2,7 +2,7 @@ class XpBar {
   constructor(player) {
 	this.player = player;
     this.x = 50;
-    this.xLvl = 20;
+    this.xLvl = 10;
     this.y = 660;
     this.w = 0;
     this.h = 30;
@@ -23,13 +23,12 @@ class XpBar {
   
   showLvl(context) {
 	context.fillStyle = this.color;
-	context.arc(this.xLvl, this.y+15, this.h/2, 0, 2 * Math.PI);
-	context.stroke();
-	context.fill();
+	context.fillRect(this.xLvl, this.y, 35, this.h);
+	context.strokeRect(this.xLvl, this.y, 35, this.h);
 	
 	context.fillStyle = "black";
 	context.font = "20px Arial";
-	context.fillText(this.player.lvl, this.xLvl-5, this.y+22);
+	context.fillText(this.player.lvl, this.xLvl+12, this.y+22);
   }
   
   showXp(context) {

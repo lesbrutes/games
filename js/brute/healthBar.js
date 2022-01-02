@@ -26,6 +26,7 @@ class HealthBar {
     }
     
     if (val == 0) {
+		this.player.dying();
 		this.notifyDeath();
 	}
   }

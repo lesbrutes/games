@@ -130,24 +130,23 @@ function chooseStartingPlayer(){
 	}
 }
 
-function pauseAndAwardXp(player) {
-	paused = true;
-	if (player == player2){
+function awardXp(deadPlayer) {
+	if (deadPlayer == player2){
 		player1.xpBar.gainXp();
 	}
 }
 
 
 document.addEventListener("end-of-turn", function(e) {
-	if (player1 == e.detail) {
+	if (player1 == e.detail && player2.status != "dying") {
 		player2.walkingToEnemy();
-	} else if (player2 == e.detail) {
+	} else if (player2 == e.detail && player1.status != "dying") {
 		player1.walkingToEnemy();
 	}
 });
 
 document.addEventListener("death", function(e) {
-	setTimeout(pauseAndAwardXp.bind(null,e.detail), 125) 
+	setTimeout(awardXp.bind(null,e.detail), 500) 
 });
 
 document.addEventListener("lvlUp", function(e) {
