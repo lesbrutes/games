@@ -9,7 +9,6 @@ class XpBar {
     this.maxWidth = 300;
     this.color = "beige";
     this.baseXp = 20;
-    this.minimumXpPerLevel = 80;
     this.xp = 0;
     this.totalXp = 0;
     this.maxXp = this.getRequiredXp();
@@ -42,7 +41,7 @@ class XpBar {
   }
   
   getRequiredXp() {
-  	return this.minimumXpPerLevel  + (this.player.lvl * this.baseXp);
+  	return this.player.lvl * this.baseXp;
   }
 
   gainXp() {

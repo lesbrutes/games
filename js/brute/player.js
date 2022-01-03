@@ -94,14 +94,28 @@ class Player {
         this.currentSprite.updateSource(this.direction.name);
     };
     
-    tryCoutering() {
+    countering() {
+		this.spriteStep = 0;
+        this.currentSprite = this.sprites.Attack;
+        this.status = "countering";
+        console.log("countering");
+        this.currentSprite.updateSource(this.direction.name);
+	}
+	
+	blocking() {
+		this.spriteStep = 0;
+        this.currentSprite = this.sprites.Block;
+        this.status = "blocking";
+        console.log("blocking");
+        this.currentSprite.updateSource(this.direction.name);
+	}
+    
+    tryAvoiding() {
 	    debugger;
 		if (this.isEnemyInAttackRange() && this.doesCounterSucceed()) {
-		    this.spriteStep = 0;
-	        this.currentSprite = this.sprites.Attack;
-	        this.status = "countering";
-	        console.log("countering");
-	        this.currentSprite.updateSource(this.direction.name);
+		    this.countering();
+		} else if (this.doesBlockSucceed()) {
+			this.blocking();
 		}
 	}
     
@@ -116,8 +130,14 @@ class Player {
     
     doesCounterSucceed() {
 		var statDiff = this.speed - this.enemy.agility > 0 ? this.speed - this.enemy.agility : 0;
-	    var odds = 10+(2*statDiff); 
+	    var odds = Math.min(10+(5*statDiff), 50); 
 	    
+	    var randomInt = randomIntFromInterval(1,100);
+		return odds >= randomInt;
+	}
+	
+	doesBlockSucceed() {
+	    var odds = 15; 
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
 	}
@@ -129,17 +149,17 @@ class Player {
 		}
 	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
 	    this.spriteStep += stepSpeed;
-	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering" && this.status != "dying") { 
+	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering"  && this.status != "blocking" && this.status != "dying") { 
 	        this.spriteStep -= this.currentSprite.totalSteps;
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "attacking") {
 	        this.walkingHome();
-	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "countering") {
+	    } else if (this.spriteStep >= this.currentSprite.totalSteps && (this.status == "countering" || this.status == "blocking")) {
 	        this.idling();
-	    } else if ((this.status == "attacking" || this.status == "countering") && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+	    } else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status != "blocking" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
 			this.dealDamage();
 		} else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
 			debugger;
-			this.enemy.tryCoutering();
+			this.enemy.tryAvoiding();
 		}
 	};
 
@@ -157,10 +177,10 @@ class Player {
             return;
         } else {
             if (this.direction == Direction.Left) {
-                this.positionX -= 8;
+                this.positionX -= 10;
                 return;
             } else {
-                this.positionX += 8;
+                this.positionX += 10;
                 return;
             }
         }
