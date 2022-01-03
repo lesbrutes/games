@@ -52,7 +52,7 @@ class Player {
     
     dealDamage() {
 	    console.log("dealingDamage");
-	    var damageDealt = Math.max(this.activeWeapon.damage + this.strenght - this.enemy.defence,1);
+	    var damageDealt = Math.max(this.activeWeapon.damage + this.strenght - this.enemy.defence, 1);
 		this.enemy.healthBar.updateHealth(Math.max(this.enemy.healthBar.health - damageDealt, 0));
     }
     
@@ -61,8 +61,12 @@ class Player {
         this.currentSprite = this.sprites.Idle;
         this.status = "idling";
         console.log("idling");
-        this.notifyEndOfTurn();
         this.currentSprite.updateSource(this.direction.name);
+    };
+    
+    idlingAndEndTurn() {
+        this.idling();
+        this.notifyEndOfTurn();
     };
 
     
@@ -90,6 +94,17 @@ class Player {
         this.currentSprite.updateSource(this.direction.name);
     };
     
+    tryCoutering() {
+	    debugger;
+		if (this.isEnemyInAttackRange() && this.doesCounterSucceed()) {
+		    this.spriteStep = 0;
+	        this.currentSprite = this.sprites.Attack;
+	        this.status = "countering";
+	        console.log("countering");
+	        this.currentSprite.updateSource(this.direction.name);
+		}
+	}
+    
     walkingHome() {
         this.spriteStep = 0;
         this.currentSprite = this.sprites.Walk;
@@ -99,19 +114,32 @@ class Player {
         this.currentSprite.updateSource(this.direction.name);
     };
     
+    doesCounterSucceed() {
+		var statDiff = this.speed - this.enemy.agility > 0 ? this.speed - this.enemy.agility : 0;
+	    var odds = 10+(2*statDiff); 
+	    
+	    var randomInt = randomIntFromInterval(1,100);
+		return odds >= randomInt;
+	}
+    
    updateSpriteStep() {
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
 			this.spriteStep = this.currentSprite.totalSteps;
 		 	return; //Si on est mort et l'animation est fini, alors on reste sur le dernier frame.
 		}
-	    var stepSpeed = this.currentSprite.speed * this.speed //Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
+	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
 	    this.spriteStep += stepSpeed;
-	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "dying") {
+	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering" && this.status != "dying") { 
 	        this.spriteStep -= this.currentSprite.totalSteps;
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "attacking") {
 	        this.walkingHome();
-	    } else if (this.status == "attacking" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "countering") {
+	        this.idling();
+	    } else if ((this.status == "attacking" || this.status == "countering") && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
 			this.dealDamage();
+		} else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
+			debugger;
+			this.enemy.tryCoutering();
 		}
 	};
 
@@ -125,14 +153,14 @@ class Player {
             return;
         } else if (this.status == "walkingHome" && this.isHome()) {
             this.changeDirection();
-            this.idling();
+            this.idlingAndEndTurn();
             return;
         } else {
             if (this.direction == Direction.Left) {
-                this.positionX -= 5;
+                this.positionX -= 8;
                 return;
             } else {
-                this.positionX += 5;
+                this.positionX += 8;
                 return;
             }
         }
@@ -145,6 +173,10 @@ class Player {
             return this.positionX >= startPositionLeftX - 90;
         }
     };
+    
+    isEnemyInAttackRange() {
+		return Math.abs(this.positionX - this.enemy.positionX) <= 100;
+	}
     
     isHome() {
         if (this.startDirection == Direction.Left) {
@@ -178,7 +210,6 @@ class Player {
     addEnemy(enemy) {
 		this.enemy = enemy;
 	}
-	
     
     init() {
         this.currentSprite = this.sprites.Idle;
