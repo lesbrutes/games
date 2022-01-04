@@ -109,16 +109,27 @@ class Player {
         console.log("blocking");
         this.currentSprite.updateSource(this.direction.name);
 	}
+	
+	dodging() {
+		this.spriteStep = 0;
+        this.currentSprite = this.sprites.Walk;
+        this.status = "dodging";
+        console.log("dodging");
+        this.currentSprite.updateSource(this.direction.name);
+	}
     
     tryAvoiding() {
-	    debugger;
-		if (this.isEnemyInAttackRange() && this.doesCounterSucceed()) {
+	    if (this.isEnemyInAttackRange() && this.doesCounterSucceed()) {
 		    this.countering();
 		} else if (this.doesBlockSucceed()) {
 			this.blocking();
+		} else if (this.doesDodgeSucceed()) {
+			this.dodging();
 		}
+		
 	}
     
+    //Trigger end of turn
     walkingHome() {
         this.spriteStep = 0;
         this.currentSprite = this.sprites.Walk;
@@ -128,8 +139,17 @@ class Player {
         this.currentSprite.updateSource(this.direction.name);
     };
     
+    //Dont trigger end of turn/direction change
+    goHomeAfterDodging() {
+        this.spriteStep = 0;
+        this.currentSprite = this.sprites.Walk;
+        this.status = "goingHome";
+        console.log("goHomeAfterDodging");
+        this.currentSprite.updateSource(this.direction.name);
+    };
+    
     doesCounterSucceed() {
-		var statDiff = this.speed - this.enemy.agility > 0 ? this.speed - this.enemy.agility : 0;
+		var statDiff = Math.max(this.speed - this.enemy.agility, 0);
 	    var odds = Math.min(10+(5*statDiff), 50); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
@@ -138,6 +158,14 @@ class Player {
 	
 	doesBlockSucceed() {
 	    var odds = 15; 
+	    var randomInt = randomIntFromInterval(1,100);
+		return odds >= randomInt;
+	}
+	
+	doesDodgeSucceed() {
+		var statDiff = Math.max(this.agility - this.enemy.speed, 0);
+	    var odds = Math.min(10+(10*statDiff), 50); 
+	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
 	}
@@ -155,10 +183,11 @@ class Player {
 	        this.walkingHome();
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && (this.status == "countering" || this.status == "blocking")) {
 	        this.idling();
-	    } else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status != "blocking" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+	    } else if ((this.status == "attacking" || this.status == "countering") && (this.enemy.status != "blocking" && this.enemy.status != "dodging") && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
 			this.dealDamage();
-		} else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
-			debugger;
+		} else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status == "dodging" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+			this.enemy.goHomeAfterDodging();
+		}else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
 			this.enemy.tryAvoiding();
 		}
 	};
@@ -175,16 +204,33 @@ class Player {
             this.changeDirection();
             this.idlingAndEndTurn();
             return;
-        } else {
-            if (this.direction == Direction.Left) {
-                this.positionX -= 10;
+        } else if (this.status == "goingHome" && this.isHome()) {
+			this.idling();
+		} else if (this.status == "dodging") {
+	        if (this.direction == Direction.Left) {
+                this.positionX += this.getStepSize();
                 return;
             } else {
-                this.positionX += 10;
+                this.positionX -= this.getStepSize();
+                return;
+            }
+		} else {
+            if (this.direction == Direction.Left) {
+                this.positionX -= this.getStepSize();
+                return;
+            } else {
+                this.positionX += this.getStepSize();
                 return;
             }
         }
     };
+    
+    getStepSize() {
+		if (this.status == "dodging" || this.status == "goingHome") {
+			return 5;
+		}
+		return 10;
+	}
     
     isAtEnemy() {
         if (this.startDirection == Direction.Left) {
@@ -199,13 +245,13 @@ class Player {
 	}
     
     isHome() {
-        if (this.startDirection == Direction.Left) {
-            return this.positionX >= this.initialX;
-        } else {
-            return this.positionX <= this.initialX;
-        }
+	    //Si on est suffisament proche, on force sur la bonne position
+		if (this.positionX > this.initialX - this.getStepSize() && this.positionX < this.initialX + this.getStepSize()) {
+			this.positionX = this.initialX;
+			return true;
+		}
+		return false;
     };
-   
     
     changeDirection() {
             if (this.direction == Direction.Left) {
