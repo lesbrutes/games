@@ -10,6 +10,8 @@ var player1;
 var player2;
 var startingPlayer = null;
 var background;
+var hitsplat;
+var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 
 var paused = false;
@@ -20,6 +22,7 @@ function init(){
 	initCanvas();
 	initPlayers();
 	initBackground();
+	initHitsplat();
 
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -55,6 +58,11 @@ function initBackground() {
 	background.src = "../image/brute/background.png";
 }
 
+function initHitsplat() {
+	hitsplat = new Image();
+	hitsplat.src = "../image/brute/hitsplat.png";
+}
+
 function gameLoop(timeStamp){
 	if(paused){return;}
 	
@@ -63,6 +71,7 @@ function gameLoop(timeStamp){
 	drawXpBar();
 	drawPlayer(player1);
 	drawPlayer(player2);
+	drawHitsplats();
 	
 	updatePositions();
 	updateSprites();
@@ -78,6 +87,13 @@ function drawPlayer(player){
     
     context.drawImage(sprite.img, sprite.width*step, 0, sprite.width, sprite.height, player.positionX, player.positionY, sprite.width*s, sprite.height*s);
 
+}
+
+function drawHitsplats() {
+	hitsplats.forEach(function(hitsplat) {
+		hitsplat.show(context);
+	});
+	hitsplats = hitsplats.filter(hitsplat => hitsplat.isVisible());
 }
 
 function drawBackground()  {
@@ -151,6 +167,10 @@ document.addEventListener("death", function(e) {
 
 document.addEventListener("lvlUp", function(e) {
 	displayStats();
+});
+
+document.addEventListener("hit", function(e) {
+	hitsplats.push(new Hitsplat(hitsplat, e.detail.damage, e.detail.player.positionX, e.detail.player.positionY))
 });
 
 document.addEventListener("DOMContentLoaded", function() {

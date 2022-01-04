@@ -52,8 +52,9 @@ class Player {
     
     dealDamage() {
 	    console.log("dealingDamage");
-	    var damageDealt = Math.max(this.activeWeapon.damage + this.strenght - this.enemy.defence, 1);
+	    var damageDealt = this.calculateDamage();
 		this.enemy.healthBar.updateHealth(Math.max(this.enemy.healthBar.health - damageDealt, 0));
+		this.notifySuccessfulHit(damageDealt);
     }
     
     idling() {
@@ -169,6 +170,22 @@ class Player {
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
 	}
+	
+	calculateDamage() {
+		var randomInt = randomIntFromInterval(1,100);
+
+		var baseDamage = this.activeWeapon != null ? this.activeWeapon.damage : 1;
+		var statDiff = Math.max(this.strenght - this.enemy.defence, 0);
+		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
+		var restant = (damage % Math.floor(damage));
+		var odds = restant * 100;
+		
+		if (odds >= randomInt) {
+			return Math.ceil(damage);
+		} else  {
+			return Math.floor(damage);
+		}
+	}
     
    updateSpriteStep() {
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
@@ -266,6 +283,12 @@ class Player {
     notifyEndOfTurn() {
             console.log("Notifying end of turn");
             var event = new CustomEvent("end-of-turn", { "detail": this });
+            document.dispatchEvent(event);
+    };
+    
+   notifySuccessfulHit(damage) {
+            console.log("notifySuccessfulHit");
+            var event = new CustomEvent("hit", { "detail": { "damage": damage, "player" : this.enemy } });
             document.dispatchEvent(event);
     };
     
