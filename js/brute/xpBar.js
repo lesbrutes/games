@@ -9,9 +9,6 @@ class XpBar {
     this.maxWidth = 300;
     this.color = "beige";
     this.baseXp = 20;
-    this.xp = 0;
-    this.totalXp = 0;
-    this.maxXp = this.getRequiredXp();
     this.lvlUpHandler = new LvlUpHandler();
   }
 
@@ -31,7 +28,7 @@ class XpBar {
   }
   
   showXp(context) {
-	this.w = (this.xp / this.getRequiredXp()) * this.maxWidth;
+	this.w = (this.player.xp / this.getRequiredXp()) * this.maxWidth;
 	
     context.lineWidth = 4;
     context.strokeStyle = "#333";
@@ -45,14 +42,14 @@ class XpBar {
   }
 
   gainXp() {
-      this.xp += this.baseXp;
-      this.totalXp += this.baseXp;
+      this.player.xp += this.baseXp;
+      this.player.totalXp += this.baseXp;
       this.checkLvlUp();
   }
   
   checkLvlUp() {
-	if (this.xp >= this.getRequiredXp()) {
-		this.xp = 0;
+	if (this.player.xp >= this.getRequiredXp()) {
+		this.player.xp = 0;
 		this.lvlUpHandler.lvlUp(this.player);
 	}
 	

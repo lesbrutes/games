@@ -17,6 +17,7 @@ class Player {
         this.startDirection = startDirection;
         this.direction = this.startDirection;
         this.status = "idling";
+        this.name = "default";
 
 
 		this.lvl = 1
@@ -299,6 +300,11 @@ class Player {
     addEnemy(enemy) {
 		this.enemy = enemy;
 	}
+	
+	setHp(hp) {
+		this.hp = hp;
+		this.healthBar.reset();
+	}
     
     init() {
         this.currentSprite = this.sprites.Idle;
@@ -314,6 +320,7 @@ class Player {
 			this.healthBar = new HealthBar(768, 10, this);
 		}
 	}
+	
 }
 
 //Season enums can be grouped as static members of a class

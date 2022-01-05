@@ -20,7 +20,7 @@ window.onload = init;
 
 function init(){
 	initCanvas();
-	initPlayers();
+	//initPlayers();
 	initBackground();
 	initHitsplat();
 
@@ -41,7 +41,8 @@ function initCanvas() {
 	context.fillStyle = "rgba(255, 255, 255, 0.25)";
 }
 
-function initPlayers() {
+function initBattle() {
+	console.log("Initializing new brute")
 	player1 = new Player(new MinotaureSprites(), 150, 350, Direction.Right);
 	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
 	
@@ -81,12 +82,13 @@ function gameLoop(timeStamp){
 }
 
 function drawPlayer(player){
-	var sprite = player.currentSprite;
-    var s = sprite.scale; //Facteur d'aggrandissement
-    var step = Math.floor(player.spriteStep);
-    
-    context.drawImage(sprite.img, sprite.width*step, 0, sprite.width, sprite.height, player.positionX, player.positionY, sprite.width*s, sprite.height*s);
-
+	if (player != null) {
+		var sprite = player.currentSprite;
+	    var s = sprite.scale; //Facteur d'aggrandissement
+	    var step = Math.floor(player.spriteStep);
+	    
+	    context.drawImage(sprite.img, sprite.width*step, 0, sprite.width, sprite.height, player.positionX, player.positionY, sprite.width*s, sprite.height*s);
+	}
 }
 
 function drawHitsplats() {
@@ -101,38 +103,62 @@ function drawBackground()  {
 }
 
 function drawHealthBars() {
-	player1.healthBar.show(context);
-	player2.healthBar.show(context);
+	drawHealthBar(player1);
+	drawHealthBar(player2);
+}
+
+function drawHealthBar(player) {
+	if (player != null) {
+		player.healthBar.show(context);
+	}
 }
 
 function drawXpBar() {
-	player1.xpBar.show(context);
+	if (player1 != null) {
+		player1.xpBar.show(context);
+	}
 }
 
 function updateSprites() {
-	player1.updateSpriteStep();
-	player2.updateSpriteStep();
+	updateSprite(player1);
+	updateSprite(player2);
+}
+
+function updateSprite(player) {
+	if (player != null) {
+		player.updateSpriteStep();
+	}
 }
 
 function updatePositions() {
-	player1.updatePosition();
-	player2.updatePosition();
+	updatePosition(player1);
+	updatePosition(player2);
 }
 
+function updatePosition(player) {
+	if (player != null) {
+		player.updatePosition();
+	}
+}
+
+
 function displayStats() {
-	$("#player1 .hp").text(player1.hp);
-	$("#player1 .strenght").text(player1.strenght);
-	$("#player1 .magic").text(player1.magic);
-	$("#player1 .range").text(player1.range);
-	$("#player1 .speed").text(player1.speed);
-	$("#player1 .agility").text(player1.agility);
-	
-	$("#player2 .hp").text(player2.hp);
-	$("#player2 .strenght").text(player2.strenght);
-	$("#player2 .magic").text(player2.magic);
-	$("#player2 .range").text(player2.range);
-	$("#player2 .speed").text(player2.speed);
-	$("#player2 .agility").text(player2.agility);
+	if (player1 != null) {
+		$("#player1 .hp").text(player1.hp);
+		$("#player1 .strenght").text(player1.strenght);
+		$("#player1 .magic").text(player1.magic);
+		$("#player1 .range").text(player1.range);
+		$("#player1 .speed").text(player1.speed);
+		$("#player1 .agility").text(player1.agility);
+	}
+	if (player2 != null) {
+		$("#player2 .hp").text(player2.hp);
+		$("#player2 .strenght").text(player2.strenght);
+		$("#player2 .magic").text(player2.magic);
+		$("#player2 .range").text(player2.range);
+		$("#player2 .speed").text(player2.speed);
+		$("#player2 .agility").text(player2.agility);
+	}
 }
 
 function chooseStartingPlayer(){
@@ -149,6 +175,32 @@ function chooseStartingPlayer(){
 function awardXp(deadPlayer) {
 	if (deadPlayer == player2){
 		player1.xpBar.gainXp();
+		database.updateBrute(player1);
+	}
+}
+
+function newBattle() {
+	player1.reset();
+	
+	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
+	while (player1.lvl > player2.lvl) {
+		lvlUpHandler.lvlUp(player2)
+	}
+	player2.reset();
+	
+	player1.addEnemy(player2);
+	player2.addEnemy(player1);
+	
+	
+	
+	chooseStartingPlayer();
+	startingPlayer.walkingToEnemy();
+	
+	displayStats();
+	
+	if (paused == true) {
+		paused = false;
+		requestAnimationFrame(gameLoop);
 	}
 }
 
@@ -175,25 +227,7 @@ document.addEventListener("hit", function(e) {
 
 document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById('newBattleBtn').addEventListener('click', function() {
-		player1.reset();
-		player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
-		
-		while (player1.lvl > player2.lvl) {
-			lvlUpHandler.lvlUp(player2)
-		}
-		
-		player1.addEnemy(player2);
-		player2.addEnemy(player1);
-		
-		chooseStartingPlayer();
-		startingPlayer.walkingToEnemy();
-		
-		displayStats();
-		
-		if (paused == true) {
-			paused = false;
-			requestAnimationFrame(gameLoop);
-		}
+		newBattle();
 	});
 	
 	document.getElementById('pauseBtn').addEventListener('click', function() {
@@ -204,6 +238,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			requestAnimationFrame(gameLoop);
 		}
 	});
+	
 });
 
 function randomIntFromInterval(min, max) { // min and max included 

@@ -4,7 +4,11 @@
 <title>Les brutes</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/brute.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+<script defer src="../js/database/database.js"></script>
+<script defer src="../js/database/login.js"></script>
 <script src="../js/brute/animation/sprite.js"></script>
 <script src="../js/brute/animation/sprites.js"></script>
 <script src="../js/brute/lvlUpHandler.js"></script>
@@ -35,9 +39,35 @@
     </div>
     <div class="line-break"></div>
     <div>
-		<button id="newBattleBtn" type="button">New battle!</button>
-	    <button id="pauseBtn" type="button">Pause/Resume</button>
+		<button id="newBattleBtn" type="button" class="btn btn-dark">New battle!</button>
+	    <button id="pauseBtn" type="button" class="btn btn-dark">Pause/Resume</button>
     </div>
+    
+  <div class="modal fade" id="nameChooserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      
+	        <div class="form-title text-center">
+	          <h4>Login</h4>
+	        </div>
+	        <div class="d-flex flex-column text-center">
+	          <form>
+	            <div class="form-group">
+	              <h5 id="nameTaken" class="text-danger">Username already taken</h5>
+	              <h5 id="chooseUsername" class="text-danger">You must choose a username</h5>
+	              <h5 id="usernameNotExist" class="text-danger">The username does not exist</h5>
+	              <input type="text" class="form-control" id="username" placeholder="Username">
+	            </div>
+	            <button id="newBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">New</button>
+	            <button id="loadBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">Load</button>
+	          </form>
+	        </div>
+	        
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 	
 </html>

@@ -1,14 +1,13 @@
 class HealthBar {
   constructor(x, y, player) {
+	this.player = player;
     this.x = x;
     this.y = y;
     this.w = 450;
     this.h = 30;
-    this.maxHealth = player.hp;
     this.maxWidth = 450;
-    this.health = this.maxHealth;
+    this.health = this.getMaxHealth();
     this.color = "green";
-    this.player = player;
   }
 
   show(context) {
@@ -22,7 +21,7 @@ class HealthBar {
   updateHealth(val) {
     if (val >= 0) {
       this.health = val;
-      this.w = (this.health / this.maxHealth) * this.maxWidth;
+      this.w = (this.health / this.getMaxHealth()) * this.maxWidth;
     }
     
     if (val == 0) {
@@ -31,8 +30,13 @@ class HealthBar {
 	}
   }
   
+  getMaxHealth() {
+	return this.player.hp
+  }
+  
   reset() {
-	this.updateHealth(this.maxHealth);
+	this.updateHealth(this.getMaxHealth());
+	this.health = this.getMaxHealth();
   }
   
   notifyDeath() {
