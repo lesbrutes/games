@@ -4,7 +4,7 @@ class Database {
   constructor() {
     this.url = "https://api.github.com/repos/lesbrutes-database/database/contents";
     this.username = "lesbrutes-database@outlook.com";
-    this.token = "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";
+    this.encodedToken = "Z2hwX3VjeklVaXlObWFsVlRseHhZSTVGTUh6cVpyR05OUTBES09NYQ==";
     this.bruteConverter = new BruteJsonConverter();
   }
   
@@ -16,7 +16,7 @@ class Database {
 		var jsonObjectStringified = JSON.stringify(jsonObject);
 		$.ajax({ url: myUrl, 
 			headers: {
-			    Authorization: 'Bearer '+ this.token
+			    Authorization: 'Bearer '+ this.getToken()
 			},
 	        data: jsonObjectStringified, 
 	        datatType: 'json', 
@@ -39,7 +39,7 @@ class Database {
 	loadBrute(playerName, onSuccessCallback, onErrorCallback) {
 		var myUrl = `${this.url}/brutes/${playerName}.json`
 		$.ajax({ url: myUrl,
-			headers: {"Authorization": this.token}, 
+			headers: {"Authorization": this.getToken()}, 
 	        type: 'GET',
 	        success: function(data) {
 			    console.log('Load was performed.');
@@ -62,7 +62,7 @@ class Database {
 	updateBrute(player) {
 		var myUrl = `${this.url}/brutes/${player.name}.json`
 		$.ajax({ url: myUrl,
-			headers: {"Authorization": this.token}, 
+			headers: {"Authorization": this.getToken()}, 
 	        type: 'GET',
 	        success: function(data) {
 			    this.update(player, data.sha);
@@ -82,7 +82,7 @@ class Database {
 		var jsonObjectStringified = JSON.stringify(jsonObject);
 		$.ajax({ url: myUrl, 
 			headers: {
-			    Authorization: 'Bearer '+ this.token
+			    Authorization: 'Bearer '+ this.getToken()
 			},
 	        data: jsonObjectStringified, 
 	        datatType: 'json', 
@@ -94,6 +94,10 @@ class Database {
 			    console.log('Update failed: ' + data);
 			}.bind(this),
 	    });
+	}
+	
+	getToken() {
+		return atob(this.encodedToken);
 	}
 }
 
