@@ -1,4 +1,6 @@
 "use strict";
+//var width = 2000; 
+//var height = 1000;
 var width = 1228; 
 var height = 697;
 var ratio = window.devicePixelRatio;
@@ -41,18 +43,18 @@ function initCanvas() {
 	context.fillStyle = "rgba(255, 255, 255, 0.25)";
 }
 
-function initBattle() {
-	console.log("Initializing new brute")
-	player1 = new Player(new MinotaureSprites(), 150, 350, Direction.Right);
-	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
-	
-	player1.addEnemy(player2);
-	player2.addEnemy(player1);
-	
-	displayStats();
-	chooseStartingPlayer();
-	
-}
+//function initBattle() {
+//	console.log("Initializing new brute")
+//	player1 = new Player( 150, 350, Direction.Right);
+//	player2 = new Player( 975, 350, Direction.Left);
+//	
+//	player1.addEnemy(player2);
+//	player2.addEnemy(player1);
+//	
+//	displayStats();
+//	chooseStartingPlayer();
+//	
+//}
 
 function initBackground() {
 	background = new Image();
@@ -83,13 +85,36 @@ function gameLoop(timeStamp){
 
 function drawPlayer(player){
 	if (player != null) {
-		var sprite = player.currentSprite;
-	    var s = sprite.scale; //Facteur d'aggrandissement
-	    var step = Math.floor(player.spriteStep);
-	    
-	    context.drawImage(sprite.img, sprite.width*step, 0, sprite.width, sprite.height, player.positionX, player.positionY, sprite.width*s, sprite.height*s);
+		player.show(context);
+//		var sprite = player.currentSprite;
+//	    var s = sprite.scale; //Facteur d'aggrandissement
+//	    var step = Math.floor(player.spriteStep);
+//	    
+//	    context.drawImage(sprite.img, sprite.width*step, 0, sprite.width, sprite.height, player.positionX, player.positionY, sprite.width*s, sprite.height*s);
+	    //drawWeapon(player);
 	}
 }
+
+//function drawWeapon(player) {
+//	debugger;
+//	var wep = new Image();
+//	wep.src = "../image/brute/weapons/melee/club.png";
+//	var TO_RADIANS = Math.PI/180; 
+//	var angleInRadians = -45*TO_RADIANS;
+//	var scale = 0.4
+//	
+//	var x = player.positionX;
+//	var y = player.positionY;
+//	var width = 280*scale;
+//	var height = 100*scale;
+//	
+//	context.translate(x, y);
+//	context.rotate(angleInRadians);
+//	context.drawImage(wep, -width / 2, -height / 2, width, height);
+//	context.rotate(-angleInRadians);
+//	context.translate(-x, -y);
+//}
+
 
 function drawHitsplats() {
 	hitsplats.forEach(function(hitsplat) {
@@ -182,7 +207,7 @@ function awardXp(deadPlayer) {
 function newBattle() {
 	player1.reset();
 	
-	player2 = new Player(new MinotaureSprites(), 975, 350, Direction.Left);
+	player2 = new Player(975, 350, Direction.Left);
 	while (player1.lvl > player2.lvl) {
 		lvlUpHandler.lvlUp(player2)
 	}
@@ -194,7 +219,7 @@ function newBattle() {
 	
 	
 	chooseStartingPlayer();
-	startingPlayer.walkingToEnemy();
+	//startingPlayer.walkingToEnemy();
 	
 	displayStats();
 	

@@ -126,7 +126,7 @@ class BruteJsonConverter {
 	fromJson(playerString) {
 		var jsonObject = JSON.parse(playerString);
 		
-		var player = new Player(new MinotaureSprites(), 150, 350, Direction.Right); 
+		var player = new Player(150, 350, Direction.Right); 
 		
 		player.name = jsonObject.name;
 		player.lvl = jsonObject.lvl;

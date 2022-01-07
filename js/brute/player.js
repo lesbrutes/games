@@ -5,10 +5,10 @@ var startPositionRightX= 150;
 var startPositionRightY = 350;
 
 class Player {
-    constructor(sprites, initialX, initialY, startDirection) {
+    constructor(initialX, initialY, startDirection) {
 	
-        this.sprites = sprites;
-        this.currentSprite = sprites.Idle;
+        this.sprites;
+        this.currentSprite;
         this.spriteStep = 0;
         this.initialX = initialX;
         this.initialY = initialY;
@@ -63,7 +63,6 @@ class Player {
         this.currentSprite = this.sprites.Idle;
         this.status = "idling";
         console.log("idling");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
     idlingAndEndTurn() {
@@ -77,7 +76,6 @@ class Player {
         this.currentSprite = this.sprites.Walk;
         this.status = "walkingToEnemy";
         console.log("walkingToEnemy");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
    dying() {
@@ -85,7 +83,6 @@ class Player {
         this.currentSprite = this.sprites.Death;
         this.status = "dying";
         console.log("dying");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
    attacking() {
@@ -93,7 +90,6 @@ class Player {
         this.currentSprite = this.sprites.Attack;
         this.status = "attacking";
         console.log("attacking");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
     countering() {
@@ -101,7 +97,6 @@ class Player {
         this.currentSprite = this.sprites.Attack;
         this.status = "countering";
         console.log("countering");
-        this.currentSprite.updateSource(this.direction.name);
 	}
 	
 	blocking() {
@@ -109,7 +104,6 @@ class Player {
         this.currentSprite = this.sprites.Block;
         this.status = "blocking";
         console.log("blocking");
-        this.currentSprite.updateSource(this.direction.name);
 	}
 	
 	dodging() {
@@ -117,7 +111,6 @@ class Player {
         this.currentSprite = this.sprites.Walk;
         this.status = "dodging";
         console.log("dodging");
-        this.currentSprite.updateSource(this.direction.name);
 	}
     
     tryAvoiding() {
@@ -138,7 +131,6 @@ class Player {
         this.status = "walkingHome";
         this.changeDirection();
         console.log("walkingHome");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
     //Dont trigger end of turn/direction change
@@ -147,7 +139,6 @@ class Player {
         this.currentSprite = this.sprites.Walk;
         this.status = "goingHome";
         console.log("goHomeAfterDodging");
-        this.currentSprite.updateSource(this.direction.name);
     };
     
     doesCounterSucceed() {
@@ -277,7 +268,6 @@ class Player {
             } else {
                 this.direction = Direction.Left;
             }
-            this.currentSprite.updateSource(this.direction.name);
             console.log("changing direction");
         };
     
@@ -305,10 +295,13 @@ class Player {
 		this.hp = hp;
 		this.healthBar.reset();
 	}
+	
+	show(context) {
+		this.currentSprite.show(context);
+	}
     
     init() {
-        this.currentSprite = this.sprites.Idle;
-        this.currentSprite.updateSource(this.startDirection.name);
+		this.initSprites();
         this.initHealthBar();
         this.xpBar = new XpBar(this);
     };
@@ -319,6 +312,11 @@ class Player {
 		} else {
 			this.healthBar = new HealthBar(768, 10, this);
 		}
+	}
+	
+	initSprites() {
+		this.sprites = new MinotaureSprites(this);
+        this.currentSprite = this.sprites.Idle;
 	}
 	
 }

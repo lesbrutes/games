@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			$("#chooseUsername").show();
 			return;
 		}
-		var player = new Player(new MinotaureSprites(), 150, 350, Direction.Right);
+		var player = new Player(150, 350, Direction.Right);
 		player.name = playerName;
 		database.createBrute(player, onSuccessLoadCreate, onErrorCreate) 
 	});
