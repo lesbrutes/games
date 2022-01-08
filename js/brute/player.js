@@ -192,9 +192,9 @@ class Player {
 	        this.walkingHome();
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && (this.status == "countering" || this.status == "blocking")) {
 	        this.idling();
-	    } else if ((this.status == "attacking" || this.status == "countering") && (this.enemy.status != "blocking" && this.enemy.status != "dodging") && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+	    } else if ((this.status == "attacking" || this.status == "countering") && (this.enemy.status != "blocking" && this.enemy.status != "dodging") && this.spriteStep >= 16 &&  this.spriteStep < 16 + stepSpeed) {
 			this.dealDamage();
-		} else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status == "dodging" && this.spriteStep >= 9 &&  this.spriteStep < 9 + stepSpeed) {
+		} else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status == "dodging" && this.spriteStep >= 16 &&  this.spriteStep < 16 + stepSpeed) {
 			this.enemy.goHomeAfterDodging();
 		}else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
 			this.enemy.tryAvoiding();
@@ -316,7 +316,8 @@ class Player {
 	
 	initSprites() {
 		this.sprites = new MinotaureSprites(this);
-        this.currentSprite = this.sprites.Idle;
+        this.currentSprite = this.sprites.Walk;
+        this.direction = Direction.Left;
 	}
 	
 }

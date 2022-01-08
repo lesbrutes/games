@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	$('#nameChooserModal').modal('show');
 	hideMessages();
 	$('#username').val(localStorage.getItem("username"));
-	
 });
 
 function onSuccessLoadCreate(player) {

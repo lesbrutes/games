@@ -1,24 +1,31 @@
 class PlayerSprite {
-    constructor(source, totalSteps, weaponAngles, width, height, scale, speed, player) {
+    constructor(source, totalSteps, weaponAngles, attachPointsX, attachPointsY, attachPointsLeftX, attachPointsLeftY, width, height, scale, speed, player) {
 
         this.img = new Image();
-        this.img.src = source;
+        this.source = source;
         this.img.classList = 
         this.step = 0;
         this.width = width;
         this.height = height;
         this.totalSteps = totalSteps; //Indexe a 0
         this.weaponAngles = weaponAngles;
+        this.attachPointsX = attachPointsX;
+        this.attachPointsY = attachPointsY;
+        this.attachPointsLeftX = attachPointsLeftX;
+        this.attachPointsLeftY = attachPointsLeftY;
         this.scale = scale;
         this.speed = speed;
         this.player = player;
-
-		$(this.img).addClass("flip");
     }
+    
+    updateDirection() {
+		this.img.src = this.source + this.player.direction.name + ".png";
+	}
 	
 	show(context) {
-		if (this.player.activeWeapon != null) {
-			this.player.activeWeapon.sprite.show(context, this.weaponAngles[Math.floor(this.player.spriteStep)], this.player);
+		this.updateDirection();
+		if (this.player.activeWeapon != null && this.player.status != "dying") {
+			this.player.activeWeapon.sprite.show(context, this.weaponAngles[Math.floor(this.player.spriteStep)],this.attachPointsX[Math.floor(this.player.spriteStep)],this.attachPointsY[Math.floor(this.player.spriteStep)],this.attachPointsLeftX[Math.floor(this.player.spriteStep)],this.attachPointsLeftY[Math.floor(this.player.spriteStep)], this.player);
 		}
 	    this.showPlayer(context);
 
@@ -26,22 +33,10 @@ class PlayerSprite {
     
     
     showPlayer(context) {
-		var translateX = this.player.positionX;
-		if (this.player.direction == Direction.Left) {
-			translateX = context.canvas.clientWidth + this.player.positionX - (this.width * this.scale);
-			context.translate(translateX, 0);
-			context.scale(-1, 1);
-		}
-
 		var s = this.scale; //Facteur d'aggrandissement
 	    var step = Math.floor(this.player.spriteStep);
 	    
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
-	    
-	    if (this.player.direction == Direction.Left) {
-			context.translate(-translateX, 0);
-			context.scale(1, 1);
-		}
 	}
 }
 
@@ -51,25 +46,27 @@ class WeaponSprite {
 
         this.img = new Image();
         this.img.src = source;
-        this.scale = 0.3
+        this.scale = 0.3;
         this.width = 280*this.scale;
         this.height = 100*this.scale;
         
         this.toRadians = Math.PI/180; 
     }
     
-    show(context, angle, player) {
-	    var offsetX = 95;
-	    var offsetY = 85;
-	    var angleInRadians = angle*this.toRadians;
+    show(context, angle, attachAtX, attachAtY, attachAtLeftX, attachAtLeftY, player) {
+	    var angleInRadians;
+	    var x;
+	    var y;
+	    
 		if (player.direction == Direction.Left) {
-			offsetX = -40;
-			offsetY = 110;
 			angleInRadians = (-angle+180)*this.toRadians;
+			var x  = player.positionX + attachAtLeftX;
+    		var y = player.positionY + attachAtLeftY;
+		} else {
+			angleInRadians = angle*this.toRadians;
+			var x  = player.positionX + attachAtX;
+    		var y = player.positionY + attachAtY;
 		}
-		
-		var x  = player.positionX + offsetX;
-    	var y = player.positionY + offsetY;
 
     	context.translate(x, y);
 		context.rotate(angleInRadians);
