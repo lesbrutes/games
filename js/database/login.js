@@ -29,6 +29,9 @@ function onSuccessLoadCreate(player) {
 	$('#nameChooserModal').modal('hide');
 	requestAnimationFrame(gameLoop);
 	displayStats();
+	
+	audio.play();
+
 }
 
 function onErrorLoad() {

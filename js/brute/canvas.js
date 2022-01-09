@@ -16,6 +16,9 @@ var hitsplat;
 var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
+var audio = new Audio('../audio/mainTrack.mp3');
+audio.loop = true;
+audio.volume = 0.05;
 
 var paused = false;
 
@@ -25,7 +28,7 @@ function init(){
 	initCanvas();
 	initBackground();
 	initHitsplat();
-
+	
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
 }
@@ -185,6 +188,7 @@ function newBattle() {
 	
 	if (paused == true) {
 		paused = false;
+		document.getElementById('pauseBtn').innerText = 'pause';
 		requestAnimationFrame(gameLoop);
 	}
 }
@@ -218,9 +222,20 @@ document.addEventListener("DOMContentLoaded", function() {
 	document.getElementById('pauseBtn').addEventListener('click', function() {
 		if (paused == false) {
 			paused = true;
+			this.innerText = 'unpause';
 		} else {
 			paused = false;
+			this.innerText = 'pause';
 			requestAnimationFrame(gameLoop);
+		}
+	});
+	
+	document.getElementById('audioPauseBtn').addEventListener('click', function() {
+		audio.muted = !audio.muted;
+		if (audio.muted) {
+			this.innerText = 'unmute';
+		} else {
+			this.innerText = 'mute';
 		}
 	});
 });
