@@ -279,7 +279,7 @@ class Player {
     
     getStepSize() {
 		if (this.status == "dodging" || this.status == "goingHome") {
-			return 5;
+			return 2;
 		}
 		return 10;
 	}
