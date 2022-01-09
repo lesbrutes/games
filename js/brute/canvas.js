@@ -15,6 +15,7 @@ var background;
 var hitsplat;
 var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
+var weapons = new Weapons();
 
 var paused = false;
 
@@ -22,7 +23,6 @@ window.onload = init;
 
 function init(){
 	initCanvas();
-	//initPlayers();
 	initBackground();
 	initHitsplat();
 
@@ -223,7 +223,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			requestAnimationFrame(gameLoop);
 		}
 	});
-	
 });
 
 function randomIntFromInterval(min, max) { // min and max included 

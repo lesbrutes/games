@@ -31,12 +31,27 @@ class PlayerSprite {
 
     }
     
-    
     showPlayer(context) {
 		var s = this.scale; //Facteur d'aggrandissement
 	    var step = Math.floor(this.player.spriteStep);
 	    
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
+	    this.showWeaponInventory();
+	}
+	
+	showWeaponInventory() {
+		var offset = 20;
+		var s = 0.8;
+		
+		if (this.player == player2) {
+			this.player.getAvailableWeapons().forEach(function (weapon, i) {
+		    	context.drawImage(weapon.sprite.img, 1150, 635-(i*offset), weapon.sprite.width*s, weapon.sprite.height*s)
+			});
+		} else {
+			this.player.getAvailableWeapons().forEach(function (weapon, i) {
+		    	context.drawImage(weapon.sprite.img, 10, 635-(i*offset), weapon.sprite.width*s, weapon.sprite.height*s)
+			});
+		}
 	}
 }
 

@@ -16,6 +16,21 @@ class HealthBar {
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.w, this.h);
     context.strokeRect(this.x, this.y, this.maxWidth, this.h);
+    this.showName(context);
+  }
+  
+  showName(context) {
+	context.fillStyle = "Chocolate";
+	context.font = "20px Arial";
+	
+	var yPadding = 50;
+	if (this.player == player2) {
+		context.textAlign = "end";
+		context.fillText(this.player.name, this.x+this.maxWidth-4, this.y+yPadding);
+	} else {
+		context.textAlign = "start";
+		context.fillText(this.player.name, this.x+4,  this.y+yPadding);
+	}
   }
 
   updateHealth(val) {

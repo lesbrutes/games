@@ -24,6 +24,7 @@ class XpBar {
 	
 	context.fillStyle = "black";
 	context.font = "20px Arial";
+	context.textAlign = "start";
 	context.fillText(this.player.lvl, this.xLvl+12, this.y+22);
   }
   

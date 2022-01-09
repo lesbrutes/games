@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function onSuccessLoadCreate(player) {
 	player1 = player;
 	$('#nameChooserModal').modal('hide');
-	newBattle();
+	requestAnimationFrame(gameLoop);
+	displayStats();
 }
 
 function onErrorLoad() {

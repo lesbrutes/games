@@ -16,8 +16,8 @@ class Player {
         this.positionY = initialY;
         this.startDirection = startDirection;
         this.direction = this.startDirection;
-        this.status = "idling";
-        this.name = "default";
+        this.status = "test";
+        this.name = "Enemy";
 
 
 		this.lvl = 1
@@ -32,8 +32,9 @@ class Player {
         this.speed = 1;
         this.agility = 1;
 
-        this.activeWeapon = new Weapon(1);
+        this.activeWeapon = null;
         this.weapons = [];
+        this.usedWeapons = [];
         
         this.healthBar;
         this.enemy;
@@ -49,6 +50,8 @@ class Player {
         this.positionY = this.initialY;
         this.direction  = this.startDirection;
         this.healthBar.reset();
+        this.activeWeapon = null;
+        this.usedWeapons = [];
 	}
     
     dealDamage() {
@@ -68,6 +71,7 @@ class Player {
     idlingAndEndTurn() {
         this.idling();
         this.notifyEndOfTurn();
+        this.tryToRemoveWeapon();
     };
 
     
@@ -76,6 +80,7 @@ class Player {
         this.currentSprite = this.sprites.Walk;
         this.status = "walkingToEnemy";
         console.log("walkingToEnemy");
+        this.tryToEquipWeapon();
     };
     
    dying() {
@@ -178,8 +183,46 @@ class Player {
 			return Math.floor(damage);
 		}
 	}
+	
+	tryToEquipWeapon() {
+		var availableWeapons = this.getAvailableWeapons();
+		if (this.activeWeapon == null && availableWeapons.length > 0) {
+			var randomInt = randomIntFromInterval(1,100);
+			if (randomInt >= 50) {
+				var randomIndex = randomIntFromInterval(0, availableWeapons.length-1);
+				this.activeWeapon = availableWeapons[randomIndex];
+				this.usedWeapons.push(availableWeapons[randomIndex]);
+			}
+		}
+	}
+	
+	tryToRemoveWeapon() {
+		if (this.activeWeapon != null) {
+		    var randomInt = randomIntFromInterval(1,100);
+			if (randomInt >= 70) {
+				this.activeWeapon = null;
+			}
+		}
+	}
+	
+	getAvailableWeapons() {
+		return this.weapons.filter(weapon => !this.usedWeapons.includes(weapon));
+	}
     
    updateSpriteStep() {
+	
+		//Sprite debug
+//		if (this.status == "test"){
+//			var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
+//		    this.spriteStep += stepSpeed;
+//		    if (this.spriteStep >= this.currentSprite.totalSteps) { 
+//		        this.spriteStep -= this.currentSprite.totalSteps;
+//		    }
+//		    //this.spriteStep = 24;
+//		    return;
+//		}
+	
+	
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
 			this.spriteStep = this.currentSprite.totalSteps;
 		 	return; //Si on est mort et l'animation est fini, alors on reste sur le dernier frame.
@@ -316,8 +359,8 @@ class Player {
 	
 	initSprites() {
 		this.sprites = new MinotaureSprites(this);
-        this.currentSprite = this.sprites.Walk;
-        this.direction = Direction.Left;
+        this.currentSprite = this.sprites.Idle;
+        //this.direction = Direction.Left;
 	}
 	
 }
