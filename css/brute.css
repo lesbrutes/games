@@ -42,7 +42,7 @@ canvas {
 	top: 300px;
 }
 
-.stats img {
+.stats img, .statsImg {
     height: 80px;
     padding: 5px;
 }

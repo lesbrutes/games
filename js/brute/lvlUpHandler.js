@@ -8,16 +8,23 @@ class LvlUpHandler {
 		
 		if (randomInt == 0) {
 			player.hp += 1;
+			this.showStatUp("../image/brute/stats/hp.png");
 		} else if(randomInt == 1) {
 			player.strenght += 1;
+			this.showStatUp("../image/brute/stats/strenght.png");
 		} else if (randomInt == 2) {
 			player.speed += 1;
+			this.showStatUp("../image/brute/stats/speed.png");
 		} else if (randomInt == 3) {
 			player.agility += 1;
+			this.showStatUp("../image/brute/stats/agility.png");
 		}
 		
 		if (player.lvl % 2 == 0) {
 			player.hp += 1;
+			$("#lvlUpStat1Container").show();
+		} else {
+			$("#lvlUpStat1Container").hide();
 		}
 		
 		this.giveWeaponIfPossible(player);
@@ -32,6 +39,7 @@ class LvlUpHandler {
     };
     
     giveWeaponIfPossible(player) {
+		$("#lvlUpWeaponContainer").hide();
 		if (player.lvl == 5) {
 			this.giveRandomWeapon(player, weapons.getTier1Weapons());
 		} else if (player.lvl == 10) {
@@ -43,22 +51,21 @@ class LvlUpHandler {
 	}
 	
 	giveRandomWeapon(player, weaponArray) {
-		debugger;
 		weaponArray = weaponArray.filter(weapon => !player.weapons.includes(weapon));
 		if (weaponArray.length > 0) {
 			var randomIndex = randomIntFromInterval(0, weaponArray.length-1);
 			var newWeapon = weaponArray[randomIndex];
-			console.log("Adding weapon to player");
-			console.log(newWeapon);
-			console.log("Before adding");
-			console.log(player.weapons);
-			//player.weapons = player.weapons.push[weaponArray[randomIndex]];
-			player.weapons.push(newWeapon)
-			console.log("After adding");
-			console.log(player.weapons);
+			player.weapons.push(newWeapon);
+			$("#lvlUpWeaponContainer").show();
+			$("#lvlUpWeapon").attr('src', newWeapon.sprite.img.src);
 		}
 	}
-
+	
+	showStatUp(src) {
+		$("#lvlUpStat2Container").show();
+		$("#lvlUpStat2").attr('src', src);
+	}
+	
 }
 
 function randomIntFromInterval(min, max) { // min and max included 

@@ -41,30 +41,55 @@
     </div>
     
   <div class="modal fade" id="nameChooserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-      
-	        <div class="form-title text-center">
-	          <h4>Login</h4>
-	        </div>
-	        <div class="d-flex flex-column text-center">
-	          <form>
-	            <div class="form-group">
-	              <h5 id="nameTaken" class="text-danger">Username already taken</h5>
-	              <h5 id="chooseUsername" class="text-danger">You must choose a username</h5>
-	              <h5 id="usernameNotExist" class="text-danger">The username does not exist</h5>
-	              <input type="text" class="form-control" id="username" placeholder="Username">
-	            </div>
-	            <button id="newBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">New</button>
-	            <button id="loadBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">Load</button>
-	          </form>
-	        </div>
-	       
-      </div>
-    </div>
-  </div>
-</div>
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	      
+		        <div class="form-title text-center">
+		          <h4>Login</h4>
+		        </div>
+		        <div class="d-flex flex-column text-center">
+		          <form>
+		            <div class="form-group">
+		              <h5 id="nameTaken" class="text-danger">Username already taken</h5>
+		              <h5 id="chooseUsername" class="text-danger">You must choose a username</h5>
+		              <h5 id="usernameNotExist" class="text-danger">The username does not exist</h5>
+		              <input type="text" class="form-control" id="username" placeholder="Username">
+		            </div>
+		            <button id="newBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">New</button>
+		            <button id="loadBrute" type="button" class="btn btn-dark btn-block btn-round mt-2">Load</button>
+		          </form>
+		        </div>
+		       
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	  <div class="modal fade" id="lvlUpModal" tabindex="-1" role="dialog" aria-labelledby="lvlUpModal" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content rounded-3" style="background-color:black">
+	      <div class="modal-body text-center rounded-3" style="background-color:black">
+	      	<h1 class="text-white">Level up!</h1>
+	      	<div class="lvlUpStat">
+	      		<div id="lvlUpStat1Container">
+					<img id="lvlUpStat1" class="statsImg" src="../image/brute/stats/hp.png" >
+					<img id="lvlUpIcon" class="statsImg" src="../image/brute/stats/up.png" >
+				</div>
+				<div>
+					<img id="lvlUpStat2" class="statsImg" >
+					<img id="lvlUpIcon2" class="statsImg" src="../image/brute/stats/up.png" >
+				</div>
+			</div>
+		    <div id="lvlUpWeaponContainer" >
+				<img id="lvlUpWeapon" class="statsImg" >
+			</div>
+		       
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 </body>
 	
 </html>

@@ -208,6 +208,9 @@ document.addEventListener("death", function(e) {
 
 document.addEventListener("lvlUp", function(e) {
 	displayStats();
+	if (e.detail == player1) {
+		$("#lvlUpModal").modal('show');
+	}
 });
 
 document.addEventListener("hit", function(e) {
