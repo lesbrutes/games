@@ -69,6 +69,22 @@ canvas {
 	font-weight: bold;
 }
 
+.enemyStatImg {
+	width: 30px !important;
+	text-align: center;
+	font-weight: bold;
+}
+
+.enemyPreview {
+	width: 75px !important;
+    text-align: center;
+    margin-left: 15px;
+}
+
+.enemyStat {
+	align-self: center;
+}
+
 .line-break {
   width: 100%;
 }

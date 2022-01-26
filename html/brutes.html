@@ -12,6 +12,8 @@
 <script src="../js/brute/animation/sprite.js"></script>
 <script src="../js/brute/animation/sprites.js"></script>
 <script src="../js/brute/lvlUpHandler.js"></script>
+<script src="../js/brute/names.js"></script>
+<script src="../js/brute/enemyPicker.js"></script>
 <script src="../js/brute/xpBar.js"></script>
 <script src="../js/brute/healthBar.js"></script>
 <script src="../js/brute/hitsplat.js"></script>
@@ -66,7 +68,7 @@
 	  </div>
 	</div>
 	
-	  <div class="modal fade" id="lvlUpModal" tabindex="-1" role="dialog" aria-labelledby="lvlUpModal" aria-hidden="true">
+	<div class="modal fade" id="lvlUpModal" tabindex="-1" role="dialog" aria-labelledby="lvlUpModal" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content rounded-3" style="background-color:black">
 	      <div class="modal-body text-center rounded-3" style="background-color:black">
@@ -89,6 +91,99 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="enemyPicker" tabindex="-1" role="dialog" aria-labelledby="enemyPicker" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content rounded-3" style="background-color:black">
+	      <div class="modal-body text-center rounded-3" style="background-color:black">
+		      <div class="row">
+		      	<h1 class="text-white">Pick an enemy!</h1>
+		      	
+		      	<div class="enemy col-4 border-success rounded" data-index="0" onClick="debugger;enemyPicker.onSelect(0);">
+		      	    <h5  class="text-white col-12 name">Jonathan</h5>
+		      	    <div class="d-flex justify-content-center align-items-center">
+			      	    <div class="">
+				      		<div class="d-flex">
+								<img class="enemyStatImg " src="../image/brute/stats/hp.png" >
+								<div class="hp enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<div class="strength enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/speed.png" >
+								<div class="speed enemyStat text-white">0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/agility.png" >
+								<div class="agility enemyStat text-white">0</div>
+							</div>
+						</div>
+						<div class="">
+							<img class="enemyPreview" src="../image/brute/brutes/1/preview.png" >
+						</div>
+			      </div>
+			    </div>
+			    <div class="enemy col-4 border-success rounded" data-index="1" onClick="debugger;enemyPicker.onSelect(1);">
+		      	    <h5 class="text-white col-12 name">Benjamin</h5>
+		      	    <div class="d-flex justify-content-center align-items-center">
+			      	    <div class="">
+				      		<div class="d-flex">
+								<img class="enemyStatImg " src="../image/brute/stats/hp.png" >
+								<div class="hp enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<div class="strength enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/speed.png" >
+								<div class="speed enemyStat text-white">0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/agility.png" >
+								<div class="agility enemyStat text-white">0</div>
+							</div>
+						</div>
+						<div class="">
+							<img class="enemyPreview" src="../image/brute/brutes/1/preview.png" >
+						</div>
+			      </div>
+			    </div>
+			    <div class="enemy col-4 border-success rounded" data-index="2" onClick="debugger;enemyPicker.onSelect(2);">
+		      	    <h5  class="text-white col-12 name">Benjamin</h5>
+		      	    <div class="d-flex justify-content-center align-items-center">
+			      	    <div class="">
+				      		<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/hp.png" >
+								<div class="hp enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<div class="strength enemyStat text-white" >0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/speed.png" >
+								<div class="speed enemyStat text-white">0</div>
+							</div>
+							<div class="d-flex">
+								<img class="enemyStatImg" src="../image/brute/stats/agility.png" >
+								<div class="agility enemyStat text-white">0</div>
+							</div>
+						</div>
+						<div class="">
+							<img class="enemyPreview" src="../image/brute/brutes/1/preview.png" >
+						</div>
+			      </div>
+			    </div>
+		  <button id="startBattle" type="button" class="btn btn-dark btn-block btn-round mt-2" onClick="enemyPicker.pickEnemy();" >Start Battle!</button>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	</div>
+
 	
 </body>
 	

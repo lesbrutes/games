@@ -16,6 +16,8 @@ var hitsplat;
 var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
+var names = new Names();
+var enemyPicker = new EnemyPicker();
 var audio = new Audio('../audio/mainTrack.mp3');
 audio.loop = true;
 audio.volume = 0.05;
@@ -178,19 +180,15 @@ function awardXp(deadPlayer) {
 }
 
 function newBattle() {
-	initBackground();
+	$("#pauseBtn").click();
 	player1.reset();
-	
-	player2 = new Player(975, 350, Direction.Left);
-	while (player1.lvl > player2.lvl) {
-		lvlUpHandler.lvlUp(player2)
-	}
-	player2.reset();
-	
+	enemyPicker.openEnemyPicker(player1);
+}
+
+function startBattle()  {
+	initBackground();
 	player1.addEnemy(player2);
 	player2.addEnemy(player1);
-	
-	
 	
 	chooseStartingPlayer();
 	startingPlayer.walkingToEnemy();

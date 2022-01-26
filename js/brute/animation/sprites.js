@@ -27,4 +27,4 @@ class PlayerSprites {
         this.Death = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/dying-", 24, [],[],[],[],[],width, height, 0.25, 0.4, player);
         this.Block = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/block-", 11, [],[],[],[],[],width, height, 0.25, 0.2, player);
     }
-}4
+}
