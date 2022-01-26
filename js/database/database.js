@@ -123,14 +123,14 @@ class BruteJsonConverter {
 		 	"speed": ${player.speed},
 		 	"agility": ${player.agility},
 		 	"weapons": ${weaponJson},
-		 	"spriteType": 1
+		 	"spriteType": ${player.spriteType}
 		}`;
 	}
 	
 	fromJson(playerString) {
 		var jsonObject = JSON.parse(playerString);
 		
-		var player = new Player(150, 350, Direction.Right); 
+		var player = new Player(150, 350, Direction.Right, jsonObject.spriteType); 
 		
 		player.name = jsonObject.name;
 		player.lvl = jsonObject.lvl;

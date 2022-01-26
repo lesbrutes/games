@@ -5,7 +5,7 @@ var startPositionRightX= 150;
 var startPositionRightY = 350;
 
 class Player {
-    constructor(initialX, initialY, startDirection) {
+    constructor(initialX, initialY, startDirection, spriteType) {
 	
         this.sprites;
         this.currentSprite;
@@ -18,6 +18,7 @@ class Player {
         this.direction = this.startDirection;
         this.status = "test";
         this.name = "Enemy";
+        this.spriteType = spriteType;
 
 
 		this.lvl = 1
@@ -358,7 +359,8 @@ class Player {
 	}
 	
 	initSprites() {
-		this.sprites = new MinotaureSprites(this);
+		this.spriteType = this.spriteType != null ? this.spriteType : randomIntFromInterval(1,2);
+		this.sprites = new PlayerSprites(this);
         this.currentSprite = this.sprites.Idle;
         //this.direction = Direction.Left;
 	}

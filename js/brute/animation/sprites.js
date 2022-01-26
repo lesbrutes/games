@@ -1,4 +1,4 @@
-class MinotaureSprites {
+class PlayerSprites {
     constructor(player) {
 		var width = 720;
 		var height = 490;
@@ -21,10 +21,10 @@ class MinotaureSprites {
 		var idleAttachLeftX = [70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70];
 		var idleAttachLeftY = [115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115];
 
-        this.Attack = new PlayerSprite("../image/brute/brutes/minotaure/minotaure-attack-", 24, attackWeaponAngles,attackAttachX,attackAttachY, attackAttachLeftX,attackAttachLeftY,width, height, 0.25, 0.4, player);
-        this.Idle = new PlayerSprite("../image/brute/brutes/minotaure/minotaure-idle-", 24, idleWeaponAngles,idleAttachX,idleAttachY,idleAttachLeftX,idleAttachLeftY,  width, height, 0.25, 0.4, player);
-        this.Walk = new PlayerSprite("../image/brute/brutes/minotaure/minotaure-walking-", 24, walkWeaponAngles,walkAttachX,walkAttachY,walkAttachLeftX,walkAttachLeftY,width, height, 0.25, 0.4, player);
-        this.Death = new PlayerSprite("../image/brute/brutes/minotaure/minotaure-dying-", 24, [],[],[],[],[],width, height, 0.25, 0.4, player);
-        this.Block = new PlayerSprite("../image/brute/brutes/minotaure/minotaure-block-", 11, [],[],[],[],[],width, height, 0.25, 0.2, player);
+        this.Attack = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/attack-", 24, attackWeaponAngles,attackAttachX,attackAttachY, attackAttachLeftX,attackAttachLeftY,width, height, 0.25, 0.4, player);
+        this.Idle = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/idle-", 24, idleWeaponAngles,idleAttachX,idleAttachY,idleAttachLeftX,idleAttachLeftY,  width, height, 0.25, 0.4, player);
+        this.Walk = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/walking-", 24, walkWeaponAngles,walkAttachX,walkAttachY,walkAttachLeftX,walkAttachLeftY,width, height, 0.25, 0.4, player);
+        this.Death = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/dying-", 24, [],[],[],[],[],width, height, 0.25, 0.4, player);
+        this.Block = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/block-", 11, [],[],[],[],[],width, height, 0.25, 0.2, player);
     }
-}
+}4
