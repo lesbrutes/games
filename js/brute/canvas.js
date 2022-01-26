@@ -47,8 +47,9 @@ function initCanvas() {
 }
 
 function initBackground() {
+	var arenaIndex = randomIntFromInterval(1,4);
 	background = new Image();
-	background.src = "../image/brute/background.png";
+	background.src = "../image/brute/arena/arena"+arenaIndex+".png";
 }
 
 function initHitsplat() {
@@ -87,7 +88,16 @@ function drawHitsplats() {
 }
 
 function drawBackground()  {
-	context.drawImage(background, 0, 0);
+   var img = background;
+   var canvas = context.canvas ;
+   var hRatio = canvas.width  / img.width    ;
+   var vRatio =  canvas.height / img.height  ;
+   var ratio  = Math.min ( hRatio, vRatio );
+   var centerShift_x = ( canvas.width - img.width*ratio ) / 2;
+   var centerShift_y = ( canvas.height - img.height*ratio ) / 2;  
+   context.clearRect(0,0,canvas.width, canvas.height);
+   context.drawImage(img, 0,0, img.width, img.height,
+                      centerShift_x,centerShift_y,img.width*ratio, img.height*ratio);  
 }
 
 function drawHealthBars() {
@@ -168,6 +178,7 @@ function awardXp(deadPlayer) {
 }
 
 function newBattle() {
+	initBackground();
 	player1.reset();
 	
 	player2 = new Player(975, 350, Direction.Left);
