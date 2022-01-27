@@ -20,6 +20,7 @@ class LvlUpHandler {
 		this._giveWeaponIfPossible(player);
 
 		if (player == player1) {
+			$('#lvlUpModal').modal({ backdrop: 'static', keyboard: false })
 			$("#lvlUpModal").modal('show');
 		} else {
 			this.selectedChoice = this._getRandomChoice();
@@ -41,6 +42,10 @@ class LvlUpHandler {
 			this._removeCurrentSelectedBorder();
 			$("#lvlUpModal").modal('hide');
 			displayStats();
+			
+			if (this.player == player1) {
+				database.updateBrute(player1);
+			}
 		}
 	}
 	

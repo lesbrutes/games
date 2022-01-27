@@ -13,6 +13,9 @@ class EnemyPicker {
 	}
     
     openEnemyPicker(player) {
+		var enemyDivs = $('.enemy');
+		enemyDivs.removeClass("border");
+		
 		this.selectedIndex = -1;
 		this._generateEnemies(player);
 		this._displayEnemyPicker();
@@ -49,6 +52,7 @@ class EnemyPicker {
 	}
 	
 	_displayEnemyPicker() {
+		$('#enemyPicker').modal({ backdrop: 'static', keyboard: false })
 		$("#enemyPicker").modal('show');
 	}
 	

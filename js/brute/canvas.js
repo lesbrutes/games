@@ -215,10 +215,6 @@ document.addEventListener("death", function(e) {
 	setTimeout(awardXp.bind(null,e.detail), 500) 
 });
 
-document.addEventListener("lvlUp", function(e) {
-	displayStats();
-});
-
 document.addEventListener("hit", function(e) {
 	hitsplats.push(new Hitsplat(hitsplat, e.detail.damage, e.detail.player.positionX, e.detail.player.positionY))
 });
