@@ -107,7 +107,6 @@ class BruteJsonConverter {
   }
   
 	toJson(player) {
-		debugger;
 		var weaponCodes = player.weapons.map(function(weapon) { return weapon.code; });
 		var weaponJson = JSON.stringify(weaponCodes);
 		return `{

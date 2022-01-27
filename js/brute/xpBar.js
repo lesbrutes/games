@@ -9,7 +9,6 @@ class XpBar {
     this.maxWidth = 300;
     this.color = "beige";
     this.baseXp = 20;
-    this.lvlUpHandler = new LvlUpHandler();
   }
 
   show(context) {
@@ -51,7 +50,7 @@ class XpBar {
   checkLvlUp() {
 	if (this.player.xp >= this.getRequiredXp()) {
 		this.player.xp = 0;
-		this.lvlUpHandler.lvlUp(this.player);
+		lvlUpHandler.lvlUp(this.player);
 	}
 	
   }
