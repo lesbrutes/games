@@ -24,14 +24,14 @@
 <body>
     <div id="player1" class="stats">
 	    <div><img src="../image/brute/stats/hp.png" alt="hp"><div class="hp stat"></div></div>
-	    <div><img src="../image/brute/stats/strenght.png" alt="strenght"><div class="strenght stat"></div></div>
+	    <div><img src="../image/brute/stats/strength.png" alt="strenght"><div class="strength stat"></div></div>
 	    <div><img src="../image/brute/stats/speed.png" alt="speed"><div class=" speed stat"></div></div>
 	    <div><img src="../image/brute/stats/agility.png" alt="agility"><div class="agility stat"></div></div>
     </div>
 	<canvas id="canvas"></canvas>
     <div id="player2" class="stats">
 	    <div><div class="hp stat"></div><img src="../image/brute/stats/hp.png" alt="hp"></div>
-	    <div><div class="strenght stat"></div><img src="../image/brute/stats/strenght.png" alt="strenght"></div>
+	    <div><div class="strenght stat"></div><img src="../image/brute/stats/strength.png" alt="strength"></div>
 	    <div><div class="speed stat"></div><img src="../image/brute/stats/speed.png" alt="speed"></div>
 	    <div><div class="agility stat"></div><img src="../image/brute/stats/agility.png" alt="agility"></div>
     </div>
@@ -78,15 +78,16 @@
 					<img id="lvlUpStat1" class="statsImg" src="../image/brute/stats/hp.png" >
 					<img id="lvlUpIcon" class="statsImg" src="../image/brute/stats/up.png" >
 				</div>
-				<div>
-					<img id="lvlUpStat2" class="statsImg" >
-					<img id="lvlUpIcon2" class="statsImg" src="../image/brute/stats/up.png" >
-				</div>
 			</div>
 		    <div id="lvlUpWeaponContainer" >
 				<img id="lvlUpWeapon" class="statsImg" >
 			</div>
-		       
+			<div>
+			<h5 class="text-white col-12">Pick one: </h5>
+					<img id="lvlUpStat2" class="statsImg statChoice border-success rounded" onClick="lvlUpHandler.onSelect(0, this);" >
+					<img id="lvlUpStat3" class="statsImg statChoice border-success rounded" onClick="lvlUpHandler.onSelect(1, this);">
+				</div>
+		    <button id="lvlUpChoice" type="button" class="btn btn-dark btn-block btn-round mt-2" onClick="lvlUpHandler.pickChoice();" >Pick!</button>
 	      </div>
 	    </div>
 	  </div>
@@ -99,8 +100,8 @@
 		      <div class="row">
 		      	<h1 class="text-white">Pick an enemy!</h1>
 		      	
-		      	<div class="enemy col-4 border-success rounded" data-index="0" onClick="debugger;enemyPicker.onSelect(0);">
-		      	    <h5  class="text-white col-12 name">Jonathan</h5>
+		      	<div class="enemy col-4 border-success rounded" data-index="0" onClick="enemyPicker.onSelect(0);">
+		      	    <h5  class="text-white col-12 name">None</h5>
 		      	    <div class="d-flex justify-content-center align-items-center">
 			      	    <div class="">
 				      		<div class="d-flex">
@@ -108,7 +109,7 @@
 								<div class="hp enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">
-								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<img class="enemyStatImg" src="../image/brute/stats/strength.png" >
 								<div class="strength enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">
@@ -125,8 +126,8 @@
 						</div>
 			      </div>
 			    </div>
-			    <div class="enemy col-4 border-success rounded" data-index="1" onClick="debugger;enemyPicker.onSelect(1);">
-		      	    <h5 class="text-white col-12 name">Benjamin</h5>
+			    <div class="enemy col-4 border-success rounded" data-index="1" onClick="enemyPicker.onSelect(1);">
+		      	    <h5 class="text-white col-12 name">None</h5>
 		      	    <div class="d-flex justify-content-center align-items-center">
 			      	    <div class="">
 				      		<div class="d-flex">
@@ -134,7 +135,7 @@
 								<div class="hp enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">
-								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<img class="enemyStatImg" src="../image/brute/stats/strength.png" >
 								<div class="strength enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">
@@ -151,8 +152,8 @@
 						</div>
 			      </div>
 			    </div>
-			    <div class="enemy col-4 border-success rounded" data-index="2" onClick="debugger;enemyPicker.onSelect(2);">
-		      	    <h5  class="text-white col-12 name">Benjamin</h5>
+			    <div class="enemy col-4 border-success rounded" data-index="2" onClick="enemyPicker.onSelect(2);">
+		      	    <h5  class="text-white col-12 name">None</h5>
 		      	    <div class="d-flex justify-content-center align-items-center">
 			      	    <div class="">
 				      		<div class="d-flex">
@@ -160,7 +161,7 @@
 								<div class="hp enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">
-								<img class="enemyStatImg" src="../image/brute/stats/strenght.png" >
+								<img class="enemyStatImg" src="../image/brute/stats/strength.png" >
 								<div class="strength enemyStat text-white" >0</div>
 							</div>
 							<div class="d-flex">

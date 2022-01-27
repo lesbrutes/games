@@ -42,8 +42,7 @@ class EnemyPicker {
 		
 		enemyDiv.find('.name').html(this.enemies[index].name);
 		enemyDiv.find('.hp').html(this.enemies[index].hp);
-		console.log("Enemy str = " + this.enemies[index].strenght);
-		enemyDiv.find('.strength').html(this.enemies[index].strenght);
+		enemyDiv.find('.strength').html(this.enemies[index].strength);
 		enemyDiv.find('.speed').html(this.enemies[index].speed);
 		enemyDiv.find('.agility').html(this.enemies[index].agility);
 		enemyDiv.find('.enemyPreview').attr("src","../image/brute/brutes/"+this.enemies[index].spriteType+"/preview.png");

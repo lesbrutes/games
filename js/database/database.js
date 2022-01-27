@@ -116,7 +116,7 @@ class BruteJsonConverter {
 		 	"xp": ${player.xp},
 		 	"totalXp": ${player.totalXp},
 		 	"hp": ${player.hp},
-		 	"strenght": ${player.strenght},
+		 	"strength": ${player.strength},
 		 	"defence": ${player.defence},
 		 	"magic": ${player.magic},
 		 	"range": ${player.range},
@@ -137,7 +137,7 @@ class BruteJsonConverter {
 		player.xp = jsonObject.xp;
 		player.totalXp = jsonObject.totalXp;
 		player.setHp(jsonObject.hp);
-		player.strenght = jsonObject.strenght;
+		player.strength = jsonObject.strength;
 		player.defence = jsonObject.defence;
 		player.magic = jsonObject.magic;
 		player.range = jsonObject.range;

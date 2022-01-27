@@ -145,7 +145,7 @@ function updatePosition(player) {
 function displayStats() {
 	if (player1 != null) {
 		$("#player1 .hp").text(player1.hp);
-		$("#player1 .strenght").text(player1.strenght);
+		$("#player1 .strength").text(player1.strength);
 		$("#player1 .magic").text(player1.magic);
 		$("#player1 .range").text(player1.range);
 		$("#player1 .speed").text(player1.speed);
@@ -153,7 +153,7 @@ function displayStats() {
 	}
 	if (player2 != null) {
 		$("#player2 .hp").text(player2.hp);
-		$("#player2 .strenght").text(player2.strenght);
+		$("#player2 .strength").text(player2.strength);
 		$("#player2 .magic").text(player2.magic);
 		$("#player2 .range").text(player2.range);
 		$("#player2 .speed").text(player2.speed);
@@ -217,9 +217,6 @@ document.addEventListener("death", function(e) {
 
 document.addEventListener("lvlUp", function(e) {
 	displayStats();
-	if (e.detail == player1) {
-		$("#lvlUpModal").modal('show');
-	}
 });
 
 document.addEventListener("hit", function(e) {

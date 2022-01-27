@@ -26,7 +26,7 @@ class Player {
         this.totalXp = 0;
 
         this.hp = 3;
-        this.strenght = 1;
+        this.strength = 1;
         this.defence = 1;
         this.magic = 1;
         this.range = 1;
@@ -173,7 +173,7 @@ class Player {
 		var randomInt = randomIntFromInterval(1,100);
 
 		var baseDamage = this.activeWeapon != null ? this.activeWeapon.damage : 1;
-		var statDiff = Math.max(this.strenght - this.enemy.defence, 0);
+		var statDiff = Math.max(this.strength - this.enemy.defence, 0);
 		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
