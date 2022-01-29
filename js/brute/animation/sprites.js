@@ -21,10 +21,22 @@ class PlayerSprites {
 		var idleAttachLeftX = [70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70];
 		var idleAttachLeftY = [115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115,115];
 
-        this.Attack = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/attack-", 24, attackWeaponAngles,attackAttachX,attackAttachY, attackAttachLeftX,attackAttachLeftY,width, height, 0.25, 0.4, player);
-        this.Idle = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/idle-", 24, idleWeaponAngles,idleAttachX,idleAttachY,idleAttachLeftX,idleAttachLeftY,  width, height, 0.25, 0.4, player);
-        this.Walk = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/walking-", 24, walkWeaponAngles,walkAttachX,walkAttachY,walkAttachLeftX,walkAttachLeftY,width, height, 0.25, 0.4, player);
-        this.Death = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/dying-", 24, [],[],[],[],[],width, height, 0.25, 0.4, player);
-        this.Block = new PlayerSprite("../image/brute/brutes/"+player.spriteType+"/block-", 11, [],[],[],[],[],width, height, 0.25, 0.2, player);
+		var baseUrl = "../image/brute/brutes/"+player.spriteType.toString();
+        this.Attack = new PlayerSprite(baseUrl+"/attack-", 24, attackWeaponAngles,attackAttachX,attackAttachY, attackAttachLeftX,attackAttachLeftY,width, height, 0.25, 0.4, player);
+        this.Idle = new PlayerSprite(baseUrl+"/idle-", 24, idleWeaponAngles,idleAttachX,idleAttachY,idleAttachLeftX,idleAttachLeftY,  width, height, 0.25, 0.4, player);
+        this.Walk = new PlayerSprite(baseUrl+"/walking-", 24, walkWeaponAngles,walkAttachX,walkAttachY,walkAttachLeftX,walkAttachLeftY,width, height, 0.25, 0.4, player);
+        this.Death = new PlayerSprite(baseUrl+"/dying-", 24, [],[],[],[],[],width, height, 0.25, 0.4, player);
+        this.Block = new PlayerSprite(baseUrl+"/block-", 11, [],[],[],[],[],width, height, 0.25, 0.2, player);
     }
+}
+
+class SpriteTypes {
+  // Create new instances of the same class as static attributes
+  static MINOTAURE1 = new SpriteTypes(1)
+  static MINOTAURE2 = new SpriteTypes(2)
+
+  constructor(type) {
+    this.type = type
+  }
+  
 }

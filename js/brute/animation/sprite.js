@@ -1,9 +1,9 @@
 class PlayerSprite {
     constructor(source, totalSteps, weaponAngles, attachPointsX, attachPointsY, attachPointsLeftX, attachPointsLeftY, width, height, scale, speed, player) {
 
+		this.images = new Map();
         this.img = new Image();
         this.source = source;
-        this.img.classList = 
         this.step = 0;
         this.width = width;
         this.height = height;
@@ -16,10 +16,20 @@ class PlayerSprite {
         this.scale = scale;
         this.speed = speed;
         this.player = player;
+        this.init();
+    }
+    
+    init() {
+		var imgRight = new Image();
+		imgRight.src = this.source + Direction.Right.name + ".png";
+		this.images.set(Direction.Right.name, imgRight);
+		var imgLeft = new Image();
+		imgLeft.src = this.source + Direction.Left.name + ".png";
+		this.images.set(Direction.Left.name, imgLeft);
     }
     
     updateDirection() {
-		this.img.src = this.source + this.player.direction.name + ".png";
+		this.img = this.images.get(this.player.direction.name);
 	}
 	
 	show(context) {

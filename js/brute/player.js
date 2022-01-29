@@ -367,7 +367,6 @@ class Player {
 	
 }
 
-//Season enums can be grouped as static members of a class
 class Direction {
   // Create new instances of the same class as static attributes
   static Left = new Direction("LEFT")

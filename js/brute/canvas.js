@@ -119,6 +119,13 @@ function drawXpBar() {
 	}
 }
 
+function loadPlayerImages(player) {
+	SpriteTypes
+	player.current
+	drawPlayer(player)
+}
+
+
 function updateSprites() {
 	updateSprite(player1);
 	updateSprite(player2);
