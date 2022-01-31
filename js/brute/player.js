@@ -149,7 +149,7 @@ class Player {
     
     doesCounterSucceed() {
 		var statDiff = Math.max(this.speed - this.enemy.agility, 0);
-	    var odds = Math.min(10+(5*statDiff), 50); 
+	    var odds = Math.min(10+(5*statDiff), 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
@@ -163,7 +163,7 @@ class Player {
 	
 	doesDodgeSucceed() {
 		var statDiff = Math.max(this.agility - this.enemy.speed, 0);
-	    var odds = Math.min(10+(10*statDiff), 50); 
+	    var odds = Math.min(10+(10*statDiff), 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;

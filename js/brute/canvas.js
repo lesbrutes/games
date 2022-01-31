@@ -1,4 +1,5 @@
 "use strict";
+
 //var width = 2000; 
 //var height = 1000;
 var width = 1228; 
@@ -59,18 +60,29 @@ function initHitsplat() {
 	hitsplat.src = "../image/brute/hitsplat.png";
 }
 
+var loops = 0;
+var tick_rate = 60;
+var skip_ticks = 1000 / this.tick_rate;
+var max_frame_skip = 1;
+var next_game_tick = performance.now();
 function gameLoop(timeStamp){
 	if(paused){return;}
 	
-	drawBackground();
+	loops = 0;
+	console.log(performance.now() > next_game_tick && loops < max_frame_skip);
+    while (performance.now() > next_game_tick && loops < max_frame_skip){
+	    updatePositions();
+	    updateSprites();
+        next_game_tick += skip_ticks;
+        loops++;
+    }
+    
+    drawBackground();
 	drawHealthBars();
 	drawXpBar();
 	drawPlayer(player1);
 	drawPlayer(player2);
 	drawHitsplats();
-	
-	updatePositions();
-	updateSprites();
 	
     // Keep requesting new frames
     window.requestAnimationFrame(gameLoop);
