@@ -1,6 +1,9 @@
 class Picojo {
   constructor() {
 	this.game = new Game();
+	
+	this.game.players = new Set(JSON.parse(localStorage.getItem("players")));
+	this.game.customPhrases = new Set(JSON.parse(localStorage.getItem("phrases")));
   }
   
   playerPage() {
@@ -35,8 +38,8 @@ class Picojo {
 		this.game.addPlayer(playerInput.value);
 		this.displayPlayers();
 		playerInput.value="";
+		localStorage.setItem('players', JSON.stringify(Array.from(this.game.players)));
 	}
-
   }
   
   addPlayerInDisplay(player) {
@@ -80,8 +83,8 @@ class Picojo {
 		this.game.addCustomPhrase(phraseInput.value);
 		this.displayPhrases();
 		phraseInput.value="";
+		localStorage.setItem('phrases', JSON.stringify(Array.from(this.game.customPhrases)));
 	}
-
   }
   
   addPhraseInDisplay(phrase) {
