@@ -11,17 +11,20 @@ class Phrase {
 	
 	formattedQuestion = formattedQuestion.replace(this.SIP_INDICATOR , this.sips);
 	
-	debugger;
+	var playersCopy = new Set(players);
 	while(formattedQuestion.includes(this.PLAYER_INDICATOR)) {
-		formattedQuestion = formattedQuestion.replace(this.PLAYER_INDICATOR, this.getRandomPlayer(players));
+		formattedQuestion = formattedQuestion.replace(this.PLAYER_INDICATOR, this.getRandomPlayer(playersCopy));
 	}
 	
 	return formattedQuestion;
   }
   
-  getRandomPlayer(players) {
-	var randomIndex = Math.floor(Math.random() * players.size);
-	return Array.from(players)[randomIndex];
+  getRandomPlayer(playersCopy) {
+	var randomIndex = Math.floor(Math.random() * playersCopy.size);
+	var playerName = Array.from(playersCopy)[randomIndex];
+	playersCopy.delete(playerName);
+	
+	return playerName;
 }
   
   getNumberOfPlayersRequired() {
