@@ -69,7 +69,7 @@ function gameLoop(timeStamp){
 	if(paused){return;}
 	
 	loops = 0;
-	console.log(performance.now() > next_game_tick && loops < max_frame_skip);
+	//console.log(performance.now() > next_game_tick && loops < max_frame_skip);
     while (performance.now() > next_game_tick && loops < max_frame_skip){
 	    updatePositions();
 	    updateSprites();
