@@ -34,12 +34,22 @@ class PlayerSprite {
 	
 	show(context) {
 		this.updateDirection();
+		this.showActiveWeapon();
+		this.showActiveSpell();
+	    this.showPlayer(context);
+    }
+    
+    showActiveWeapon() {
 		if (this.player.activeWeapon != null && this.player.status != "dying") {
 			this.player.activeWeapon.sprite.show(context, this.weaponAngles[Math.floor(this.player.spriteStep)],this.attachPointsX[Math.floor(this.player.spriteStep)],this.attachPointsY[Math.floor(this.player.spriteStep)],this.attachPointsLeftX[Math.floor(this.player.spriteStep)],this.attachPointsLeftY[Math.floor(this.player.spriteStep)], this.player);
 		}
-	    this.showPlayer(context);
-
-    }
+	}
+	
+	showActiveSpell() {
+		if (this.player.activeSpell != null && this.player.status == "castingSpell") {
+			this.player.activeSpell.sprite.show(context, this.player.activeSpell.positionX, this.player.activeSpell.positionY);
+		}
+	}
     
     showPlayer(context) {
 		var s = this.scale; //Facteur d'aggrandissement
@@ -68,10 +78,10 @@ class PlayerSprite {
 
 class WeaponSprite {
     constructor(source) {
-
         this.img = new Image();
         this.img.src = source;
-        this.scale = 0.3;
+	
+        this.scale =  0.3;
         this.width = 280*this.scale;
         this.height = 100*this.scale;
         
@@ -98,6 +108,32 @@ class WeaponSprite {
 		context.drawImage(this.img, 0, 0, this.width, this.height);
 		context.rotate(-angleInRadians);
 		context.translate(-x, -y);
+
+    }
+}
+
+class SpellSprite {
+    constructor(source) {
+        this.img = new Image();
+        this.img.src = source;
+	
+        this.scale = 1;
+        this.width = 64*this.scale;
+        this.height = 64*this.scale;
+        this.angle = 0;
+        
+        this.toRadians = Math.PI/180; 
+    }
+    
+    show(context, positionX, positionY) {
+	    this.angle += 7;
+	    var angleInRadians = this.angle*this.toRadians;
+
+		context.translate(positionX, positionY);
+		context.rotate(angleInRadians);
+		context.drawImage(this.img, -this.width/2,-this.height/2, this.width, this.height);
+		context.rotate(-angleInRadians);
+		context.translate(-positionX, -positionY);
 
     }
 }

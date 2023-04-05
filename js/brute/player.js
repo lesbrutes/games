@@ -37,6 +37,10 @@ class Player {
         this.weapons = [];
         this.usedWeapons = [];
         
+        this.activeSpell = null;
+        this.spells = [];
+        this.usedSpells = [];
+        
         this.healthBar;
         this.enemy;
 
@@ -53,6 +57,8 @@ class Player {
         this.healthBar.reset();
         this.activeWeapon = null;
         this.usedWeapons = [];
+        this.activeSpell = null;
+        this.usedSpells = [];
 	}
     
     dealDamage() {
@@ -70,18 +76,24 @@ class Player {
     };
     
     idlingAndEndTurn() {
+		if (this.status != "castingSpell") {
+			this.tryToRemoveWeapon();
+		}
         this.idling();
         this.notifyEndOfTurn();
-        this.tryToRemoveWeapon();
     };
 
     
    walkingToEnemy() {
-        this.spriteStep = 0;
-        this.currentSprite = this.sprites.Walk;
-        this.status = "walkingToEnemy";
-        console.log("walkingToEnemy");
-        this.tryToEquipWeapon();
+		if (this.tryCastingSpell()) {
+			this.castSpell();
+		} else {
+			this.spriteStep = 0;
+	        this.currentSprite = this.sprites.Walk;
+	        this.status = "walkingToEnemy";
+	        console.log("walkingToEnemy");
+	        this.tryToEquipWeapon();
+		}
     };
     
    dying() {
@@ -117,6 +129,16 @@ class Player {
         this.currentSprite = this.sprites.Walk;
         this.status = "dodging";
         console.log("dodging");
+	}
+	
+	castSpell() {
+		this.spriteStep = 0;
+        this.currentSprite = this.sprites.Idle;
+        this.status = "castingSpell";
+        console.log("castingSpell");
+        if (this.activeSpell != null) {
+			this.activeSpell.positionX = this.positionX + (this.direction == Direction.Right ? 50 : 0);
+		}
 	}
     
     tryAvoiding() {
@@ -170,10 +192,34 @@ class Player {
 	}
 	
 	calculateDamage() {
+		if (this.activeSpell != null) {
+			return this.calculateSpellDamage();
+		} else {
+			return this.calculateWeaponDamage();
+		}
+	}
+	
+	calculateWeaponDamage() {
 		var randomInt = randomIntFromInterval(1,100);
 
 		var baseDamage = this.activeWeapon != null ? this.activeWeapon.damage : 1;
 		var statDiff = Math.max(this.strength - this.enemy.defence, 0);
+		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
+		var restant = (damage % Math.floor(damage));
+		var odds = restant * 100;
+		
+		if (odds >= randomInt) {
+			return Math.ceil(damage);
+		} else  {
+			return Math.floor(damage);
+		}
+	}
+	
+	calculateSpellDamage() {
+		var randomInt = randomIntFromInterval(1,100);
+				
+		var baseDamage = this.activeSpell != null ? this.activeSpell.damage : 1;
+		var statDiff = Math.max(this.magic - this.enemy.defence, 0);
 		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
@@ -209,20 +255,31 @@ class Player {
 	getAvailableWeapons() {
 		return this.weapons.filter(weapon => !this.usedWeapons.includes(weapon));
 	}
+	
+	getAvailableSpells() {
+		return this.spells.filter(spell => !this.usedSpells.includes(spell));
+	}
+	
+	castRandomSpell() {
+		var availableSpells = this.getAvailableSpells();
+		var randomIndex = randomIntFromInterval(0, availableSpells.length-1);
+		this.activeSpell = availableSpells[randomIndex];
+		this.usedSpells.push(availableSpells[randomIndex]);
+	}
+	
+	tryCastingSpell() {
+		var availableSpells = this.getAvailableSpells();
+		if (this.activeSpell == null && availableSpells.length > 0) {
+			var randomInt = randomIntFromInterval(1,100);
+			if (true) {//randomInt >= 50//
+                this.castRandomSpell();
+                return true;
+			}
+		}
+		return false;
+	}
     
    updateSpriteStep() {
-	
-		//Sprite debug
-//		if (this.status == "test"){
-//			var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
-//		    this.spriteStep += stepSpeed;
-//		    if (this.spriteStep >= this.currentSprite.totalSteps) { 
-//		        this.spriteStep -= this.currentSprite.totalSteps;
-//		    }
-//		    //this.spriteStep = 24;
-//		    return;
-//		}
-	
 	
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
 			this.spriteStep = this.currentSprite.totalSteps;
@@ -242,10 +299,24 @@ class Player {
 			this.enemy.goHomeAfterDodging();
 		}else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
 			this.enemy.tryAvoiding();
+		}else if (this.status == "castingSpell" && this.activeSpell != null && this.isPastEnemy(this.activeSpell.positionX)) {
+			debugger;
+			this.dealDamage();
+			this.activeSpell = null;
+			this.idlingAndEndTurn();
 		}
 	};
+	
+	isPastEnemy(position) {
+	   if (this.direction == Direction.Left) {
+	        return position <= this.enemy.positionX-100;
+	    } else {
+	        return position >= this.enemy.positionX+100;
+	    }
+	}
 
    updatePosition() {
+		this.updateSpellPosition();
         if (this.currentSprite != this.sprites.Walk) {
             return;
         }
@@ -277,6 +348,17 @@ class Player {
             }
         }
     };
+    
+    updateSpellPosition() {
+	    var spellTravelSpeed = 15;
+		if (this.status == "castingSpell" &&  this.activeSpell != null) {
+			 if (this.direction == Direction.Left) {
+                this.activeSpell.positionX -= spellTravelSpeed;
+            } else {
+                this.activeSpell.positionX += spellTravelSpeed;
+            }
+        }
+	}
     
     getStepSize() {
 		if (this.status == "dodging" || this.status == "goingHome") {

@@ -184,6 +184,10 @@ class BruteJsonConverter {
 	toJson(player) {
 		var weaponCodes = player.weapons.map(function(weapon) { return weapon.code; });
 		var weaponJson = JSON.stringify(weaponCodes);
+		
+		var spellCodes = player.spells.map(function(spell) { return spell.code; });
+		var spellJson = JSON.stringify(spellCodes);
+		
 		return `{
 			"name": "${player.name}",
 		 	"lvl": ${player.lvl},
@@ -197,6 +201,7 @@ class BruteJsonConverter {
 		 	"speed": ${player.speed},
 		 	"agility": ${player.agility},
 		 	"weapons": ${weaponJson},
+		 	"spells": ${spellJson},
 		 	"spriteType": ${player.spriteType}
 		}`;
 	}
@@ -225,6 +230,11 @@ class BruteJsonConverter {
 		if (jsonObject.weapons != null) {
 			jsonObject.weapons.forEach(weaponCode => player.weapons.push(weapons.getWeaponByCode(weaponCode)));
 		}
+		if (jsonObject.spells != null) {
+			jsonObject.spells.forEach(spellCode => player.spells.push(spells.getSpellByCode(spellCode)));
+		}
+		
+		debugger;
 		
 		return player;
 	}

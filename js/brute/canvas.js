@@ -17,6 +17,7 @@ var hitsplat;
 var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
+var spells = new Spells();
 var names = new Names();
 var enemyPicker = new EnemyPicker();
 var audio = new Audio('../audio/mainTrack.mp3');
