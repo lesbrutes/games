@@ -21,42 +21,52 @@ class Database {
   
 	createBrute(player, onSuccessCallback, onErrorCallback) {
 		var db = this;
-		this.validateToken().then(function(){
-			var playerJsonString = db.bruteConverter.toJson(player);
-			var playerJsonObject = JSON.parse(playerJsonString);
-			var myUrl = `${db.url}/action/insertOne`;		
-			
-			var newData = JSON.stringify({
-			    "collection": "brute",
-			    "database": "lesbrutes",
-			    "dataSource": "LesBrutesCluster",
-			    "document": playerJsonObject
-			});
-			$.ajax({ url: myUrl, 
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: 'Bearer '+ db.getToken()
-				},
-		        data: newData, 
-		        datatType: 'application/json', 
-		        contentType: "application/json",
-		        type: 'POST',
-		        success: function(data) {
-				    console.log('Create was performed.');
-				    if (onSuccessCallback != null) {
-						onSuccessCallback(player);
-					}
-				}.bind(this), 
-				error: function(data) {
-				    console.log('Create failed');
-				    if (onErrorCallback != null) {
-						onErrorCallback();
-					}
-				}.bind(this),
-		    });
-		}).catch(function(){
-			
-		})
+		this.validateUser(player.name).then(function(exist) {
+			if (exist) {
+				console.log("User already exists (Promise then)");	
+				onErrorCallback();
+				return;
+			}
+			db.validateToken().then(function(){
+				var playerJsonString = db.bruteConverter.toJson(player);
+				var playerJsonObject = JSON.parse(playerJsonString);
+				var myUrl = `${db.url}/action/insertOne`;		
+				
+				var newData = JSON.stringify({
+				    "collection": "brute",
+				    "database": "lesbrutes",
+				    "dataSource": "LesBrutesCluster",
+				    "document": playerJsonObject
+				});
+				$.ajax({ url: myUrl, 
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: 'Bearer '+ db.getToken()
+					},
+			        data: newData, 
+			        datatType: 'application/json', 
+			        contentType: "application/json",
+			        type: 'POST',
+			        success: function(data) {
+					    console.log('Create was performed.');
+					    if (onSuccessCallback != null) {
+							onSuccessCallback(player);
+						}
+					}.bind(this), 
+					error: function(data) {
+					    console.log('Create failed');
+					    if (onErrorCallback != null) {
+							onErrorCallback();
+						}
+					}.bind(this),
+			    });
+			}).catch(function(){
+				
+			})
+		}).catch(function(err){
+			console.log("User already exists (Promise catch): " + err);	
+			onErrorCallback();
+		});
 	}
 	
 	loadBrute(playerName, onSuccessCallback, onErrorCallback) {
@@ -108,10 +118,8 @@ class Database {
 	}
 	
 	updateBrute(player) {
-		debugger;
 		var db = this;
 		this.validateToken().then(function(){
-			debugger;
 			var myUrl = `${db.url}/action/replaceOne`
 			var playerJsonString = db.bruteConverter.toJson(player);
 			var playerJsonObject = JSON.parse(playerJsonString);
@@ -145,6 +153,48 @@ class Database {
 			console.log("Update promise error: " + err);
 		})
 
+	}
+	
+	validateUser(playerName) {
+		var db = this;
+		return new Promise(function(resolve, reject){
+			db.userExist(playerName, resolve, reject, db)
+		})
+	}
+	
+	
+	userExist(playerName, resolve, reject, db) {
+		this.validateToken().then(function(){
+			var searchData = JSON.stringify({
+			    "collection": "brute",
+			    "database": "lesbrutes",
+			    "dataSource": "LesBrutesCluster",
+			    "filter": { "name": playerName },
+			    "limit": 1
+			});
+			
+			var myUrl = `${db.url}/action/find`
+			
+				$.ajax({ url: myUrl,
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: 'Bearer '+ db.getToken()
+					},
+					data: searchData,
+			        type: 'POST',
+			        success: function(data) {
+					    if (data == null || data.documents == null || data.documents.length > 0) {
+							resolve(true);
+						}  else {
+							resolve(false);
+						}
+					}.bind(this),
+					error : function(data) {
+					   	console.log("Error finding existing user: " + data);
+					   	reject(data);
+					}.bind(this)
+			    })
+		    })
 	}
 
 	
@@ -233,8 +283,6 @@ class BruteJsonConverter {
 		if (jsonObject.spells != null) {
 			jsonObject.spells.forEach(spellCode => player.spells.push(spells.getSpellByCode(spellCode)));
 		}
-		
-		debugger;
 		
 		return player;
 	}

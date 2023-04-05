@@ -236,7 +236,7 @@ document.addEventListener("death", function(e) {
 });
 
 document.addEventListener("hit", function(e) {
-	hitsplats.push(new Hitsplat(hitsplat, e.detail.damage, e.detail.player.positionX, e.detail.player.positionY))
+	hitsplats.push(new Hitsplat(hitsplat, e.detail.damage, e.detail.player))
 });
 
 document.addEventListener("DOMContentLoaded", function() {
