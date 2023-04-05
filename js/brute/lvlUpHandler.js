@@ -18,6 +18,7 @@ class LvlUpHandler {
 		this._setChoices();
 		this._giveExtraHpOnSpecificLvl(player);
 		this._giveWeaponIfPossible(player);
+		this._giveSpellIfPossible(player);
 
 		if (player == player1) {
 			$('#lvlUpModal').modal({ backdrop: 'static', keyboard: false })
@@ -95,7 +96,6 @@ class LvlUpHandler {
 		} else if (player.lvl % 15 == 0) {
 			this._giveRandomWeapon(player, weapons.getAllWeapons());
 		}
-	
 	}
 	
 	_giveRandomWeapon(player, weaponArray) {
@@ -106,6 +106,28 @@ class LvlUpHandler {
 			player.weapons.push(newWeapon);
 			$("#lvlUpWeaponContainer").show();
 			$("#lvlUpWeapon").attr('src', newWeapon.sprite.img.src);
+		}
+	}
+	
+	_giveSpellIfPossible(player) {
+		$("#lvlUpWeaponContainer").hide();
+		if (player.lvl == 7) {
+			this._giveRandomSpell(player, spells.getTier1Spells());
+		} else if (player.lvl == 13) {
+			this._giveRandomSpell(player, spells.getTier2Spells());
+		} else if (player.lvl % 20 == 0) {
+			this._giveRandomSpell(player, spells.getAllSpells());
+		}
+	}
+	
+	_giveRandomSpell(player, spellArray) {
+		spellArray = spellArray.filter(spell => !player.spells.includes(spell));
+		if (spellArray.length > 0) {
+			var randomIndex = randomIntFromInterval(0, spellArray.length-1);
+			var newSpell = spellArray[randomIndex];
+			player.spells.push(newSpell);
+			$("#lvlUpWeaponContainer").show();
+			$("#lvlUpWeapon").attr('src', newSpell.sprite.img.src);
 		}
 	}
 	

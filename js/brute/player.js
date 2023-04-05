@@ -85,6 +85,7 @@ class Player {
 
     
    walkingToEnemy() {
+	    this.tryToEquipWeapon();
 		if (this.tryCastingSpell()) {
 			this.castSpell();
 		} else {
@@ -92,7 +93,6 @@ class Player {
 	        this.currentSprite = this.sprites.Walk;
 	        this.status = "walkingToEnemy";
 	        console.log("walkingToEnemy");
-	        this.tryToEquipWeapon();
 		}
     };
     
@@ -217,10 +217,15 @@ class Player {
 	
 	calculateSpellDamage() {
 		var randomInt = randomIntFromInterval(1,100);
+		
+		var magicAffinity = this.activeWeapon != null ? this.activeWeapon.magicAffinity : 1;
+		var affinityMutiplier = 1 + (magicAffinity/5); // 20% per weapon affinity stat point
 				
 		var baseDamage = this.activeSpell != null ? this.activeSpell.damage : 1;
 		var statDiff = Math.max(this.magic - this.enemy.defence, 0);
-		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
+		var statDiffMutiplier = ((statDiff/10)+1) //10% dmg par stat diff
+		
+		var damage =  baseDamage * statDiffMutiplier * affinityMutiplier;
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
 		
@@ -271,7 +276,7 @@ class Player {
 		var availableSpells = this.getAvailableSpells();
 		if (this.activeSpell == null && availableSpells.length > 0) {
 			var randomInt = randomIntFromInterval(1,100);
-			if (true) {//randomInt >= 50//
+			if (randomInt >= 30) {
                 this.castRandomSpell();
                 return true;
 			}
@@ -300,7 +305,6 @@ class Player {
 		}else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
 			this.enemy.tryAvoiding();
 		}else if (this.status == "castingSpell" && this.activeSpell != null && this.isPastEnemy(this.activeSpell.positionX)) {
-			debugger;
 			this.dealDamage();
 			this.activeSpell = null;
 			this.idlingAndEndTurn();
@@ -309,7 +313,7 @@ class Player {
 	
 	isPastEnemy(position) {
 	   if (this.direction == Direction.Left) {
-	        return position <= this.enemy.positionX-100;
+	        return position <= this.enemy.positionX+100;
 	    } else {
 	        return position >= this.enemy.positionX+100;
 	    }

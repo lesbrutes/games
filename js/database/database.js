@@ -80,9 +80,6 @@ class Database {
 			    "limit": 1
 			});
 			
-			
-			
-			
 			var myUrl = `${db.url}/action/find`
 			$.ajax({ url: myUrl,
 				headers: {

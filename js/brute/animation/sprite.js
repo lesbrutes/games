@@ -57,6 +57,22 @@ class PlayerSprite {
 	    
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
 	    this.showWeaponInventory();
+	    this.showSpellInventory();
+	}
+	
+	showSpellInventory() {
+		var offset = 30;
+		var s = 0.4;
+		
+		if (this.player == player2) {
+			this.player.getAvailableSpells().forEach(function (spell, i) {
+		    	context.drawImage(spell.sprite.img, 1150, 70+(i*offset), spell.sprite.width*s, spell.sprite.height*s)
+			});
+		} else {
+			this.player.getAvailableSpells().forEach(function (spell, i) {
+		    	context.drawImage(spell.sprite.img, 10, 70+(i*offset), spell.sprite.width*s, spell.sprite.height*s)
+			});
+		}
 	}
 	
 	showWeaponInventory() {
