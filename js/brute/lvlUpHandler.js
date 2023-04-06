@@ -19,6 +19,7 @@ class LvlUpHandler {
 		this._giveExtraHpOnSpecificLvl(player);
 		this._giveWeaponIfPossible(player);
 		this._giveSpellIfPossible(player);
+		this._giveCauldronIfPossible(player);
 
 		if (player == player1) {
 			$('#lvlUpModal').modal({ backdrop: 'static', keyboard: false })
@@ -110,7 +111,7 @@ class LvlUpHandler {
 	}
 	
 	_giveSpellIfPossible(player) {
-		$("#lvlUpWeaponContainer").hide();
+		$("#lvlUpSpellContainer").hide();
 		if (player.lvl == 7) {
 			this._giveRandomSpell(player, spells.getTier1Spells());
 		} else if (player.lvl == 13) {
@@ -126,10 +127,31 @@ class LvlUpHandler {
 			var randomIndex = randomIntFromInterval(0, spellArray.length-1);
 			var newSpell = spellArray[randomIndex];
 			player.spells.push(newSpell);
-			$("#lvlUpWeaponContainer").show();
-			$("#lvlUpWeapon").attr('src', newSpell.sprite.img.src);
+			$("#lvlUpSpellContainer").show();
+			$("#lvlUpSpell").attr('src', newSpell.sprite.img.src);
 		}
 	}
+	
+	_giveCauldronIfPossible(player) {
+		$("#lvlUpCauldronContainer").hide();
+		if (player.cauldron == null && player.lvl > 7 && player.lvl % 2 == 0) { 
+			var rand = randomIntFromInterval(0, 100);
+			if (rand >= 90) {
+				this._giveRandomCauldron(player, cauldrons.getTier1Cauldrons());
+			}
+		}
+	}
+	
+	_giveRandomCauldron(player, cauldronArray) {
+		if (cauldronArray.length > 0) {
+			var randomIndex = randomIntFromInterval(0, cauldronArray.length-1);
+			var newCauldron = cauldronArray[randomIndex];
+			player.cauldron = newCauldron;
+			$("#lvlUpCauldronContainer").show();
+			$("#lvlUpCauldron").attr('src', newCauldron.sprite.img.src);
+		}
+	}
+	
 	
 }
 

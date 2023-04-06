@@ -60,4 +60,32 @@ class Spells {
 	getAllSpells() {
 		return this.getTier1Spells().concat(this.getTier2Spells()).concat(this.getTier3Spells()).concat(this.getTier4Spells());
 	}
+	
+	
+}
+
+class SpellSprite {
+    constructor(source) {
+        this.img = new Image();
+        this.img.src = source;
+	
+        this.scale = 1;
+        this.width = 64*this.scale;
+        this.height = 64*this.scale;
+        this.angle = 0;
+        
+        this.toRadians = Math.PI/180; 
+    }
+    
+    show(context, positionX, positionY) {
+	    this.angle += 7;
+	    var angleInRadians = this.angle*this.toRadians;
+
+		context.translate(positionX, positionY);
+		context.rotate(angleInRadians);
+		context.drawImage(this.img, -this.width/2,-this.height/2, this.width, this.height);
+		context.rotate(-angleInRadians);
+		context.translate(-positionX, -positionY);
+
+    }
 }

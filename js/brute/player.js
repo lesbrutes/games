@@ -41,6 +41,8 @@ class Player {
         this.spells = [];
         this.usedSpells = [];
         
+        this.cauldron = null;
+        
         this.healthBar;
         this.enemy;
 
@@ -220,12 +222,14 @@ class Player {
 		
 		var magicAffinity = this.activeWeapon != null ? this.activeWeapon.magicAffinity : 1;
 		var affinityMutiplier = 1 + (magicAffinity/5); // 20% per weapon affinity stat point
+		
+		var cauldronBonus = this.cauldron != null ? this.cauldron.damage : 0;
 				
 		var baseDamage = this.activeSpell != null ? this.activeSpell.damage : 1;
 		var statDiff = Math.max(this.magic - this.enemy.defence, 0);
 		var statDiffMutiplier = ((statDiff/10)+1) //10% dmg par stat diff
 		
-		var damage =  baseDamage * statDiffMutiplier * affinityMutiplier;
+		var damage =  (baseDamage+cauldronBonus) * statDiffMutiplier * affinityMutiplier;
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
 		

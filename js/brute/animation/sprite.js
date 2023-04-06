@@ -37,6 +37,7 @@ class PlayerSprite {
 		this.showActiveWeapon();
 		this.showActiveSpell();
 	    this.showPlayer(context);
+	    this.showCauldron();
     }
     
     showActiveWeapon() {
@@ -48,6 +49,16 @@ class PlayerSprite {
 	showActiveSpell() {
 		if (this.player.activeSpell != null && this.player.status == "castingSpell") {
 			this.player.activeSpell.sprite.show(context, this.player.activeSpell.positionX, this.player.activeSpell.positionY);
+		}
+	}
+	
+	showCauldron() {
+		if (this.player.cauldron != null) {
+			if (this.player == player1) {
+				this.player.cauldron.sprite.show(context, this.player.initialX-40, this.player.initialY+30);
+			} else {
+				this.player.cauldron.sprite.show(context, this.player.initialX+80, this.player.initialY+30);
+			}
 		}
 	}
     
@@ -89,67 +100,4 @@ class PlayerSprite {
 			});
 		}
 	}
-}
-
-
-class WeaponSprite {
-    constructor(source) {
-        this.img = new Image();
-        this.img.src = source;
-	
-        this.scale =  0.3;
-        this.width = 280*this.scale;
-        this.height = 100*this.scale;
-        
-        this.toRadians = Math.PI/180; 
-    }
-    
-    show(context, angle, attachAtX, attachAtY, attachAtLeftX, attachAtLeftY, player) {
-	    var angleInRadians;
-	    var x;
-	    var y;
-	    
-		if (player.direction == Direction.Left) {
-			angleInRadians = (-angle+180)*this.toRadians;
-			var x  = player.positionX + attachAtLeftX;
-    		var y = player.positionY + attachAtLeftY;
-		} else {
-			angleInRadians = angle*this.toRadians;
-			var x  = player.positionX + attachAtX;
-    		var y = player.positionY + attachAtY;
-		}
-
-    	context.translate(x, y);
-		context.rotate(angleInRadians);
-		context.drawImage(this.img, 0, 0, this.width, this.height);
-		context.rotate(-angleInRadians);
-		context.translate(-x, -y);
-
-    }
-}
-
-class SpellSprite {
-    constructor(source) {
-        this.img = new Image();
-        this.img.src = source;
-	
-        this.scale = 1;
-        this.width = 64*this.scale;
-        this.height = 64*this.scale;
-        this.angle = 0;
-        
-        this.toRadians = Math.PI/180; 
-    }
-    
-    show(context, positionX, positionY) {
-	    this.angle += 7;
-	    var angleInRadians = this.angle*this.toRadians;
-
-		context.translate(positionX, positionY);
-		context.rotate(angleInRadians);
-		context.drawImage(this.img, -this.width/2,-this.height/2, this.width, this.height);
-		context.rotate(-angleInRadians);
-		context.translate(-positionX, -positionY);
-
-    }
 }

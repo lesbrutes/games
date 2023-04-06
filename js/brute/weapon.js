@@ -115,3 +115,39 @@ class Weapons {
 		return this.getAllMeleeWeapons().concat(this.getAllMageWeapons());
 	}
 }
+
+class WeaponSprite {
+    constructor(source) {
+        this.img = new Image();
+        this.img.src = source;
+	
+        this.scale =  0.3;
+        this.width = 280*this.scale;
+        this.height = 100*this.scale;
+        
+        this.toRadians = Math.PI/180; 
+    }
+    
+    show(context, angle, attachAtX, attachAtY, attachAtLeftX, attachAtLeftY, player) {
+	    var angleInRadians;
+	    var x;
+	    var y;
+	    
+		if (player.direction == Direction.Left) {
+			angleInRadians = (-angle+180)*this.toRadians;
+			var x  = player.positionX + attachAtLeftX;
+    		var y = player.positionY + attachAtLeftY;
+		} else {
+			angleInRadians = angle*this.toRadians;
+			var x  = player.positionX + attachAtX;
+    		var y = player.positionY + attachAtY;
+		}
+
+    	context.translate(x, y);
+		context.rotate(angleInRadians);
+		context.drawImage(this.img, 0, 0, this.width, this.height);
+		context.rotate(-angleInRadians);
+		context.translate(-x, -y);
+
+    }
+}
