@@ -289,12 +289,23 @@ class Player {
 	}
     
    updateSpriteStep() {
+		//Sprite debug
+//		this.currentSprite = this.sprites.Attack;
+//		this.activeWeapon = this.weapons[0];
+//			var stepSpeed = 1;
+//		    this.spriteStep += stepSpeed;
+//		    if (this.spriteStep >= this.currentSprite.totalSteps) { 
+//			    this.changeDirection();
+//		        this.spriteStep -= this.currentSprite.totalSteps;
+//		    }
+
 	
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {
 			this.spriteStep = this.currentSprite.totalSteps;
 		 	return; //Si on est mort et l'animation est fini, alors on reste sur le dernier frame.
 		}
 	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
+	    var stepSpeed = Math.min(stepSpeed, 1); // On ne doit pas dépasser 1 pour ne pas skip de frame
 	    this.spriteStep += stepSpeed;
 	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering"  && this.status != "blocking" && this.status != "dying") { 
 	        this.spriteStep -= this.currentSprite.totalSteps;
@@ -302,11 +313,11 @@ class Player {
 	        this.walkingHome();
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && (this.status == "countering" || this.status == "blocking")) {
 	        this.idling();
-	    } else if ((this.status == "attacking" || this.status == "countering") && (this.enemy.status != "blocking" && this.enemy.status != "dodging") && this.spriteStep >= 16 &&  this.spriteStep < 16 + stepSpeed) {
+	    } else if ((this.status == "attacking" || this.status == "countering") && (this.enemy.status != "blocking" && this.enemy.status != "dodging") && this.spriteStep >= this.currentSprite.hitStep &&  this.spriteStep < this.currentSprite.hitStep + stepSpeed) {
 			this.dealDamage();
-		} else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status == "dodging" && this.spriteStep >= 16 &&  this.spriteStep < 16 + stepSpeed) {
+		} else if ((this.status == "attacking" || this.status == "countering") && this.enemy.status == "dodging" && this.spriteStep >= this.currentSprite.hitStep &&  this.spriteStep < this.currentSprite.hitStep + stepSpeed) {
 			this.enemy.goHomeAfterDodging();
-		}else if (this.status == "attacking" && this.spriteStep >= 0 &&  this.spriteStep <= 0 + stepSpeed ) {
+		}else if (this.status == "attacking" && this.spriteStep >= this.currentSprite.hitStep-3 && this.spriteStep <= this.currentSprite.hitStep-3 + stepSpeed ) {
 			this.enemy.tryAvoiding();
 		}else if (this.status == "castingSpell" && this.activeSpell != null && this.isPastEnemy(this.activeSpell.positionX)) {
 			this.dealDamage();
@@ -449,7 +460,7 @@ class Player {
 	}
 	
 	initSprites() {
-		this.spriteType = this.spriteType != null ? this.spriteType : randomIntFromInterval(1,2);
+		this.spriteType = this.spriteType != null ? this.spriteType : randomIntFromInterval(1,3);
 		this.sprites = new PlayerSprites(this);
         this.currentSprite = this.sprites.Idle;
         //this.direction = Direction.Left;

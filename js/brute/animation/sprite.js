@@ -1,5 +1,5 @@
 class PlayerSprite {
-    constructor(source, totalSteps, weaponAngles, attachPointsX, attachPointsY, attachPointsLeftX, attachPointsLeftY, width, height, scale, speed, player) {
+    constructor(source,width,height,totalSteps,weaponAngles,attachPointsX,attachPointsY, attachPointsLeftX, attachPointsLeftY, hitStep, scale, speed, player) {
 
 		this.images = new Map();
         this.img = new Image();
@@ -8,6 +8,7 @@ class PlayerSprite {
         this.width = width;
         this.height = height;
         this.totalSteps = totalSteps; //Indexe a 0
+        this.hitStep = hitStep;
         this.weaponAngles = weaponAngles;
         this.attachPointsX = attachPointsX;
         this.attachPointsY = attachPointsY;
