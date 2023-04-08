@@ -10,6 +10,7 @@ class Database {
   
   	validateToken() {
 	    var db = this;
+	    db._loadToken();
 		return new Promise(function(resolve, reject){
 			if (db.anonymousToken == null && db.anonymousTokenDate == null || (db.anonymousTokenDate != null && db._diff_minutes(db.anonymousTokenDate, new Date()) > 25 )) {
 				db.refreshAnonymousToken(resolve, reject);
@@ -213,6 +214,7 @@ class Database {
 			    console.log('Logged in anonymously: ' + data);
 			    this.anonymousToken = data.access_token;
 			    this.anonymousTokenDate = new Date();
+			    this._saveToken();
 			    resolve(data);
 			}.bind(this), 
 			error: function(data) {
@@ -220,6 +222,16 @@ class Database {
 			    reject(data);
 			}.bind(this),
 	    });
+	}
+	
+	_saveToken() {
+		localStorage.setItem("token", this.anonymousToken);
+		localStorage.setItem("tokenDate", this.anonymousTokenDate);
+	}
+	
+	_loadToken() {
+		this.anonymousToken = localStorage.getItem("token");
+		this.anonymousTokenDate = localStorage.getItem("tokenDate") != null ? new Date(localStorage.getItem("tokenDate")) : null;
 	}
 }
 
