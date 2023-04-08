@@ -17,6 +17,8 @@ class XpBar {
   }
   
   showLvl(context) {
+	context.lineWidth = 4;
+    context.strokeStyle = "#333";
 	context.fillStyle = this.color;
 	context.fillRect(this.xLvl, this.y, 35, this.h);
 	context.strokeRect(this.xLvl, this.y, 35, this.h);

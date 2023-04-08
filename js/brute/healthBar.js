@@ -20,17 +20,30 @@ class HealthBar {
   }
   
   showName(context) {
-	context.fillStyle = "Chocolate";
-	context.font = "20px Arial";
-	
 	var yPadding = 50;
+	var y = this.y+yPadding;
+	var nameWidth = context.measureText(this.player.name).width+20;
 	if (this.player == player2) {
-		context.textAlign = "end";
-		context.fillText(this.player.name, this.x+this.maxWidth-4, this.y+yPadding);
+		var x = this.x+this.maxWidth-nameWidth;
+		this._showNamePlate(x,y,nameWidth);
 	} else {
-		context.textAlign = "start";
-		context.fillText(this.player.name, this.x+4,  this.y+yPadding);
+		var x =  this.x;
+		this._showNamePlate(x,y,nameWidth);
 	}
+  }
+  
+  _showNamePlate(x,y, nameWidth) {
+	var height = parseInt(context.font, 10)+6;
+	
+	context.font = "20px Arial";
+	context.strokeStyle = "Chocolate";
+	context.lineWidth = 2;
+	context.textAlign = "center";
+	context.fillStyle = '#F5CBA7';
+	context.fillRect(x, y-17, nameWidth, height);
+	context.strokeRect(x, y-17, nameWidth, height);
+	context.fillStyle = "Chocolate";
+	context.fillText(this.player.name, x+(nameWidth/2),  y+2);
   }
 
   updateHealth(val) {
