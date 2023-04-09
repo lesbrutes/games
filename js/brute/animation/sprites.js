@@ -3,10 +3,13 @@ class PlayerSprites {
 	
 		var props = null;
 		switch(player.spriteType){
-			case 1,2:
+			case 1:
+			case 2:
 				props = new MinotaureProps();
 				break;
 			case 3:
+			case 4:
+			case 5:
 				props = new WraithProps();
 				break;
 			default:
@@ -96,6 +99,8 @@ class SpriteTypes {
   static MINOTAURE1 = new SpriteTypes(1)
   static MINOTAURE2 = new SpriteTypes(2)
   static WRAITH1 = new SpriteTypes(3)
+  static WRAITH2 = new SpriteTypes(4)
+  static WRAITH3 = new SpriteTypes(5)
 
   constructor(type) {
     this.type = type

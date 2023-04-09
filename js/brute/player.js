@@ -463,12 +463,11 @@ class Player {
 	}
 	
 	initSprites() {
-		this.spriteType = this.spriteType != null ? this.spriteType : randomIntFromInterval(1,3);
+		this.spriteType = this.spriteType != null ? this.spriteType : randomIntFromInterval(1,5);
 		this.sprites = new PlayerSprites(this);
         this.currentSprite = this.sprites.Idle;
         //this.direction = Direction.Left;
 	}
-	
 }
 
 class Direction {
