@@ -194,6 +194,43 @@ class Database {
 		    })
 	}
 	
+	getPlayer(playerName) {
+		return new Promise(function(resolve, reject){
+			database.validateToken().then(function(){
+				var searchData = JSON.stringify({
+				    "collection": "brute",
+				    "database": "lesbrutes",
+				    "dataSource": "LesBrutesCluster",
+				    "filter": { "name": playerName },
+				    "limit": 1
+				});
+				
+				var myUrl = `${database.url}/action/find`
+				$.ajax({ url: myUrl,
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: 'Bearer '+ database.getToken()
+					},
+					data: searchData,
+			        type: 'POST',
+			        success: function(data) {
+					    console.log('Load was performed.');
+					    if (data == null || data.documents == null || data.documents.length < 1) {
+							reject(data);
+						} else {
+							var loadedPlayer = database.bruteConverter.fromJsonObject(data.documents[0]);
+						    resolve(loadedPlayer);
+						}
+					}.bind(this),
+					error : function(data) {
+					    console.log('ERROR WHILE LOADING: ' + data);
+					    reject(data);
+					}
+			    })
+		    }).catch(function(){})
+		})
+	}
+	
 	getLeaderbord() {
 		return new Promise(function(resolve, reject){
 			database.validateToken().then(function(){

@@ -2,13 +2,36 @@ class EnemyPicker {
     constructor() {
 		this.enemies = [];
 		this.selectedIndex = -1;
+		
+		this.enemyInitialDirection = Direction.Left;
+		this.enemyInitialX = 975;
+		this.enemyInitialY = 350;
     }
     
     pickEnemy() {
 		if (this.selectedIndex != -1) {
 			player2 = this.enemies[this.selectedIndex];
 			this._hideEnemyPicker();
-			startBattle();
+			startBattle(false);
+		}
+	}
+	
+	battleEnemy(player, enemyName) {
+		if (enemyName == null) {
+			openEnemyPicker(player);
+		} else {
+			database.getPlayer(enemyName).then(function(player){
+				player2=player;
+				player2.setStartDirection(enemyPicker.enemyInitialDirection);
+				player2.setInitialX(enemyPicker.enemyInitialX);
+				player2.setInitialY(enemyPicker.enemyInitialY);
+				player2.initHealthBar();
+				$('#battlePlayerModal').modal('hide');
+				startBattle(true);
+			}).catch(function(e) {
+				console.log(e);
+				$("#playerDontExist").removeClass("d-none");
+			});
 		}
 	}
     
@@ -68,7 +91,7 @@ class EnemyPicker {
 	}
     
     _generateEnemy(player) {
-		var enemy = new Player(975, 350, Direction.Left);
+		var enemy = new Player(this.enemyInitialX, this.enemyInitialY, this.enemyInitialDirection);
 		while (player.lvl > enemy.lvl) {
 			lvlUpHandler.lvlUp(enemy)
 		}

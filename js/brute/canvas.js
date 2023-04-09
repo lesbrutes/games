@@ -9,6 +9,7 @@ var ratio = window.devicePixelRatio;
 var canvas;
 var context;
 
+var isFriendlyBattle;
 var player1;
 var player2;
 var startingPlayer = null;
@@ -200,19 +201,20 @@ function chooseStartingPlayer(){
 }
 
 function awardXp(deadPlayer) {
-	if (deadPlayer == player2){
+	if (deadPlayer == player2 && !isFriendlyBattle){
 		player1.xpBar.gainXp();
 		database.updateBrute(player1);
 	}
 }
 
-function newBattle() {
+function newBattle(enemyName) {
 	$("#pauseBtn").click();
 	player1.reset();
-	enemyPicker.openEnemyPicker(player1);
+	enemyPicker.openEnemyPicker(player1, enemyName);
 }
 
-function startBattle()  {
+function startBattle(isFriendly)  {
+	isFriendlyBattle = isFriendly;
 	initBackground();
 	player1.addEnemy(player2);
 	player2.addEnemy(player1);

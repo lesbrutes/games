@@ -435,6 +435,21 @@ class Player {
 		return this.startDirection == Direction.Right;
     }
     
+    setStartDirection(direction) {
+		this.startDirection = direction;
+		this.direction = direction;
+	}
+	
+	 setInitialX(initialX) {
+		this.initialX = initialX;
+		this.positionX = initialX;
+	}
+	
+	 setInitialY(initialY) {
+		this.initialY = initialY;
+		this.positionY = initialY;
+	}
+    
     addEnemy(enemy) {
 		this.enemy = enemy;
 	}
