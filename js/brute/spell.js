@@ -77,7 +77,7 @@ class SpellSprite {
         this.toRadians = Math.PI/180; 
     }
     
-    show(context, positionX, positionY) {
+    show(context, positionX, positionY, step) {
 	    this.angle += 7;
 	    var angleInRadians = this.angle*this.toRadians;
 

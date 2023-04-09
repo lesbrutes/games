@@ -22,6 +22,7 @@ class HealthBar {
   showName(context) {
 	var yPadding = 50;
 	var y = this.y+yPadding;
+	context.font = "20px Arial";
 	var nameWidth = context.measureText(this.player.name).width+20;
 	if (this.player == player2) {
 		var x = this.x+this.maxWidth-nameWidth;
@@ -35,7 +36,6 @@ class HealthBar {
   _showNamePlate(x,y, nameWidth) {
 	var height = parseInt(context.font, 10)+6;
 	
-	context.font = "20px Arial";
 	context.strokeStyle = "Chocolate";
 	context.lineWidth = 2;
 	context.textAlign = "center";

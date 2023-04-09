@@ -135,12 +135,12 @@ class WeaponSprite {
 	    
 		if (player.direction == Direction.Left) {
 			angleInRadians = (-angle+180)*this.toRadians;
-			var x  = player.positionX + attachAtLeftX;
-    		var y = player.positionY + attachAtLeftY;
+			x  = player.positionX + attachAtLeftX;
+    		y = player.positionY + attachAtLeftY;
 		} else {
 			angleInRadians = angle*this.toRadians;
-			var x  = player.positionX + attachAtX;
-    		var y = player.positionY + attachAtY;
+			x  = player.positionX + attachAtX;
+    		y = player.positionY + attachAtY;
 		}
 
     	context.translate(x, y);

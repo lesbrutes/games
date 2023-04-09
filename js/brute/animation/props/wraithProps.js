@@ -5,7 +5,6 @@ class WraithProps {
 		this.scale = 0.32;
 		this.speed = 0.2;
 		
-		this.blockTotalSteps = 11;
 		this.deathTotalSteps = 12;
 		
 		this.walkTotalSteps = 12;
@@ -30,5 +29,12 @@ class WraithProps {
 		this.idleAttachY = [80,80,80,80,80,80,80,80,80,80,80,80];
 		this.idleAttachLeftX = [75,75,75,75,75,75,75,75,75,75,75,75];
 		this.idleAttachLeftY = [105,105,105,105,105,105,105,105,105,105,105,105];
+		
+				
+		this.blockTotalSteps = 12;
+		this.blockAttachX = [60,62,64,65,68,70,69,68,67,66,65,65];
+		this.blockAttachY = [60,59,58,57,56,55,56,57,58,59,60,60];
+		this.blockAttachLeftX = [50,48,46,44,42,40,41,42,43,44,45,45];
+		this.blockAttachLeftY = [60,59,58,57,56,55,56,57,58,59,60,60];
     }
 }

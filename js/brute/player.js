@@ -42,6 +42,7 @@ class Player {
         this.usedSpells = [];
         
         this.cauldron = null;
+        this.shield = shields.getRandomT1Shield();
         
         this.healthBar;
         this.enemy;
@@ -187,7 +188,7 @@ class Player {
 	
 	doesDodgeSucceed() {
 		var statDiff = Math.max(this.agility - this.enemy.speed, 0);
-	    var odds = Math.min(10+(10*statDiff), 60); 
+	    var odds = Math.min(10+(10*statDiff)+this.shield.blockChance, 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
@@ -220,8 +221,8 @@ class Player {
 	calculateSpellDamage() {
 		var randomInt = randomIntFromInterval(1,100);
 		
-		var magicAffinity = this.activeWeapon != null ? this.activeWeapon.magicAffinity : 1;
-		var affinityMutiplier = 1 + (magicAffinity/5); // 20% per weapon affinity stat point
+		var magicAffinity = this.activeWeapon != null ? this.activeWeapon.magicAffinity : 0;
+		var affinityMutiplier = magicAffinity != 0 ? 1 + (magicAffinity/10) : 1 // 10% per weapon affinity stat point
 		
 		var cauldronBonus = this.cauldron != null ? this.cauldron.damage : 0;
 				
@@ -280,7 +281,7 @@ class Player {
 		var availableSpells = this.getAvailableSpells();
 		if (this.activeSpell == null && availableSpells.length > 0) {
 			var randomInt = randomIntFromInterval(1,100);
-			if (randomInt >= 30) {
+			if (randomInt >= 25) {
                 this.castRandomSpell();
                 return true;
 			}
@@ -290,14 +291,16 @@ class Player {
     
    updateSpriteStep() {
 		//Sprite debug
-//		this.currentSprite = this.sprites.Attack;
-//		this.activeWeapon = this.weapons[0];
+//		this.currentSprite = this.sprites.Block;
+//		this.status = "blocking";
 //			var stepSpeed = 1;
 //		    this.spriteStep += stepSpeed;
 //		    if (this.spriteStep >= this.currentSprite.totalSteps) { 
 //			    this.changeDirection();
 //		        this.spriteStep -= this.currentSprite.totalSteps;
 //		    }
+//		    
+//		    return;
 
 	
 		if (this.status == "dying" && this.spriteStep >= this.currentSprite.totalSteps) {

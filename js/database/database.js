@@ -248,6 +248,7 @@ class BruteJsonConverter {
 		var spellJson = JSON.stringify(spellCodes);
 		
 		var cauldronCode = player.cauldron != null ? player.cauldron.code : null;
+		var shieldCode = player.shield != null ? player.shield.code : null;
 		
 		return `{
 			"name": "${player.name}",
@@ -264,6 +265,7 @@ class BruteJsonConverter {
 		 	"weapons": ${weaponJson},
 		 	"spells": ${spellJson},
 		 	"cauldron": ${cauldronCode},
+		 	"shield": ${shieldCode},
 		 	"spriteType": ${player.spriteType}
 		}`;
 	}
@@ -289,6 +291,9 @@ class BruteJsonConverter {
 		player.range = jsonObject.range;
 		player.speed = jsonObject.speed;
 		player.agility = jsonObject.agility;
+		if(jsonObject.shield != null) {
+			player.shield = shields.getShieldByCode(jsonObject.shield);
+		}
 		if (jsonObject.cauldron != null) {
 			player.cauldron = cauldrons.getCauldronByCode(jsonObject.cauldron);
 		}

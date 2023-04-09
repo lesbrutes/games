@@ -19,6 +19,7 @@ var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
 var spells = new Spells();
 var cauldrons = new Cauldrons();
+var shields = new Shields();
 var names = new Names();
 var enemyPicker = new EnemyPicker();
 var audio = new Audio('../audio/mainTrack.mp3');
@@ -26,6 +27,11 @@ audio.loop = true;
 audio.volume = 0.05;
 
 var paused = false;
+
+
+if(typeof console === "undefined"){
+      console = {};
+}
 
 window.onload = init;
 

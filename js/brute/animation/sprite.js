@@ -34,16 +34,29 @@ class PlayerSprite {
 	}
 	
 	show(context) {
+		var step = Math.floor(this.player.spriteStep);
 		this.updateDirection();
-		this.showActiveWeapon();
+		this.showActiveWeapon(step);
 		this.showActiveSpell();
-	    this.showPlayer(context);
+		
+		//Dans les premiers frames de block, le shield est derriere le player. Puis dans dans les derniers frames il est devant
+		if (this.player.status == "blocking" && this.player.shield != null && step <= this.totalSteps/2) {
+			this.showShield(step);
+			this.showPlayer(context);
+		}
+		else if (this.player.status == "blocking" && this.player.shield != null && step > this.totalSteps/2) {
+			this.showPlayer(context);
+			this.showShield(step);
+		}
+		else {
+			this.showPlayer(context);
+		}
 	    this.showCauldron();
     }
     
-    showActiveWeapon() {
-		if (this.player.activeWeapon != null && this.player.status != "dying") {
-			this.player.activeWeapon.sprite.show(context, this.weaponAngles[Math.floor(this.player.spriteStep)],this.attachPointsX[Math.floor(this.player.spriteStep)],this.attachPointsY[Math.floor(this.player.spriteStep)],this.attachPointsLeftX[Math.floor(this.player.spriteStep)],this.attachPointsLeftY[Math.floor(this.player.spriteStep)], this.player);
+    showActiveWeapon(step) {
+		if (this.player.activeWeapon != null && this.player.status != "dying" && this.player.status != "blocking") {
+			this.player.activeWeapon.sprite.show(context, this.weaponAngles[step],this.attachPointsX[step],this.attachPointsY[step],this.attachPointsLeftX[step],this.attachPointsLeftY[step], this.player);
 		}
 	}
 	
@@ -70,6 +83,12 @@ class PlayerSprite {
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
 	    this.showWeaponInventory();
 	    this.showSpellInventory();
+	}
+	
+	showShield(step) {
+		if (this.player.status == "blocking" && this.player.shield != null) {
+			this.player.shield.sprite.show(context,this.attachPointsX[step],this.attachPointsY[step],this.attachPointsLeftX[step],this.attachPointsLeftY[step], this.player, step);
+		}
 	}
 	
 	showSpellInventory() {

@@ -75,16 +75,16 @@ class PlayerSprites {
 							player);
 							
 		this.Block = new PlayerSprite(
-							baseUrl+"/block-", 
+							baseUrl+"/idle-", 
 							props.width, 
 							props.height, 
 							props.blockTotalSteps, 
-							[],
-							[],
-							[], 
-							[],
-							[],
-							props.attackHitStep,
+							props.idleWeaponAngles,
+							props.blockAttachX,
+							props.blockAttachY, 
+							props.blockAttachLeftX,
+							props.blockAttachLeftY,
+							props.blockHitStep,
 							props.scale, 
 							props.speed,
 							player);
