@@ -9,7 +9,6 @@ img {
 body, html {
     height: 100%;
     margin: 0px;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;

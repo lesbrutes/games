@@ -9,13 +9,12 @@ class Database {
   }
   
   	validateToken() {
-	    var db = this;
-	    db._loadToken();
+	    database._loadToken();
 		return new Promise(function(resolve, reject){
-			if (db.anonymousToken == null && db.anonymousTokenDate == null || (db.anonymousTokenDate != null && db._diff_minutes(db.anonymousTokenDate, new Date()) > 25 )) {
-				db.refreshAnonymousToken(resolve, reject);
+			if (database.anonymousToken == null && database.anonymousTokenDate == null || (database.anonymousTokenDate != null && database._diff_minutes(database.anonymousTokenDate, new Date()) > 25 )) {
+				database.refreshAnonymousToken(resolve, reject);
 		    } else {
-				resolve(db.anonymousToken);
+				resolve(database.anonymousToken);
 			}
 		})
 	}
@@ -194,6 +193,40 @@ class Database {
 			    })
 		    })
 	}
+	
+	getLeaderbord() {
+		return new Promise(function(resolve, reject){
+			database.validateToken().then(function(){
+				var searchData = JSON.stringify({
+				    "collection": "brute",
+				    "database": "lesbrutes",
+				    "dataSource": "LesBrutesCluster",
+				    "sort": { "lvl": -1 },
+				    "limit": 10
+				});
+				
+				var myUrl = `${database.url}/action/find`
+				
+					$.ajax({ url: myUrl,
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: 'Bearer '+ database.getToken()
+						},
+						data: searchData,
+				        type: 'POST',
+				        success: function(data) {
+						    resolve(data.documents);
+						},
+						error : function(data) {
+						   	console.log("Error loading leaderbord: " + data);
+						   	reject(data);
+						}
+				    })
+			    }).catch(function(err){
+					console.log("getLeaderbord validateToken promise error: " + err);
+				})
+			})
+	}
 
 	
 	getToken() {
@@ -212,9 +245,9 @@ class Database {
 	        type: 'POST',
 	        success: function(data) {
 			    console.log('Logged in anonymously: ' + data);
-			    this.anonymousToken = data.access_token;
-			    this.anonymousTokenDate = new Date();
-			    this._saveToken();
+			    database.anonymousToken = data.access_token;
+			    database.anonymousTokenDate = new Date();
+			    database._saveToken();
 			    resolve(data);
 			}.bind(this), 
 			error: function(data) {
@@ -225,13 +258,13 @@ class Database {
 	}
 	
 	_saveToken() {
-		localStorage.setItem("token", this.anonymousToken);
-		localStorage.setItem("tokenDate", this.anonymousTokenDate);
+		localStorage.setItem("token", database.anonymousToken);
+		localStorage.setItem("tokenDate", database.anonymousTokenDate);
 	}
 	
 	_loadToken() {
-		this.anonymousToken = localStorage.getItem("token");
-		this.anonymousTokenDate = localStorage.getItem("tokenDate") != null ? new Date(localStorage.getItem("tokenDate")) : null;
+		database.anonymousToken = localStorage.getItem("token");
+		database.anonymousTokenDate = localStorage.getItem("tokenDate") != null ? new Date(localStorage.getItem("tokenDate")) : null;
 	}
 }
 

@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		database.loadBrute(playerName, onSuccessLoadCreate, onErrorLoad) 
 	});
 	
+	$('#nameChooserModal').modal({ backdrop: 'static', keyboard: false })
 	$('#nameChooserModal').modal('show');
 	hideMessages();
 	$('#username').val(localStorage.getItem("username"));
