@@ -20,6 +20,7 @@ class LvlUpHandler {
 		this._giveWeaponIfPossible(player);
 		this._giveSpellIfPossible(player);
 		this._giveCauldronIfPossible(player);
+		this._upgradeShieldIfPossible(player);
 
 		if (player == player1) {
 			$('#lvlUpModal').modal({ backdrop: 'static', keyboard: false })
@@ -152,7 +153,21 @@ class LvlUpHandler {
 		}
 	}
 	
+	_upgradeShieldIfPossible(player) {
+		$("#lvlUpShieldContainer").hide();
+		if (player.shield != null && player.lvl % 5 == 0) { 
+			var rand = randomIntFromInterval(0, 100);
+			if (rand >= 75) {
+				this._upgradeShield(player);
+			}
+		}
+	}
 	
+	_upgradeShield(player) {
+		player.shield = shields.getUpgrade(player.shield);
+		$("#lvlUpShieldContainer").show();
+		$("#lvlUpShield").attr('src', player.shield.sprite.img.src);
+	}
 }
 
 function randomIntFromInterval(min, max) { // min and max included 

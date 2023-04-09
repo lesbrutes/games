@@ -83,11 +83,12 @@ class PlayerSprite {
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
 	    this.showWeaponInventory();
 	    this.showSpellInventory();
+	    this.showShieldInventory();
 	}
 	
 	showShield(step) {
 		if (this.player.status == "blocking" && this.player.shield != null) {
-			this.player.shield.sprite.show(context,this.attachPointsX[step],this.attachPointsY[step],this.attachPointsLeftX[step],this.attachPointsLeftY[step], this.player, step);
+			this.player.shield.sprite.show(context,this.attachPointsX[step],this.attachPointsY[step],this.attachPointsLeftX[step],this.attachPointsLeftY[step], this.player);
 		}
 	}
 	
@@ -118,6 +119,16 @@ class PlayerSprite {
 			this.player.getAvailableWeapons().forEach(function (weapon, i) {
 		    	context.drawImage(weapon.sprite.img, 10, 635-(i*offset), weapon.sprite.width*s, weapon.sprite.height*s)
 			});
+		}
+	}
+	
+	showShieldInventory() {
+		var s = 0.6;
+		
+		if (this.player == player2) {
+		    	context.drawImage(this.player.shield.sprite.img, 1160, 660, this.player.shield.sprite.width*s, this.player.shield.sprite.height*s)
+		} else {
+		    	context.drawImage(this.player.shield.sprite.img, 360, 660, this.player.shield.sprite.width*s, this.player.shield.sprite.height*s)
 		}
 	}
 }
