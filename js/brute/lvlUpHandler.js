@@ -19,6 +19,7 @@ class LvlUpHandler {
 		this._giveExtraHpOnSpecificLvl(player);
 		this._giveWeaponIfPossible(player);
 		this._giveSpellIfPossible(player);
+		this._givePotionIfPossible(player);
 		this._giveCauldronIfPossible(player);
 		this._upgradeShieldIfPossible(player);
 
@@ -131,6 +132,39 @@ class LvlUpHandler {
 			$("#lvlUpSpellContainer").show();
 			$("#lvlUpSpell").attr('src', newSpell.sprite.img.src);
 		}
+	}
+	
+	_givePotionIfPossible(player) {
+		$("#lvlUpPotionContainer").hide();
+		if (player.potions.length <= Math.floor(player.lvl/10)) {
+			var rand = randomIntFromInterval(0, 100);
+			if (rand >= 85) {
+				this._giveRandomPotion(player, potions.getTier1Potions());
+			}
+		}
+	}
+	
+	_giveRandomPotion(player, potionArray) {
+		var avaiablePotions = this._filterAvaiablePotions(player, potionArray);
+		
+		if (avaiablePotions.length > 0) {
+			var randomIndex = randomIntFromInterval(0, avaiablePotions.length-1);
+			var newPotion = potions.createPotion(avaiablePotions[randomIndex].code);
+			player.potions.push(newPotion);
+			$("#lvlUpPotionContainer").show();
+			$("#lvlUpPotion").attr('src', newPotion.sprite.img.src);
+		}
+	}
+	
+	_filterAvaiablePotions(player, potionArray) {
+		var avaiablePotions = []
+		for (let i = 0;i < potionArray.length; i++) {
+			if (!player.potions.some(potion => potion.code === potionArray[i]).length > 0) {
+				avaiablePotions.push(potionArray[i]);
+			}
+		}
+		
+		return avaiablePotions;
 	}
 	
 	_giveCauldronIfPossible(player) {

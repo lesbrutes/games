@@ -68,6 +68,7 @@ class HealthBar {
   }
   
   notifyDeath() {
+		this.player.activePotion = null;
         console.log("Notifying death");
         var event = new CustomEvent("death", { "detail": this.player });
         document.dispatchEvent(event);

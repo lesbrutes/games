@@ -41,6 +41,10 @@ class Player {
         this.spells = [];
         this.usedSpells = [];
         
+        this.activePotion = null;
+        this.potions = [];
+        this.usedPotions = [];
+        
         this.cauldron = null;
         this.shield = shields.getRandomT1Shield();
         
@@ -62,6 +66,8 @@ class Player {
         this.usedWeapons = [];
         this.activeSpell = null;
         this.usedSpells = [];
+        this.activePotion = null;
+        this.usedPotions = [];
 	}
     
     dealDamage() {
@@ -85,13 +91,16 @@ class Player {
         this.idling();
         this.notifyEndOfTurn();
     };
-
     
    walkingToEnemy() {
-	    this.tryToEquipWeapon();
-		if (this.tryCastingSpell()) {
+	    if(this.tryDrinkingPotion()) {
+			this.drinkPotion();
+		}
+		else if (this.tryCastingSpell()) {
+			this.tryToEquipWeapon();
 			this.castSpell();
 		} else {
+			this.tryToEquipWeapon();
 			this.spriteStep = 0;
 	        this.currentSprite = this.sprites.Walk;
 	        this.status = "walkingToEnemy";
@@ -133,6 +142,13 @@ class Player {
         this.status = "dodging";
         console.log("dodging");
 	}
+	
+	drinkPotion() {
+		this.spriteStep = 0;
+        this.currentSprite = this.sprites.Idle;
+        this.status = "drinkingPotion";
+	}
+	
 	
 	castSpell() {
 		this.spriteStep = 0;
@@ -270,6 +286,10 @@ class Player {
 		return this.spells.filter(spell => !this.usedSpells.includes(spell));
 	}
 	
+	getAvailablePotions() {
+		return this.potions.filter(potion => !this.usedPotions.includes(potion));
+	}
+	
 	castRandomSpell() {
 		var availableSpells = this.getAvailableSpells();
 		var randomIndex = randomIntFromInterval(0, availableSpells.length-1);
@@ -281,8 +301,27 @@ class Player {
 		var availableSpells = this.getAvailableSpells();
 		if (this.activeSpell == null && availableSpells.length > 0) {
 			var randomInt = randomIntFromInterval(1,100);
-			if (randomInt >= 25) {
+			if (randomInt >= 50) {
                 this.castRandomSpell();
+                return true;
+			}
+		}
+		return false;
+	}
+	
+	drinkRandomPotion(availablePotions) {
+		var randomIndex = randomIntFromInterval(0, availablePotions.length-1);
+		this.activePotion = availablePotions[randomIndex];
+		this.usedPotions.push(availablePotions[randomIndex]);
+		console.log("drinking potion");
+	}
+	
+	tryDrinkingPotion() {
+		var availablePotions = this.getAvailablePotions();
+		if (availablePotions.length > 0) {
+			var randomInt = randomIntFromInterval(1,100);
+			if (randomInt >= 25) {
+                this.drinkRandomPotion(availablePotions);
                 return true;
 			}
 		}
@@ -310,7 +349,7 @@ class Player {
 	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
 	    var stepSpeed = Math.min(stepSpeed, 1); // On ne doit pas dépasser 1 pour ne pas skip de frame
 	    this.spriteStep += stepSpeed;
-	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering"  && this.status != "blocking" && this.status != "dying") { 
+	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering"  && this.status != "blocking" && this.status != "dying" && this.status != "drinkingPotion") { 
 	        this.spriteStep -= this.currentSprite.totalSteps;
 	    } else if (this.spriteStep >= this.currentSprite.totalSteps && this.status == "attacking") {
 	        this.walkingHome();
@@ -326,6 +365,8 @@ class Player {
 			this.dealDamage();
 			this.activeSpell = null;
 			this.idlingAndEndTurn();
+		}else if(this.status == "drinkingPotion" && this.spriteStep >= this.currentSprite.totalSteps ) {
+			this.walkingToEnemy();
 		}
 	};
 	

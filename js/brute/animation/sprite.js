@@ -15,6 +15,8 @@ class PlayerSprite {
         this.attachPointsLeftX = attachPointsLeftX;
         this.attachPointsLeftY = attachPointsLeftY;
         this.scale = scale;
+        this.scaledWidth = this.width*this.scale;
+        this.scaledHeight = this.height*this.scale;
         this.speed = speed;
         this.player = player;
         this.init();
@@ -51,6 +53,7 @@ class PlayerSprite {
 		else {
 			this.showPlayer(context);
 		}
+		this.showActivePotion(context, this.player);
 	    this.showCauldron();
     }
     
@@ -66,6 +69,17 @@ class PlayerSprite {
 		}
 	}
 	
+	showActivePotion() {
+		if (this.player.activePotion != null) {
+			this.player.activePotion.sprite.showPotion(context, this.player);
+		}
+	}
+	showActiveEffectPotion() {
+		if (this.player.activePotion != null) {
+			this.player.activePotion.sprite.showEffect(context, this.player);
+		}
+	}
+	
 	showCauldron() {
 		if (this.player.cauldron != null) {
 			if (this.player == player1) {
@@ -77,13 +91,22 @@ class PlayerSprite {
 	}
     
     showPlayer(context) {
+		this.showActiveEffectPotion();
+		
 		var s = this.scale; //Facteur d'aggrandissement
 	    var step = Math.floor(this.player.spriteStep);
 	    
 	    context.drawImage(this.img, this.width*step, 0, this.width, this.height, this.player.positionX, this.player.positionY, this.width*s, this.height*s);
-	    this.showWeaponInventory();
+	    this.showInventories();
+	    
+		this.showActivePotion();
+	}
+	
+	showInventories() {
+		 this.showWeaponInventory();
 	    this.showSpellInventory();
 	    this.showShieldInventory();
+	    this.showPotionInventory();
 	}
 	
 	showShield(step) {
@@ -129,6 +152,21 @@ class PlayerSprite {
 		    	context.drawImage(this.player.shield.sprite.img, 1160, 660, this.player.shield.sprite.width*s, this.player.shield.sprite.height*s)
 		} else {
 		    	context.drawImage(this.player.shield.sprite.img, 360, 660, this.player.shield.sprite.width*s, this.player.shield.sprite.height*s)
+		}
+	}
+	
+	showPotionInventory() {
+		var offset = 20;
+		var s = 0.06;
+		
+		if (this.player == player2) {
+			this.player.getAvailablePotions().forEach(function (potion, i) {
+		    	context.drawImage(potion.sprite.img, 1125-(i*offset), 660, potion.sprite.width*s, potion.sprite.height*s)
+			});
+		} else {
+			this.player.getAvailablePotions().forEach(function (potion, i) {
+		    	context.drawImage(potion.sprite.img, 90+(i*offset), 625, potion.sprite.width*s, potion.sprite.height*s)
+			});
 		}
 	}
 }

@@ -317,6 +317,9 @@ class BruteJsonConverter {
 		var spellCodes = player.spells.map(function(spell) { return spell.code; });
 		var spellJson = JSON.stringify(spellCodes);
 		
+		var potionCodes = player.potions.map(function(potion) { return potion.code; });
+		var potionJson = JSON.stringify(potionCodes);
+		
 		var cauldronCode = player.cauldron != null ? player.cauldron.code : null;
 		var shieldCode = player.shield != null ? player.shield.code : null;
 		
@@ -334,6 +337,7 @@ class BruteJsonConverter {
 		 	"agility": ${player.agility},
 		 	"weapons": ${weaponJson},
 		 	"spells": ${spellJson},
+		 	"potions": ${potionJson},
 		 	"cauldron": ${cauldronCode},
 		 	"shield": ${shieldCode},
 		 	"spriteType": ${player.spriteType}
@@ -372,6 +376,9 @@ class BruteJsonConverter {
 		}
 		if (jsonObject.spells != null) {
 			jsonObject.spells.forEach(spellCode => player.spells.push(spells.getSpellByCode(spellCode)));
+		}
+		if (jsonObject.potions != null) {
+			jsonObject.potions.forEach(potion => player.potions.push(potions.createPotion(potion)));
 		}
 		
 		return player;

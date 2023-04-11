@@ -19,6 +19,7 @@ var hitsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
 var spells = new Spells();
+var potions = new Potions();
 var cauldrons = new Cauldrons();
 var shields = new Shields();
 var names = new Names();
