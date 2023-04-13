@@ -20,8 +20,9 @@ class EnemyPicker {
 		if (enemyName == null) {
 			openEnemyPicker(player);
 		} else {
-			database.getPlayer(enemyName).then(function(player){
-				player2=player;
+			player1.reset();
+			database.getPlayer(enemyName).then(function(enemy){
+				player2=enemy;
 				player2.setStartDirection(enemyPicker.enemyInitialDirection);
 				player2.setInitialX(enemyPicker.enemyInitialX);
 				player2.setInitialY(enemyPicker.enemyInitialY);
