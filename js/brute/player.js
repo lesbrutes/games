@@ -69,6 +69,45 @@ class Player {
         this.activePotion = null;
         this.usedPotions = [];
 	}
+	
+	getBoostedStat(stat, boostType) {
+		if (this.activePotion != null && this.activePotion.boostType == boostType){
+			return this.calculateStat(this.activePotion, stat)
+		} else {
+			return stat;
+		}
+	}
+	
+	calculateStat(potion, stat) {
+		return (stat+potion.flatBoost)*potion.percentBoost;
+	}
+	
+	getBoostedDefence() {
+		return this.getBoostedStat(this.defence, PotionType.Defence);
+	}
+	
+	getBoostedMagic() {
+		return this.getBoostedStat(this.magic, PotionType.Magic);
+	}
+	
+	getBoostedStrength() {
+		return this.getBoostedStat(this.strength, PotionType.Strength);
+	}
+	
+	getBoostedAgility() {
+		return this.getBoostedStat(this.agility, PotionType.Agility);
+	}
+	
+	getBoostedSpeed() {
+		return this.getBoostedStat(this.speed, PotionType.Speed);
+	}
+	
+	healFromPotion(potion) {
+		var heal = Math.ceil((this.healthBar.getMaxHealth()*potion.percentBoost)+potion.flatBoost);
+		var newHealth = this.healthBar.health+heal;
+		this.healthBar.updateHealth(Math.min(newHealth, this.healthBar.getMaxHealth()));
+		this.notifyHeal(heal);
+	}
     
     dealDamage() {
 	    console.log("dealingDamage");
@@ -189,7 +228,7 @@ class Player {
     };
     
     doesCounterSucceed() {
-		var statDiff = Math.max(this.speed - this.enemy.agility, 0);
+		var statDiff = Math.max(this.getBoostedSpeed() - this.enemy.getBoostedAgility(), 0);
 	    var odds = Math.min(10+(5*statDiff), 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
@@ -203,7 +242,7 @@ class Player {
 	}
 	
 	doesDodgeSucceed() {
-		var statDiff = Math.max(this.agility - this.enemy.speed, 0);
+		var statDiff = Math.max(this.getBoostedAgility() - this.enemy.getBoostedSpeed(), 0);
 	    var odds = Math.min(10+(10*statDiff)+this.shield.blockChance, 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
@@ -222,8 +261,9 @@ class Player {
 		var randomInt = randomIntFromInterval(1,100);
 
 		var baseDamage = this.activeWeapon != null ? this.activeWeapon.damage : 1;
-		var statDiff = Math.max(this.strength - this.enemy.defence, 0);
-		var damage =  baseDamage * ((statDiff/10)+1); //10% dmg par stat diff
+		var statDiff = Math.max(this.getBoostedStrength() - this.enemy.getBoostedDefence(), 0);
+		var staffDiffBoost  = ((statDiff/10)+1) //10% dmg par stat diff
+		var damage =  baseDamage * staffDiffBoost;
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
 		
@@ -243,10 +283,10 @@ class Player {
 		var cauldronBonus = this.cauldron != null ? this.cauldron.damage : 0;
 				
 		var baseDamage = this.activeSpell != null ? this.activeSpell.damage : 1;
-		var statDiff = Math.max(this.magic - this.enemy.defence, 0);
+		var statDiff = Math.max(this.getBoostedMagic() - this.enemy.getBoostedDefence(), 0);
 		var statDiffMutiplier = ((statDiff/10)+1) //10% dmg par stat diff
 		
-		var damage =  (baseDamage+cauldronBonus) * statDiffMutiplier * affinityMutiplier;
+		var damage =  (baseDamage+cauldronBonus) * (statDiffMutiplier + affinityMutiplier);
 		var restant = (damage % Math.floor(damage));
 		var odds = restant * 100;
 		
@@ -311,8 +351,14 @@ class Player {
 	
 	drinkRandomPotion(availablePotions) {
 		var randomIndex = randomIntFromInterval(0, availablePotions.length-1);
-		this.activePotion = availablePotions[randomIndex];
-		this.usedPotions.push(availablePotions[randomIndex]);
+		var potion = availablePotions[randomIndex]
+		this.activePotion = potion;
+		this.usedPotions.push(potion);
+		
+		if (potion.boostType == PotionType.Health) {
+			this.healFromPotion(potion);
+		}
+		
 		console.log("drinking potion");
 	}
 	
@@ -320,7 +366,7 @@ class Player {
 		var availablePotions = this.getAvailablePotions();
 		if (availablePotions.length > 0) {
 			var randomInt = randomIntFromInterval(1,100);
-			if (randomInt >= 25) {
+			if (randomInt >= 75) {
                 this.drinkRandomPotion(availablePotions);
                 return true;
 			}
@@ -346,7 +392,7 @@ class Player {
 			this.spriteStep = this.currentSprite.totalSteps;
 		 	return; //Si on est mort et l'animation est fini, alors on reste sur le dernier frame.
 		}
-	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.speed/100)+1))*100)/100;
+	    var stepSpeed = Math.round((this.currentSprite.speed * ((this.getBoostedSpeed()/100)+1))*100)/100;
 	    var stepSpeed = Math.min(stepSpeed, 1); // On ne doit pas dépasser 1 pour ne pas skip de frame
 	    this.spriteStep += stepSpeed;
 	    if (this.spriteStep >= this.currentSprite.totalSteps && this.status != "attacking" && this.status != "countering"  && this.status != "blocking" && this.status != "dying" && this.status != "drinkingPotion") { 
@@ -469,6 +515,12 @@ class Player {
    notifySuccessfulHit(damage) {
             console.log("notifySuccessfulHit");
             var event = new CustomEvent("hit", { "detail": { "damage": damage, "player" : this.enemy } });
+            document.dispatchEvent(event);
+    };
+    
+    notifyHeal(heal) {
+            console.log("notifyHeal");
+            var event = new CustomEvent("heal", { "detail": { "heal": heal, "player" : this } });
             document.dispatchEvent(event);
     };
     

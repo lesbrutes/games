@@ -10,12 +10,12 @@ class Potion {
 
 class Potions {
 	constructor() {
-		this.agilityPotionT1 = new Potion(1,1,10,PotionType.Agility, new PotionSprite("../image/brute/potions/t1/agilityPotion.png", "../image/brute/potions/effects/yellowFire.png"));
-		this.defencePotionT1 = new Potion(2,1,10,PotionType.Defence,  new PotionSprite("../image/brute/potions/t1/defencePotion.png", "../image/brute/potions/effects/grayFire.png"));
-		this.healthPotionT1 = new Potion(3,2,5,PotionType.Health,  new PotionSprite("../image/brute/potions/t1/healthPotion.png", "../image/brute/potions/effects/redFire.png"));
-		this.magicPotionT1 = new Potion(4,1,10,PotionType.Magic,  new PotionSprite("../image/brute/potions/t1/magicPotion.png", "../image/brute/potions/effects/blueFire.png"));
-		this.speedPotionT1 = new Potion(5,1,10,PotionType.Speed,  new PotionSprite("../image/brute/potions/t1/speedPotion.png", "../image/brute/potions/effects/orangeFire.png"));
-		this.strengthPotionT1 = new Potion(6,1,10,PotionType.Strength,  new PotionSprite("../image/brute/potions/t1/strengthPotion.png", "../image/brute/potions/effects/blackFire.png"));
+		this.agilityPotionT1 = new Potion(1,1,1.1,PotionType.Agility, new PotionSprite("../image/brute/potions/t1/agilityPotion.png", "../image/brute/potions/effects/yellowFire.png"));
+		this.defencePotionT1 = new Potion(2,1,1.1,PotionType.Defence,  new PotionSprite("../image/brute/potions/t1/defencePotion.png", "../image/brute/potions/effects/grayFire.png"));
+		this.healthPotionT1 = new Potion(3,1,0.05,PotionType.Health,  new PotionSprite("../image/brute/potions/t1/healthPotion.png", "../image/brute/potions/effects/redFire.png"));
+		this.magicPotionT1 = new Potion(4,1,1.1,PotionType.Magic,  new PotionSprite("../image/brute/potions/t1/magicPotion.png", "../image/brute/potions/effects/blueFire.png"));
+		this.speedPotionT1 = new Potion(5,1,1.1,PotionType.Speed,  new PotionSprite("../image/brute/potions/t1/speedPotion.png", "../image/brute/potions/effects/orangeFire.png"));
+		this.strengthPotionT1 = new Potion(6,1,1.1,PotionType.Strength,  new PotionSprite("../image/brute/potions/t1/strengthPotion.png", "../image/brute/potions/effects/blackFire.png"));
 	}
 	
 	getPotionByCode(code) {
@@ -35,17 +35,17 @@ class Potions {
 	createPotion(code) {
 		switch(code){
 			case 1:
-				return new Potion(1,1,10,PotionType.Agility, new PotionSprite("../image/brute/potions/t1/agilityPotion.png", "../image/brute/potions/effects/yellowFire.png"))
+				return new Potion(1,1,1.1,PotionType.Agility, new PotionSprite("../image/brute/potions/t1/agilityPotion.png", "../image/brute/potions/effects/yellowFire.png"))
 			case 2:
-				return new Potion(2,1,10,PotionType.Defence,  new PotionSprite("../image/brute/potions/t1/defencePotion.png", "../image/brute/potions/effects/grayFire.png"))
+				return new Potion(2,1,1.1,PotionType.Defence,  new PotionSprite("../image/brute/potions/t1/defencePotion.png", "../image/brute/potions/effects/grayFire.png"))
 			case 3:
-				return new Potion(3,2,5,PotionType.Health,  new PotionSprite("../image/brute/potions/t1/healthPotion.png", "../image/brute/potions/effects/redFire.png"));
+				return new Potion(3,1,0.05,PotionType.Health,  new PotionSprite("../image/brute/potions/t1/healthPotion.png", "../image/brute/potions/effects/redFire.png"));
 			case 4:
-				return new Potion(4,1,10,PotionType.Magic,  new PotionSprite("../image/brute/potions/t1/magicPotion.png", "../image/brute/potions/effects/blueFire.png"))
+				return new Potion(4,1,1.1,PotionType.Magic,  new PotionSprite("../image/brute/potions/t1/magicPotion.png", "../image/brute/potions/effects/blueFire.png"))
 			case 5:
-				return new Potion(5,1,10,PotionType.Speed,  new PotionSprite("../image/brute/potions/t1/speedPotion.png", "../image/brute/potions/effects/orangeFire.png"));
+				return new Potion(5,1,1.1,PotionType.Speed,  new PotionSprite("../image/brute/potions/t1/speedPotion.png", "../image/brute/potions/effects/orangeFire.png"));
 			case 6:
-				return new Potion(6,1,10,PotionType.Strength,  new PotionSprite("../image/brute/potions/t1/strengthPotion.png", "../image/brute/potions/effects/blackFire.png"));
+				return new Potion(6,1,1.1,PotionType.Strength,  new PotionSprite("../image/brute/potions/t1/strengthPotion.png", "../image/brute/potions/effects/blackFire.png"));
 		}
 	}
 }

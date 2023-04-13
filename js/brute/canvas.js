@@ -16,6 +16,8 @@ var startingPlayer = null;
 var background;
 var hitsplat;
 var hitsplats = [];
+var healsplat;
+var healsplats = [];
 var lvlUpHandler = new LvlUpHandler();
 var weapons = new Weapons();
 var spells = new Spells();
@@ -41,6 +43,7 @@ function init(){
 	initCanvas();
 	initBackground();
 	initHitsplat();
+	initHealsplat();
 	
     // Start the first frame request
     window.requestAnimationFrame(gameLoop);
@@ -70,6 +73,11 @@ function initHitsplat() {
 	hitsplat.src = "../image/brute/hitsplat.png";
 }
 
+function initHealsplat() {
+	healsplat = new Image();
+	healsplat.src = "../image/brute/healsplat.png";
+}
+
 var loops = 0;
 var tick_rate = 60;
 var skip_ticks = 1000 / this.tick_rate;
@@ -93,6 +101,7 @@ function gameLoop(timeStamp){
 	drawPlayer(player1);
 	drawPlayer(player2);
 	drawHitsplats();
+	drawHealsplats();
 	
     // Keep requesting new frames
     window.requestAnimationFrame(gameLoop);
@@ -109,6 +118,13 @@ function drawHitsplats() {
 		hitsplat.show(context);
 	});
 	hitsplats = hitsplats.filter(hitsplat => hitsplat.isVisible());
+}
+
+function drawHealsplats() {
+	healsplats.forEach(function(healsplat) {
+		healsplat.show(context);
+	});
+	healsplats = healsplats.filter(healsplat => healsplat.isVisible());
 }
 
 function drawBackground()  {
@@ -247,6 +263,10 @@ document.addEventListener("death", function(e) {
 
 document.addEventListener("hit", function(e) {
 	hitsplats.push(new Hitsplat(hitsplat, e.detail.damage, e.detail.player))
+});
+
+document.addEventListener("heal", function(e) {
+	healsplats.push(new Healsplat(healsplat, e.detail.heal, e.detail.player))
 });
 
 document.addEventListener("DOMContentLoaded", function() {
