@@ -1,7 +1,7 @@
 class LvlUpHandler {
 	constructor() {
-		this.choiceList = ["hp", "strength", "speed", "agility"];
-		this.availableChoices = ["hp", "strength", "speed", "agility"];
+		this.choiceList = ["hp", "strength", "speed", "agility", "defence", "magic"];
+		this.availableChoices = ["hp", "strength", "speed", "agility", "defence", "magic"];
 		this.selectedChoice = null;
 		this.choices = [];
 		this.player = null;
@@ -38,6 +38,10 @@ class LvlUpHandler {
 				this.player.hp += 1;
 			} else if(this.selectedChoice  == "strength") {
 				this.player.strength += 1;
+			} else if (this.selectedChoice  == "magic") {
+				this.player.magic += 1;
+			} else if (this.selectedChoice  == "defence") {
+				this.player.defence += 1;
 			} else if (this.selectedChoice  == "speed") {
 				this.player.speed += 1;
 			} else if (this.selectedChoice  == "agility") {

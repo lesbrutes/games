@@ -236,14 +236,14 @@ class Player {
 	}
 	
 	doesBlockSucceed() {
-	    var odds = 15; 
+	    var odds = 15+this.shield.blockChance; 
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
 	}
 	
 	doesDodgeSucceed() {
 		var statDiff = Math.max(this.getBoostedAgility() - this.enemy.getBoostedSpeed(), 0);
-	    var odds = Math.min(10+(10*statDiff)+this.shield.blockChance, 60); 
+	    var odds = Math.min(10+(10*statDiff), 60); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;

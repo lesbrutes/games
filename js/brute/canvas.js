@@ -192,7 +192,7 @@ function displayStats() {
 		$("#player1 .hp").text(player1.hp);
 		$("#player1 .strength").text(player1.strength);
 		$("#player1 .magic").text(player1.magic);
-		$("#player1 .range").text(player1.range);
+		$("#player1 .defence").text(player1.defence);
 		$("#player1 .speed").text(player1.speed);
 		$("#player1 .agility").text(player1.agility);
 	}
@@ -200,7 +200,7 @@ function displayStats() {
 		$("#player2 .hp").text(player2.hp);
 		$("#player2 .strength").text(player2.strength);
 		$("#player2 .magic").text(player2.magic);
-		$("#player2 .range").text(player2.range);
+		$("#player2 .defence").text(player2.defence);
 		$("#player2 .speed").text(player2.speed);
 		$("#player2 .agility").text(player2.agility);
 	}
