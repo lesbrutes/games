@@ -78,7 +78,22 @@ class PhraseRepo {
         this.add("Prend %d gorgées si tu t'es déja fait arrêter.", 3);
         this.add("Le plus jeune prend %d gorgées", 2);
         this.add("Le plus vieux prend %d gorgées", 2);
-
+	this.add("%s prépare un drink pour %s", 2);
+	this.add("Tout ceux qui ont mangé un calendrier de noel prennent %d gorgées", 3);
+	this.add("Tout le monde prend autant de gorgées que le nombre de fois qu'il est aller au Dagobert dans la dernière année. (Maximum=5)", 5);
+	this.add("Tout le monde prend autant de gorgées que le nombre de ticket que ta pogné. (Maximum=5)", 5);
+	this.add("Tout ceux qui ont un animal de compagnie prenne %d gorgées", 1);
+	this.add("Tout ceux qui n'ont pas d'animal de compagnie prenne %d gorgées", 1);
+	this.add("Le couple le plus récent distribut %d gorgées", 2);
+	this.add("Le couple le plus ancient distribut %d gorgées", 2);
+	this.add("La personne qui habite le plus loin d'ici distribut %d gorgées", 3);
+        this.add("La personne qui habite le plus proche d'ici (sauf l'hôte) prend %d gorgées", 2);
+        this.add("Si tu a manger du poulet cette semaine prend %d gorgées", 2);
+	this.add("%s prend %d gorgées", 2);
+	this.add("%s distribut %d gorgées", 3);
+	this.add("Le premier arrivé distribut %d gorgées", 3);
+	this.add("Le dernier arrivé prend %d gorgées", 3);
+	  
         //Question
         this.add("%s, qui vomit le plus souvent entre %s et %s. Celui qui vomit le moins souvent prend %d gorgées", 3);
         this.add("%s, qui prendrait tu comme partenaire de spikeball? %s ou %s? Ton partenaire distribue %d gorgées", 3);
@@ -92,7 +107,10 @@ class PhraseRepo {
         this.add("%s, qui serait le meilleur acteur? %s ou %s? Le gagant prend 1 et distribue %d gorgées", 3);
         this.add("%s, qui est le plus intraverti? %s ou %s? Le plus intraverti prend %d gorgées", 3);
         this.add("%s, si tu a coucher avec plus de 5 personnes prend %d gorgées", 3);
-
+        this.add("%s, qui est le meilleur chaseur? %s ou %s? Le meilleur distribu %d gorgées", 3);
+	this.add("%s, qui est le meilleur pêcheur? %s ou %s? Le meilleur prend %d gorgées", 2);
+        this.add("%s, qui est le plus nerd? %s ou %s? Le plus nerd distribue %d gorgées", 2);
+	  
         //Action ou conséquence.
         this.add("%s tient sur tes mains pendant %d secondes ou prend 5 gorgées", 5);
         this.add("%s fait 20 squats ou prend %d gorgées", 4);
@@ -101,9 +119,11 @@ class PhraseRepo {
         this.add("%s fait un massage a %s ou prend %d gorgées", 3);
         this.add("%s fait la larve ou prend %d gorgées", 3);
         this.add("%s choisi une chanson et fait une chorégraphie puis distribue 6 ou prend %d gorgées", 4);
-        this.add("%s dévoile une de tes this.addictions ou prend %d gorgées", 4);
+        this.add("%s dévoile une de tes addictions ou prend %d gorgées", 4);
         this.add("%s fait un split ou prend %d gorgées", 3);
         this.add("%s racontre une blague ou prend %d gorgées", 4);
+	this.add("%s fait le tour du building en sous-vêtement ou prend %d gorgées", 5);
+	this.add("%s échange de chandail avec %s ou prennez %d gorgées chaque", 4);
 
         //Jeux
         this.add("%s sacre le dernier qui en trouve pu prend %d gorgées", 3);
@@ -113,17 +133,19 @@ class PhraseRepo {
         this.add("'Un artiste décédé' Le premier qui n'en connait pas prend %d gorgées. %s commence", 3);
         this.add("'Marque de sport' Le premier qui n'en connait pas prend %d gorgées. %s commence", 3);
         this.add("'Nom de supermarché' Le premier qui n'en connait pas prend %d gorgées. %s commence", 3);
+	this.add("'Sorte de fromage' Le premier qui n'en connait pas prend %d gorgées. %s commence", 3);
         this.add("Celui qui fait le plus de push-ups entre %s et %s distribue %d gorgées", 4);
         this.add("%s et %s Roche papier ciseaux. Le perdant prend %d gorgées", 2);
         this.add("%s pose une question. Le premier a trouvé la réponse distribue %d gorgées.", 3);
-        this.add("Téléphone: Chuchotte un mots dans l'oreille de ton voisin de gauche. Après le tour de table celui qui c'est tromper prend %d gorgées. %s commence", 4);
+        this.add("Téléphone: Chuchotte un mots dans l'oreille de ton voisin de gauche. Après le tour de table ceux qui ce sont tromper prennent %d gorgées. %s commence", 3);
         this.add("Vérité ou conséquence: %s commence vers sa droite. Le premier qui refuse prend %d gorgées.", 3);
         this.add("Dit le nom de famille de la personne a ta gauche. Le premier qui se trompe prend %d gorgées. %s commence", 3);
         this.add("%s, dit une lettre. Chaque personne ajoute une lettre. La premiere personne a finir le mots distribue %d gorgées", 3);
         this.add("%s fait un autobus", 1);
         this.add("%s pense a un objet dans la piece. La premiere personne a deviner distribue %d gorgées", 4);
         this.add("Dit l'age de la personne a ta gauche. %d Gorgées au premier qui se trompe. %s commence", 3);
-        this.add("Bras de fer entre %s et %s, le perdant prend %s gorgées", 2);
+        this.add("Bras de fer entre %s et %s, le perdant prend %d gorgées", 2);
+	this.add("%s choisit un jeux.", 1);
 
         //Votes
         this.add("Vote: Le plus dangereux entre %s et %s prend %d gorgées", 3);
@@ -131,7 +153,7 @@ class PhraseRepo {
         this.add("Vote: Écouter un films en boucle ou une chanson en boucle pendant 1 journée? Les perdants prennent %d gorgées", 2);
         this.add("Vote: Qui a la plus belle coupe de cheveux entre %s et %s. Le perdant prend 2 gorgées. Le gagnant distribue %d gorgées", 1);
         this.add("Vote: Ne plus avoir besoin de dormir ou ne plus avoir besoin de travailler? Les perdants prennent %d gorgées.", 2);
-        this.add("Vote: Préfèrais tu travailler pour la NASA ou Google? Les perdants prennent %d gorgées.", 2);
+        //this.add("Vote: Préfèrais tu travailler pour la NASA ou Google? Les perdants prennent %d gorgées.", 2);
         this.add("Vote: Un monde sans musique ou sans films? Les perdants prennent %d gorgées.", 2);
 
         //Règles
@@ -139,6 +161,7 @@ class PhraseRepo {
         this.add("Règle: Le prochain qui dit 'bière' prend %d gorgées", 4);
         this.add("Règle: Le prochain qui va au toilette prend 6 gorgées", 6);
         this.add("Règle: Le prochain qui parle a %s prend %d gorgées", 2);
+	this.add("Règle: Le prochain qui dit un mot anglais prend %d gorgées", 2);
         this.add("Règle: %s le prochain a te regarder dans les yeux prend %d gorgées.", 3);
         this.add("Règle: Pendant 30 minutes, chaque fois que %s dit 'marco', %s doit répondre 'polo' sinon il prend %d gorgées", 1);
         this.add("Règle: Pendant 10 minutes, chaque fois que %s parle a %s ou %s, il prend %d gorgées", 2);
@@ -146,6 +169,7 @@ class PhraseRepo {
         this.add("Règle: Pour les 3 prochaines questions, les gorgées prise et distribué sont inversé.", 1);
         this.add("Règle: Pour les 3 prochaines questions, les gorgées sont doublées.", 1);
         this.add("Règle: %s devient la bitch de %s pendant 10 minutes. La bitch doit toujours boire avec son maitre.", 1);
+	this.add("Règle: %s invente une règle.", 1);
   }
 
   getPhrases() {
