@@ -10,14 +10,14 @@ class Spell {
 
 class Spells {
 	constructor() {
-		this.coldBall = new Spell(1,2,  new SpellSprite("../image/brute/spells/t1/coldBall.png"));
-		this.lightBall = new Spell(2,2,  new SpellSprite("../image/brute/spells/t1/lightBall.png"));
-		this.shadowBall = new Spell(3,2,  new SpellSprite("../image/brute/spells/t1/shadowBall.png"));
+		this.coldBall = new Spell(1,1.5,  new SpellSprite("../image/brute/spells/t1/coldBall.png"));
+		this.lightBall = new Spell(2,1.5,  new SpellSprite("../image/brute/spells/t1/lightBall.png"));
+		this.shadowBall = new Spell(3,1.5,  new SpellSprite("../image/brute/spells/t1/shadowBall.png"));
 		
-		this.ball21 = new Spell(4,3,  new SpellSprite("../image/brute/spells/t2/ball21.png"));
-		this.ball22 = new Spell(5,3,  new SpellSprite("../image/brute/spells/t2/ball22.png"));
-		this.ball23 = new Spell(6,3,  new SpellSprite("../image/brute/spells/t2/ball23.png"));
-		this.ball24 = new Spell(7,3,  new SpellSprite("../image/brute/spells/t2/ball24.png"));
+		this.ball21 = new Spell(4,2.5,  new SpellSprite("../image/brute/spells/t2/ball21.png"));
+		this.ball22 = new Spell(5,2.5,  new SpellSprite("../image/brute/spells/t2/ball22.png"));
+		this.ball23 = new Spell(6,2.5,  new SpellSprite("../image/brute/spells/t2/ball23.png"));
+		this.ball24 = new Spell(7,2.5,  new SpellSprite("../image/brute/spells/t2/ball24.png"));
 		
 		this.ball31 = new Spell(8,5,  new SpellSprite("../image/brute/spells/t3/ball31.png"));
 		this.ball32 = new Spell(9,4,  new SpellSprite("../image/brute/spells/t3/ball32.png"));

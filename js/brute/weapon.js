@@ -36,11 +36,11 @@ class Weapons {
 	    this.scytheSword = new Weapon(19,5,3,  new WeaponSprite("../image/brute/weapons/melee/axe.png"));
 	    
 	    //Magic Weapons
-	    this.hookStaff = new Weapon(20,2,3,  new WeaponSprite("../image/brute/weapons/staves/basicHookStaff.png"));
-	    this.hookStaff2 = new Weapon(21,2,3,  new WeaponSprite("../image/brute/weapons/staves/hook-staff.png"));
-	    this.moonWand = new Weapon(22,2,3,  new WeaponSprite("../image/brute/weapons/staves/moonWand.png"));
-	    this.orb = new Weapon(23,2,3,  new WeaponSprite("../image/brute/weapons/staves/orb.png"));
-	    this.orbStaff = new Weapon(24,2,3,  new WeaponSprite("../image/brute/weapons/staves/orbStaff.png"));
+	    this.hookStaff = new Weapon(20,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/basicHookStaff.png"));
+	    this.hookStaff2 = new Weapon(21,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/hook-staff.png"));
+	    this.moonWand = new Weapon(22,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/moonWand.png"));
+	    this.orb = new Weapon(23,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/orb.png"));
+	    this.orbStaff = new Weapon(24,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/orbStaff.png"));
 	    
 	    this.dimStaff = new Weapon(24,2.5,4,  new WeaponSprite("../image/brute/weapons/staves/dimStaff.png"));
 	    this.hookStaff2 = new Weapon(26, 2.5,4,  new WeaponSprite("../image/brute/weapons/staves/goodHookStaff.png"));
