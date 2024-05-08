@@ -122,7 +122,9 @@ class LvlUpHandler {
 			this._giveRandomSpell(player, spells.getTier1Spells());
 		} else if (player.lvl == 13) {
 			this._giveRandomSpell(player, spells.getTier2Spells());
-		} else if (player.lvl % 20 == 0) {
+		} else if (player.lvl > 13 && player.magic >= 5 && player.lvl % 7 == 0) {
+			this._giveRandomSpell(player, spells.getAllSpells());
+		}  else if (player.magic < 5 && player.lvl % 20 == 0) {
 			this._giveRandomSpell(player, spells.getAllSpells());
 		}
 	}
