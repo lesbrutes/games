@@ -94,6 +94,7 @@ class LvlUpHandler {
 		}
 	}
     
+    //TODO player.magic > player.strength pour décider quel sorte de weapon donner
     _giveWeaponIfPossible(player) {
 		$("#lvlUpWeaponContainer").hide();
 		if (player.lvl == 5) {
@@ -175,7 +176,7 @@ class LvlUpHandler {
 	
 	_giveCauldronIfPossible(player) {
 		$("#lvlUpCauldronContainer").hide();
-		if (player.cauldron == null && player.lvl > 7 && player.lvl % 2 == 0) { 
+		if (player.cauldron == null && player.lvl > 7 && player.lvl % 2 == 0 && player.magic > player.strength) { 
 			var rand = randomIntFromInterval(0, 100);
 			if (rand >= 90) {
 				this._giveRandomCauldron(player, cauldrons.getTier1Cauldrons());
