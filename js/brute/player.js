@@ -243,7 +243,7 @@ class Player {
 	
 	doesDodgeSucceed() {
 		var statDiff = Math.max(this.getBoostedAgility() - this.enemy.getBoostedSpeed(), 0);
-	    var odds = Math.min(10+(10*statDiff), 60); 
+	    var odds = Math.min(10+(10*statDiff), 80); 
 	    
 	    var randomInt = randomIntFromInterval(1,100);
 		return odds >= randomInt;
