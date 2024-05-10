@@ -97,13 +97,23 @@ class LvlUpHandler {
     //TODO player.magic > player.strength pour décider quel sorte de weapon donner
     _giveWeaponIfPossible(player) {
 		$("#lvlUpWeaponContainer").hide();
-		if (player.lvl == 5) {
-			this._giveRandomWeapon(player, weapons.getTier1Weapons());
-		} else if (player.lvl == 10) {
-			this._giveRandomWeapon(player, weapons.getTier2Weapons());
-		} else if (player.lvl % 15 == 0) {
-			this._giveRandomWeapon(player, weapons.getAllWeapons());
-		}
+		if (player.magic > player.strength) {
+			if (player.lvl == 5) {
+				this._giveRandomWeapon(player, weapons.getTier1MageWeapons());
+			} else if (player.lvl == 10) {
+				this._giveRandomWeapon(player, weapons.getTier2MageWeapons());
+			} else if (player.lvl % 15 == 0) {
+				this._giveRandomWeapon(player, weapons.getAllWeapons());
+			}
+		} else {
+			if (player.lvl == 5) {
+				this._giveRandomWeapon(player, weapons.getTier1MeleeWeapons());
+			} else if (player.lvl == 10) {
+				this._giveRandomWeapon(player, weapons.getTier2MeleeWeapons());
+			} else if (player.lvl % 15 == 0) {
+				this._giveRandomWeapon(player, weapons.getAllWeapons());
+			}
+		}	
 	}
 	
 	_giveRandomWeapon(player, weaponArray) {
@@ -119,14 +129,16 @@ class LvlUpHandler {
 	
 	_giveSpellIfPossible(player) {
 		$("#lvlUpSpellContainer").hide();
-		if (player.lvl == 7) {
-			this._giveRandomSpell(player, spells.getTier1Spells());
-		} else if (player.lvl == 13) {
-			this._giveRandomSpell(player, spells.getTier2Spells());
-		} else if (player.lvl > 13 && player.magic >= 5 && player.lvl % 7 == 0) {
-			this._giveRandomSpell(player, spells.getAllSpells());
-		}  else if (player.magic < 5 && player.lvl % 20 == 0) {
-			this._giveRandomSpell(player, spells.getAllSpells());
+		if (player.magic >= player.strength) {
+			if (player.lvl == 7) {
+				this._giveRandomSpell(player, spells.getTier1Spells());
+			} else if (player.lvl == 13) {
+				this._giveRandomSpell(player, spells.getTier2Spells());
+			} else if (player.lvl > 13 && player.magic >= 5 && player.lvl % 7 == 0) {
+				this._giveRandomSpell(player, spells.getAllSpells());
+			}  else if (player.magic < 5 && player.lvl % 20 == 0) {
+				this._giveRandomSpell(player, spells.getAllSpells());
+			}
 		}
 	}
 	

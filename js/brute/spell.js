@@ -10,28 +10,28 @@ class Spell {
 
 class Spells {
 	constructor() {
-		this.coldBall = new Spell(1,1.5,  new SpellSprite("../image/brute/spells/t1/coldBall.png"));
-		this.lightBall = new Spell(2,1.5,  new SpellSprite("../image/brute/spells/t1/lightBall.png"));
-		this.shadowBall = new Spell(3,1.5,  new SpellSprite("../image/brute/spells/t1/shadowBall.png"));
+		this.coldBall = new Spell(1,1.3,  new SpellSprite("../image/brute/spells/t1/coldBall.png"));
+		this.lightBall = new Spell(2,1.3,  new SpellSprite("../image/brute/spells/t1/lightBall.png"));
+		this.shadowBall = new Spell(3,1.3,  new SpellSprite("../image/brute/spells/t1/shadowBall.png"));
 		
-		this.ball21 = new Spell(4,2.2,  new SpellSprite("../image/brute/spells/t2/ball21.png"));
-		this.ball22 = new Spell(5,2.2,  new SpellSprite("../image/brute/spells/t2/ball22.png"));
-		this.ball23 = new Spell(6,2.2,  new SpellSprite("../image/brute/spells/t2/ball23.png"));
-		this.ball24 = new Spell(7,2.2,  new SpellSprite("../image/brute/spells/t2/ball24.png"));
+		this.ball21 = new Spell(4,2,  new SpellSprite("../image/brute/spells/t2/ball21.png"));
+		this.ball22 = new Spell(5,2,  new SpellSprite("../image/brute/spells/t2/ball22.png"));
+		this.ball23 = new Spell(6,2,  new SpellSprite("../image/brute/spells/t2/ball23.png"));
+		this.ball24 = new Spell(7,2,  new SpellSprite("../image/brute/spells/t2/ball24.png"));
 		
-		this.ball31 = new Spell(8,3.5,  new SpellSprite("../image/brute/spells/t3/ball31.png"));
-		this.ball32 = new Spell(9,3,  new SpellSprite("../image/brute/spells/t3/ball32.png"));
-		this.ball33 = new Spell(10,3,  new SpellSprite("../image/brute/spells/t3/ball33.png"));
-		this.ball34 = new Spell(11,3,  new SpellSprite("../image/brute/spells/t3/ball34.png"));
-		this.ball35 = new Spell(12,3,  new SpellSprite("../image/brute/spells/t3/ball35.png"));
+		this.ball31 = new Spell(8,3.2,  new SpellSprite("../image/brute/spells/t3/ball31.png"));
+		this.ball32 = new Spell(9,2.8,  new SpellSprite("../image/brute/spells/t3/ball32.png"));
+		this.ball33 = new Spell(10,2.8,  new SpellSprite("../image/brute/spells/t3/ball33.png"));
+		this.ball34 = new Spell(11,2.8,  new SpellSprite("../image/brute/spells/t3/ball34.png"));
+		this.ball35 = new Spell(12,2.8,  new SpellSprite("../image/brute/spells/t3/ball35.png"));
 		
-		this.animaball = new Spell(13,4,  new SpellSprite("../image/brute/spells/t4/animaball.png"));
-		this.electroball = new Spell(14,4,  new SpellSprite("../image/brute/spells/t4/electroball.png"));
-		this.fireball = new Spell(15,4,  new SpellSprite("../image/brute/spells/t4/fireball.png"));
-		this.iceball = new Spell(16,4,  new SpellSprite("../image/brute/spells/t4/iceball.png"));
-		this.poisonball = new Spell(17,4,  new SpellSprite("../image/brute/spells/t4/poisonball.png"));
-		this.purpleball = new Spell(18,4,  new SpellSprite("../image/brute/spells/t4/purpleball.png"));
-		this.sauronball = new Spell(18,4,  new SpellSprite("../image/brute/spells/t4/sauronball.png"));
+		this.animaball = new Spell(13,3.5,  new SpellSprite("../image/brute/spells/t4/animaball.png"));
+		this.electroball = new Spell(14,3.5,  new SpellSprite("../image/brute/spells/t4/electroball.png"));
+		this.fireball = new Spell(15,3.5,  new SpellSprite("../image/brute/spells/t4/fireball.png"));
+		this.iceball = new Spell(16,3.5,  new SpellSprite("../image/brute/spells/t4/iceball.png"));
+		this.poisonball = new Spell(17,3.5,  new SpellSprite("../image/brute/spells/t4/poisonball.png"));
+		this.purpleball = new Spell(18,3.5,  new SpellSprite("../image/brute/spells/t4/purpleball.png"));
+		this.sauronball = new Spell(18,3.5,  new SpellSprite("../image/brute/spells/t4/sauronball.png"));
 	}
 	
 	getSpellByCode(code) {
