@@ -3,8 +3,8 @@ class Healsplat {
 	this.img = img;
     this.damage = damage;
     this.opacity = 1;
-    this.width = 30;
-    this.height = 30;
+    this.width = 45;
+    this.height = 45;
     this.player = player;
   }
   
@@ -12,11 +12,11 @@ class Healsplat {
 	this.opacity = Math.max(this.opacity-0.005, 0);
 	
 	context.globalAlpha = this.opacity;
-    context.drawImage(this.img, this.player.positionX+80, this.player.positionY+20,  this.width, this.height);
+    context.drawImage(this.img, this.player.positionX+70, this.player.positionY+20,  this.width, this.height);
     
     context.fillStyle = "white";
-	context.font = "14px Arial";
-	context.fillText(this.damage, this.player.positionX+92, this.player.positionY+40);
+	context.font = "18px Arial";
+	context.fillText(this.damage, this.player.positionX+88, this.player.positionY+48);
 	
 	context.globalAlpha = 1;
   }
