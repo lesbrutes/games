@@ -32,6 +32,9 @@ audio.volume = 0.05;
 
 var paused = false;
 
+var timer = new DeltaTimer(gameLoop, 1000 / 60);
+var start = timer.start();
+
 
 if(typeof console === "undefined"){
       console = {};
@@ -78,23 +81,10 @@ function initHealsplat() {
 	healsplat.src = "../image/brute/healsplat.png";
 }
 
-var loops = 0;
-var tick_rate = 60;
-var skip_ticks = 1000 / this.tick_rate;
-var max_frame_skip = 1;
-var next_game_tick = performance.now();
-function gameLoop(timeStamp){
+function gameLoop(time){
 	if(paused){return;}
-	
-	loops = 0;
-	//console.log(performance.now() > next_game_tick && loops < max_frame_skip);
-    while (performance.now() > next_game_tick && loops < max_frame_skip){
-	    updatePositions();
-	    updateSprites();
-        next_game_tick += skip_ticks;
-        loops++;
-    }
-    
+    updatePositions();
+	updateSprites();
     drawBackground();
 	drawHealthBars();
 	drawXpBar();
@@ -102,9 +92,6 @@ function gameLoop(timeStamp){
 	drawPlayer(player2);
 	drawHitsplats();
 	drawHealsplats();
-	
-    // Keep requesting new frames
-    window.requestAnimationFrame(gameLoop);
 }
 
 function drawPlayer(player){
