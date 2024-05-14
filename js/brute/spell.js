@@ -31,7 +31,7 @@ class Spells {
 		this.iceball = new Spell(16,3.5,  new SpellSprite("../image/brute/spells/t4/iceball.png"));
 		this.poisonball = new Spell(17,3.5,  new SpellSprite("../image/brute/spells/t4/poisonball.png"));
 		this.purpleball = new Spell(18,3.5,  new SpellSprite("../image/brute/spells/t4/purpleball.png"));
-		this.sauronball = new Spell(18,3.5,  new SpellSprite("../image/brute/spells/t4/sauronball.png"));
+		this.sauronball = new Spell(19,3.5,  new SpellSprite("../image/brute/spells/t4/sauronball.png"));
 	}
 	
 	getSpellByCode(code) {
