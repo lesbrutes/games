@@ -10,48 +10,48 @@ class Weapon {
 class Weapons {
 	constructor() {
 		//Melee Weapons
-		this.stick = new Weapon(1,2,1,  new WeaponSprite("../image/brute/weapons/melee/stick.png"));
-		this.club = new Weapon(2,2,1,  new WeaponSprite("../image/brute/weapons/melee/club.png"));
-		this.stoneClub = new Weapon(3,2,1,  new WeaponSprite("../image/brute/weapons/melee/stoneClub.png"));
-		this.stoneClub2 = new Weapon(4,2,1,  new WeaponSprite("../image/brute/weapons/melee/stone.png"));
-		this.circleClub = new Weapon(5,2,1,  new WeaponSprite("../image/brute/weapons/melee/circleClub.png"));
-		this.circleClub2 = new Weapon(6,2,1, new WeaponSprite( "../image/brute/weapons/melee/circleClub2.png"));
+		this.stick = new Weapon(1,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stick.png"));
+		this.club = new Weapon(2,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/club.png"));
+		this.stoneClub = new Weapon(3,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stoneClub.png"));
+		this.stoneClub2 = new Weapon(4,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stone.png"));
+		this.circleClub = new Weapon(5,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/circleClub.png"));
+		this.circleClub2 = new Weapon(6,2.5,1, new WeaponSprite( "../image/brute/weapons/melee/circleClub2.png"));
 		
-		this.stickStone = new Weapon(7,3,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone.png"));
-		this.stickStone2 = new Weapon(8,3,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone2.png"));
-		this.stickSword = new Weapon(9,3,1,  new WeaponSprite("../image/brute/weapons/melee/stickSword.png"));
+		this.stickStone = new Weapon(7,3.5,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone.png"));
+		this.stickStone2 = new Weapon(8,3.5,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone2.png"));
+		this.stickSword = new Weapon(9,3.5,1,  new WeaponSprite("../image/brute/weapons/melee/stickSword.png"));
 		
-		this.spikedClub = new Weapon(10,4,1,  new WeaponSprite("../image/brute/weapons/melee/spikedClub.png"));
-		this.spikedClub2 = new Weapon(11,4,1,  new WeaponSprite("../image/brute/weapons/melee/spikedClub2.png"));
-		this.spikedSword = new Weapon(12,4,1, new WeaponSprite( "../image/brute/weapons/melee/spikedSword.png"));
+		this.spikedClub = new Weapon(10,4.5,1,  new WeaponSprite("../image/brute/weapons/melee/spikedClub.png"));
+		this.spikedClub2 = new Weapon(11,4.5,1,  new WeaponSprite("../image/brute/weapons/melee/spikedClub2.png"));
+		this.spikedSword = new Weapon(12,4.5,1, new WeaponSprite( "../image/brute/weapons/melee/spikedSword.png"));
 		
 		
-	    this.sword = new Weapon(13,4,1,  new WeaponSprite("../image/brute/weapons/melee/sword.png"));
-	    this.metalSword = new Weapon(14,4,2,  new WeaponSprite("../image/brute/weapons/melee/metalSword.png"));
-	    this.obsidianSword = new Weapon(15,4,2,  new WeaponSprite("../image/brute/weapons/melee/obsidianSword.png"));
-	    this.axeSword = new Weapon(16,4,1,  new WeaponSprite("../image/brute/weapons/melee/obsidianSword.png"));
+	    this.sword = new Weapon(13,4.5,1,  new WeaponSprite("../image/brute/weapons/melee/sword.png"));
+	    this.metalSword = new Weapon(14,4.5,2,  new WeaponSprite("../image/brute/weapons/melee/metalSword.png"));
+	    this.obsidianSword = new Weapon(15,4.5,2,  new WeaponSprite("../image/brute/weapons/melee/obsidianSword.png"));
+	    this.axeSword = new Weapon(16,4.5,1,  new WeaponSprite("../image/brute/weapons/melee/axeSword.png"));
 	    
-	    this.axe = new Weapon(17,5,1,  new WeaponSprite("../image/brute/weapons/melee/axe.png"));
-	    this.hookScythe = new Weapon(18,5,2,  new WeaponSprite("../image/brute/weapons/melee/axe.png"));
-	    this.scytheSword = new Weapon(19,5,3,  new WeaponSprite("../image/brute/weapons/melee/axe.png"));
+	    this.axe = new Weapon(17,5.5,1,  new WeaponSprite("../image/brute/weapons/melee/axe.png"));
+	    this.hookScythe = new Weapon(18,5.5,2,  new WeaponSprite("../image/brute/weapons/melee/hookScythe.png"));
+	    this.scytheSword = new Weapon(19,5.5,3,  new WeaponSprite("../image/brute/weapons/melee/scytheSword.png"));
 	    
 	    //Magic Weapons
-	    this.hookStaff = new Weapon(20,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/basicHookStaff.png"));
-	    this.hookStaff2 = new Weapon(21,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/hook-staff.png"));
-	    this.moonWand = new Weapon(22,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/moonWand.png"));
-	    this.orb = new Weapon(23,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/orb.png"));
-	    this.orbStaff = new Weapon(24,1.5,3,  new WeaponSprite("../image/brute/weapons/staves/orbStaff.png"));
+	    this.hookStaff = new Weapon(20,1.4,3,  new WeaponSprite("../image/brute/weapons/staves/basicHookStaff.png"));
+	    this.hookStaff2 = new Weapon(21,1.4,3,  new WeaponSprite("../image/brute/weapons/staves/hook-staff.png"));
+	    this.moonWand = new Weapon(22,1.4,3,  new WeaponSprite("../image/brute/weapons/staves/moonWand.png"));
+	    this.orb = new Weapon(23,1.4,3,  new WeaponSprite("../image/brute/weapons/staves/orb.png"));
+	    this.orbStaff = new Weapon(24,1.4,3,  new WeaponSprite("../image/brute/weapons/staves/orbStaff.png"));
 	    
-	    this.dimStaff = new Weapon(24,2.5,4,  new WeaponSprite("../image/brute/weapons/staves/dimStaff.png"));
-	    this.hookStaff2 = new Weapon(26, 2.5,4,  new WeaponSprite("../image/brute/weapons/staves/goodHookStaff.png"));
-	    this.goodMoonWand = new Weapon(27, 2.5,4,  new WeaponSprite("../image/brute/weapons/staves/goodMoonWand.png"));
+	    this.dimStaff = new Weapon(24,2,4,  new WeaponSprite("../image/brute/weapons/staves/dimStaff.png"));
+	    this.hookStaff2 = new Weapon(26, 2,4,  new WeaponSprite("../image/brute/weapons/staves/goodHookStaff.png"));
+	    this.goodMoonWand = new Weapon(27, 2,4,  new WeaponSprite("../image/brute/weapons/staves/goodMoonWand.png"));
 	    this.orb2 = new Weapon(28, 2,4,  new WeaponSprite("../image/brute/weapons/staves/orb2.png"));
 	    this.orbStaff2 = new Weapon(29, 2,4,  new WeaponSprite("../image/brute/weapons/staves/orbStaff2.png"));
 	    
-	    this.goldenWand = new Weapon(30, 3,5,  new WeaponSprite("../image/brute/weapons/staves/goldenWand.png"));
-	    this.seaOrb = new Weapon(31, 3,5,  new WeaponSprite("../image/brute/weapons/staves/seaOrb.png"));
-	    this.shadowFlameWand = new Weapon(31, 3,5,  new WeaponSprite("../image/brute/weapons/staves/shadowFlameWand.png"));
-	    this.shadowWand = new Weapon(33, 3,5,  new WeaponSprite("../image/brute/weapons/staves/shadowWand.png"));
+	    this.goldenWand = new Weapon(30, 2.5,5,  new WeaponSprite("../image/brute/weapons/staves/goldenWand.png"));
+	    this.seaOrb = new Weapon(31, 2.5,5,  new WeaponSprite("../image/brute/weapons/staves/seaOrb.png"));
+	    this.shadowFlameWand = new Weapon(31, 2.5,5,  new WeaponSprite("../image/brute/weapons/staves/shadowFlameWand.png"));
+	    this.shadowWand = new Weapon(33, 2.5,5,  new WeaponSprite("../image/brute/weapons/staves/shadowWand.png"));
 	}
 	
 	getWeaponByCode(code) {
