@@ -10,10 +10,10 @@ class Cauldron {
 
 class Cauldrons {
 	constructor() {
-		this.eyecauldron = new Spell(1,0.5,  new CauldronSprite(0.22,30,"../image/brute/cauldron/eyecauldron.png"));
-		this.lovecauldron = new Spell(2,0.5,  new CauldronSprite(0.3,0,"../image/brute/cauldron/lovecauldron.png"));
-		this.manacauldron = new Spell(3,0.5,  new CauldronSprite(0.3,0,"../image/brute/cauldron/manacauldron.png"));
-		this.poisoncauldron = new Spell(4,0.5,  new CauldronSprite(0.3,0,"../image/brute/cauldron/poisoncauldron.png"));
+		this.eyecauldron = new Spell(1,0.4,  new CauldronSprite(0.22,30,"../image/brute/cauldron/eyecauldron.png"));
+		this.lovecauldron = new Spell(2,0.4,  new CauldronSprite(0.3,0,"../image/brute/cauldron/lovecauldron.png"));
+		this.manacauldron = new Spell(3,0.4,  new CauldronSprite(0.3,0,"../image/brute/cauldron/manacauldron.png"));
+		this.poisoncauldron = new Spell(4,0.4,  new CauldronSprite(0.3,0,"../image/brute/cauldron/poisoncauldron.png"));
 	}
 	
 	getCauldronByCode(code) {

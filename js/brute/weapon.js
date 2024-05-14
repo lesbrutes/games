@@ -10,12 +10,12 @@ class Weapon {
 class Weapons {
 	constructor() {
 		//Melee Weapons
-		this.stick = new Weapon(1,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stick.png"));
-		this.club = new Weapon(2,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/club.png"));
-		this.stoneClub = new Weapon(3,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stoneClub.png"));
-		this.stoneClub2 = new Weapon(4,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/stone.png"));
-		this.circleClub = new Weapon(5,2.5,1,  new WeaponSprite("../image/brute/weapons/melee/circleClub.png"));
-		this.circleClub2 = new Weapon(6,2.5,1, new WeaponSprite( "../image/brute/weapons/melee/circleClub2.png"));
+		this.stick = new Weapon(1,2.2,1,  new WeaponSprite("../image/brute/weapons/melee/stick.png"));
+		this.club = new Weapon(2,2.2,1,  new WeaponSprite("../image/brute/weapons/melee/club.png"));
+		this.stoneClub = new Weapon(3,2.2,1,  new WeaponSprite("../image/brute/weapons/melee/stoneClub.png"));
+		this.stoneClub2 = new Weapon(4,2.2,1,  new WeaponSprite("../image/brute/weapons/melee/stone.png"));
+		this.circleClub = new Weapon(5,2.2,1,  new WeaponSprite("../image/brute/weapons/melee/circleClub.png"));
+		this.circleClub2 = new Weapon(6,2.2,1, new WeaponSprite( "../image/brute/weapons/melee/circleClub2.png"));
 		
 		this.stickStone = new Weapon(7,3.5,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone.png"));
 		this.stickStone2 = new Weapon(8,3.5,1,  new WeaponSprite("../image/brute/weapons/melee/stickNStone2.png"));

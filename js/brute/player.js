@@ -310,9 +310,12 @@ class Player {
 	}
 	
 	tryToRemoveWeapon() {
-		if (this.activeWeapon != null) {
+		var availableWeapons = this.getAvailableWeapons();
+		if (this.activeWeapon != null ) {
 		    var randomInt = randomIntFromInterval(1,100);
-			if (randomInt >= 70) {
+			if (availableWeapons.length > 0 && randomInt >= 70) {
+				this.activeWeapon = null;
+			} else if (randomInt >= 90) {
 				this.activeWeapon = null;
 			}
 		}
