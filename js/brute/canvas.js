@@ -33,7 +33,7 @@ audio.volume = 0.05;
 var paused = false;
 
 var timer = new DeltaTimer(gameLoop, 1000 / 60);
-var start = timer.start();
+var start;
 
 
 if(typeof console === "undefined"){
@@ -49,7 +49,7 @@ function init(){
 	initHealsplat();
 	
     // Start the first frame request
-    window.requestAnimationFrame(gameLoop);
+    start = timer.start();
 }
 
 function initCanvas() {
